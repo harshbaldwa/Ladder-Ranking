@@ -1,0 +1,17 @@
+.container {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 20px;
+}
+
+button {
+  margin: 10px;
+}
+
+.won {
+  background-color: #A1CCA5;
+}
+
+.lost {
+  background-color: #E26D5A;
+}

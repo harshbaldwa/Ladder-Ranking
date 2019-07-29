@@ -1,0 +1,22 @@
+<mat-card>
+<div class="container">
+  <h1 class='mat-heading'>New Challenge - {{name}}</h1>
+  <form (submit)="submitChallenge(challengeForm)" #challengeForm="ngForm">
+    <mat-form-field>
+      <input matInput type="text" disabled [value]=[sport]>
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Message" ngModel name="message" #message="ngModel">
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" ngModel #date="ngModel">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput atp-time-picker placeholder="Time" name="time" ngModel #time="ngModel" format="12" />
+    </mat-form-field><br>
+    <button mat-raised-button color="primary" type="submit">Challenge!</button>
+  </form>
+</div>
+</mat-card>

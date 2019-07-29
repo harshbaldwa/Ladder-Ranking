@@ -1,0 +1,68 @@
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="">
+      Ladder Ranking
+    </a>
+  </span>
+  <span class="spacer"></span>
+  <ul *ngIf="!isMobile">
+    <li>
+      <button routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+        <mat-icon>done</mat-icon>
+        Confirm Result
+      </button>
+    </li>
+    <li>
+      <button routerLink="/previous" routerLinkActive="mat-accent"
+        color="primary" mat-raised-button>
+        <mat-icon>history</mat-icon>
+        Recent Matches
+      </button>
+    </li>
+    <li>
+      <button routerLink="/profile/edit" routerLinkActive="mat-accent" mat-raised-button color="primary">
+        <mat-icon>person</mat-icon>
+        Profile
+      </button>
+    </li>
+    <li>
+      <button matBadge matBadgeColor="accent" matBadge={{notifications}} matBadgeOverlap="true" routerLink="/challenges"
+        routerLinkActive="mat-accent"
+        color="primary" mat-raised-button>
+        <mat-icon>list_alt</mat-icon>
+        Challenges
+      </button>
+    </li>
+    <li>
+      <button color="primary" mat-raised-button>
+        <mat-icon>exit_to_app</mat-icon>
+        Logout
+      </button>
+    </li>
+  </ul>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" *ngIf="isMobile">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/confirmation">
+      <mat-icon>done</mat-icon>
+      <span>Confirm Result</span>
+    </button>
+    <button mat-menu-item routerLink="/previous">
+      <mat-icon>history</mat-icon>
+      <span>Recent Matches</span>
+    </button>
+    <button mat-menu-item routerLink="/profile/match">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item routerLink="/challenges">
+      <mat-icon>list_alt</mat-icon>
+      <span>Challenges</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

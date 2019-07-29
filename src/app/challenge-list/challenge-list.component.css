@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+button {
+  margin: 5px;
+}
+
+.container {
+  width: 80%;
+  margin: 1rem auto;
+}

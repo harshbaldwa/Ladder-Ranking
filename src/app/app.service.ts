@@ -60,7 +60,10 @@ export class LadderService {
       message,
       date,
       time};
-    this.http.post<{}>('http://localhost:3000/api/addMatch', match);
+    this.http.post<{}>('http://localhost:3000/api/addMatch', match)
+      .subscribe((ResponseData) => {
+        console.log(ResponseData);
+      });
   }
 
   getLadder(sport: string) {

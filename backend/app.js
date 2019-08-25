@@ -5,7 +5,7 @@ const app = express();
 
 mongoose //YnwLdH8guBV9EOam
   .connect(
-    'mongodb://localhost/ladder'
+    "mongodb://ladder:YnwLdH8guBV9EOam@cluster0-shard-00-00-cvuiq.mongodb.net:27017,cluster0-shard-00-01-cvuiq.mongodb.net:27017,cluster0-shard-00-02-cvuiq.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database!");
@@ -13,6 +13,8 @@ mongoose //YnwLdH8guBV9EOam
   .catch(error => {
     console.log(error);
   });
+
+app.use(express.json());
 
 const Challenge = require('./models/challenge');
 const Player = require('./models/player');
@@ -31,13 +33,15 @@ function predicateBy(prop) {
 
 app.get((req, res, next) =>{
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+  res.setHeader("Access-Control-Allow-Headers", "*");
   next();
 })
 
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 

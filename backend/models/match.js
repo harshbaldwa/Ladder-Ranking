@@ -35,11 +35,9 @@ const matchSchema = mongoose.Schema({
   },
   set_score: {
     type: String,
-    required: true
   },
   match_score: {
     type: String,
-    required: true
   },
   winner_1: {
     type: Boolean,

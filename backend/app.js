@@ -20,16 +20,6 @@ const Challenge = require('./models/challenge');
 const Player = require('./models/player');
 const Match = require('./models/match');
 
-function predicateBy(prop) {
-  return (a, b) => {
-    if (a[prop] > b[prop]) {
-      return -1;
-    } else if (a[prop] < b[prop]) {
-      return 1;
-    }
-    return 0;
-  };
-}
 
 app.get((req, res, next) =>{
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -45,6 +35,98 @@ app.all('*', function (req, res, next) {
   next();
 });
 
+// Ladder Table
+function predicateBy(prop) {
+  return (a, b) => {
+    if (a[prop] > b[prop]) {
+      return -1;
+    } else if (a[prop] < b[prop]) {
+      return 1;
+    }
+    return 0;
+  };
+}
+// Squash Data
+app.get('/api/table/squash', (req, res, next) => {
+  const squashData = [];
+  Player.find().then(documents => {
+    for (let i = 0; i < documents.length; i++) {
+      squashData.push({
+        id: documents[i]["_id"],
+        rank: null,
+        username: documents[i]["name"],
+        points: documents[i]["squash_score"],
+        category: documents[i]["category"]
+      });
+    }
+    squashData.sort(predicateBy("points"));
+
+    for (let i = 0; i < squashData.length; i++) {
+      squashData[i].rank = i + 1;
+    }
+    res.status(200).json(squashData);
+  });
+});
+// Table Tennis Data
+app.get('/api/table/tt', (req, res, next) => {
+  const ttData = [];
+  Player.find().then(documents => {
+    for (let i = 0; i < documents.length; i++) {
+      ttData.push({
+        id: documents[i]["_id"],
+        rank: null,
+        username: documents[i]["name"],
+        points: documents[i]["tt_score"],
+        category: documents[i]["category"]
+      });
+    }
+    ttData.sort(predicateBy("points"));
+
+    for (let i = 0; i < ttData.length; i++) {
+      ttData[i].rank = i + 1;
+    }
+    res.status(200).json(ttData);
+  });
+});
+// Lawn Tennis Data
+app.get('/api/table/tennis', (req, res, next) => {
+  const tennisData = [];
+  Player.find().then(documents => {
+    for (let i = 0; i < documents.length; i++) {
+      tennisData.push({
+        id: documents[i]["_id"],
+        rank: null,
+        username: documents[i]["name"],
+        points: documents[i]["tennis_score"],
+        category: documents[i]["category"]
+      });
+    }
+    tennisData.sort(predicateBy("points"));
+
+    for (let i = 0; i < tennisData.length; i++) {
+      tennisData[i].rank = i + 1;
+    }
+    res.status(200).json(tennisData);
+  });
+});
+// Badminton Data
+app.get('/api/table/badminton', (req, res, next) => {
+
+  const badmintonData = [];
+  Player.find().then(documents => {
+    for (let i = 0; i < documents.length; i++) {
+      badmintonData.push({id: documents[i]['_id'], rank: null, username: documents[i]['name'], points: documents[i]['baddy_score'], category: documents[i]['category']});
+    }
+    badmintonData.sort(predicateBy("points"));
+
+    for (let i = 0; i < badmintonData.length; i++) {
+      badmintonData[i].rank = i + 1;
+    }
+    res.status(200).json(badmintonData);
+  });
+});
+
+// Add a challenge
 app.post('/api/addMatch', (req, res, next) => {
   const match = new Match({
     p1_id: req.body.p1_id,
@@ -70,6 +152,9 @@ app.post('/api/addMatch', (req, res, next) => {
   });
 });
 
+
+
+// Display Challenges
 app.get('/api/challenges', (req, res, next) => {
   const challenges = [
     {
@@ -94,6 +179,7 @@ app.get('/api/challenges', (req, res, next) => {
   res.status(200).json(challenges);
 });
 
+// Display Confirmations
 app.get('/api/confirmations', (req, res, next) => {
   const confirmations = [{
       challengerId: 'augubcieh',
@@ -115,97 +201,5 @@ app.get('/api/confirmations', (req, res, next) => {
   res.status(200).json(confirmations);
 });
 
-app.get('/api/table/squash', (req, res, next) => {
-  const squashData = [
-    { id: 'kasljdlaj', rank: null, username: 'Jin-Yang', points: 1200, category: 'Inter IIT Team' },
-    { id: 'kasljdlaj', rank: null, username: 'Gavin Belson', points: 1100, category: 'Inter IIT Camp' },
-    { id: 'kasljdlaj', rank: null, username: 'Richard Hendricks', points: 1000, category: 'Intermediate' },
-    { id: 'kasljdlaj', rank: null, username: 'Jared Dunn', points: 900, category: 'NSO' },
-    { id: 'kasljdlaj', rank: null, username: 'Erlich Bachman', points: 800, category: 'Beginner' },
-    { id: 'kasljdlaj', rank: null, username: 'Russ Hanneman', points: 1500, category: 'Beginner' },
-    { id: 'kasljdlaj', rank: null, username: 'Jin-Yang', points: 700, category: 'Inter IIT Team' },
-    { id: 'kasljdlaj', rank: null, username: 'Gavin Belson', points: 600, category: 'Inter IIT Camp' },
-    { id: 'kasljdlaj', rank: null, username: 'Richard Hendricks', points: 500, category: 'Intermediate' },
-    { id: 'kasljdlaj', rank: null, username: 'Jared Dunn', points: 400, category: 'NSO' },
-    { id: 'kasljdlaj', rank: null, username: 'Erlich Bachman', points: 300, category: 'Beginner' },
-    { id: 'kasljdlaj', rank: null, username: 'Russ Hanneman', points: 200, category: 'Beginner' },
-  ];
-
-  squashData.sort(predicateBy('points'));
-
-  for (let i = 0; i < squashData.length; i++) {
-    squashData[i].rank = i + 1;
-  }
-  res.status(200).json(squashData);
-});
-
-app.get('/api/table/tt', (req, res, next) => {
-  const ttData = [
-    { id: 'kasljdlaj', rank: null, username: 'Jin-Yang', points: 100, category: 'Inter IIT Team' },
-    { id: 'kasljdlaj', rank: null, username: 'Gavin Belson', points: 1200, category: 'Inter IIT Camp' },
-    { id: 'kasljdlaj', rank: null, username: 'Richard Hendricks', points: 379, category: 'Intermediate' },
-    { id: 'kasljdlaj', rank: null, username: 'Jared Dunn', points: 234, category: 'NSO' },
-    { id: 'kasljdlaj', rank: null, username: 'Erlich Bachman', points: 456, category: 'Beginner' },
-    { id: 'kasljdlaj', rank: null, username: 'Russ Hanneman', points: 123, category: 'Beginner' },
-  ];
-
-  ttData.sort(predicateBy('points'));
-
-  for (let i = 0; i < ttData.length; i++) {
-    ttData[i].rank = i + 1;
-  }
-  res.status(200).json(ttData);
-});
-
-app.get('/api/table/tennis', (req, res, next) => {
-  const tennisData = [
-    { id: 'kasljdlaj', rank: null, username: 'Jin-Yang', points: 1200, category: 'Inter IIT Team' },
-    { id: 'kasljdlaj', rank: null, username: 'Gavin Belson', points: 1100, category: 'Inter IIT Camp' },
-    { id: 'kasljdlaj', rank: null, username: 'Richard Hendricks', points: 1000, category: 'Intermediate' },
-    { id: 'kasljdlaj', rank: null, username: 'Jared Dunn', points: 900, category: 'NSO' },
-    { id: 'kasljdlaj', rank: null, username: 'Erlich Bachman', points: 800, category: 'Beginner' },
-    { id: 'kasljdlaj', rank: null, username: 'Russ Hanneman', points: 1500, category: 'Beginner' },
-  ];
-
-  tennisData.sort(predicateBy('points'));
-
-  for (let i = 0; i < tennisData.length; i++) {
-    tennisData[i].rank = i + 1;
-  }
-  res.status(200).json(tennisData);
-});
-
-app.get('/api/table/badminton', (req, res, next) => {
-  const badmintonData = [
-    { id: 'kasljdlaj', rank: null, username: 'Jin-Yang', points: 100, category: 'Inter IIT Team' },
-    { id: 'kasljdlaj', rank: null, username: 'Gavin Belson', points: 1200, category: 'Inter IIT Camp' },
-    { id: 'kasljdlaj', rank: null, username: 'Richard Hendricks', points: 379, category: 'Intermediate' },
-    { id: 'kasljdlaj', rank: null, username: 'Jared Dunn', points: 234, category: 'NSO' },
-    { id: 'kasljdlaj', rank: null, username: 'Erlich Bachman', points: 456, category: 'Beginner' },
-    { id: 'kasljdlaj', rank: null, username: 'Russ Hanneman', points: 123, category: 'Beginner' },
-  ];
-
-  badmintonData.sort(predicateBy('points'));
-
-  for (let i = 0; i < badmintonData.length; i++) {
-    badmintonData[i].rank = i + 1;
-  }
-  res.status(200).json(badmintonData);
-});
-
-app.post('/api/postChallenge', (req, res, next) => {
-  const challenge = new Challenge({
-    challengeId: req.body.challengeId ,
-    challengerId: req.body.challengerId ,
-    sport: req.body.sport ,
-    message: req.body.message ,
-    time: req.body.time ,
-    date: req.body.date
-  });
-  console.log(challenge);
-  res.status(201).json({
-    message: 'Challenge Addded Successfully'
-  });
-});
 
 module.exports = app;

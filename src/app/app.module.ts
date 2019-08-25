@@ -15,7 +15,8 @@ import { MatToolbarModule,
          MatCardModule,
          MatExpansionModule,
          MatMenuModule,
-         MatNativeDateModule
+         MatNativeDateModule,
+         MatProgressSpinnerModule,
          } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,6 +35,7 @@ import { ConfirmationComponent } from './confirmation/confirm-result/confirmatio
 import { ProfileMatchComponent } from './profile/matches/match.component';
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { LoginComponent } from './auth/login/login.component';
     ConfirmationComponent,
     ProfileMatchComponent,
     UpdateResultComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { LoginComponent } from './auth/login/login.component';
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    AmazingTimePickerModule
+    AmazingTimePickerModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

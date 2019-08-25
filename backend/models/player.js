@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const playerSchema = mongoose.Schema({
   name: {
@@ -7,7 +8,8 @@ const playerSchema = mongoose.Schema({
   },
   roll: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   hostel: {
     type: String,
@@ -27,6 +29,10 @@ const playerSchema = mongoose.Schema({
   },
   contact: {
     type: Number,
+    required: true
+  },
+  password: {
+    type: String,
     required: true
   },
   squash_score: {
@@ -90,5 +96,7 @@ const playerSchema = mongoose.Schema({
     default: 0
   }
 });
+
+playerSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Player', playerSchema);

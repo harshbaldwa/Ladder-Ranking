@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -16,7 +17,6 @@ mongoose //YnwLdH8guBV9EOam
 
 app.use(express.json());
 
-const Challenge = require('./models/challenge');
 const Player = require('./models/player');
 const Match = require('./models/match');
 
@@ -201,5 +201,33 @@ app.get('/api/confirmations', (req, res, next) => {
   res.status(200).json(confirmations);
 });
 
+// User
+
+app.post('/api/signup', (req, res, next) => {
+  bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+      const player = new Player({
+        name: req.body.name,
+        roll: req.body.roll,
+        hostel: req.body.hostel,
+        gender: req.body.gender,
+        category: req.body.category,
+        preferred: req.body.preferred,
+        contact: req.body.contact,
+        password: hash
+      });
+      player.save()
+        .then(result => {
+          res.status(201).json({
+            result: result
+          });
+        })
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            });
+          });
+    });
+});
 
 module.exports = app;

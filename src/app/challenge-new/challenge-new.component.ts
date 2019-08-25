@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { LadderService } from '../app.service';
 
 @Component({
   selector: 'app-challenge-new',
@@ -14,7 +15,7 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
   name: string;
   sport: string;
 
-  constructor(public route: ActivatedRoute) {}
+  constructor(public service: LadderService, public route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -41,15 +42,19 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
   }
 
   submitChallenge(form: NgForm) {
-    const challenge = {
-      challengeId: 'sdjbsKSUDnaenkcwu09324jsbc',
-      challengerId: this.id,
-      sport: this.sport,
-      date: form.value.date,
-      time: form.value.time,
-      message: form.value.message
-    };
-
+    if (form.invalid) {
+      return;
+    }
+    this.service.addChallenge(
+      'sdjbsKSUDnaenkcwu09324jsbc',
+      this.id,
+      this.name,
+      'Harshvardhan Baldwa',
+      this.sport,
+      (form.value.date.getDate() + '/' + (form.value.date.getMonth() + 1) + '/' + form.value.date.getFullYear()),
+      form.value.time,
+      form.value.message);
+    form.resetForm();
   }
 
   ngOnDestroy() {

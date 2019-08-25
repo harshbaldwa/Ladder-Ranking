@@ -11,7 +11,7 @@
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" ngModel #date="ngModel">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker touchUi #picker></mat-datepicker>
     </mat-form-field><br>
     <mat-form-field>
       <input matInput atp-time-picker placeholder="Time" name="time" ngModel #time="ngModel" format="12" />

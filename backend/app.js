@@ -1,8 +1,22 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 
+mongoose //YnwLdH8guBV9EOam
+  .connect(
+    'mongodb://localhost/ladder'
+  )
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
 const Challenge = require('./models/challenge');
+const Player = require('./models/player');
+const Match = require('./models/match');
 
 function predicateBy(prop) {
   return (a, b) => {
@@ -25,6 +39,31 @@ app.get((req, res, next) =>{
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   next();
+});
+
+app.post('/api/addMatch', (req, res, next) => {
+  const match = new Match({
+    p1_id: req.body.p1_id,
+    p1_name: req.body.p1_name,
+    p2_id: req.body.p2_id,
+    p2_name: req.body.p2_name,
+    sport: req.body.sport,
+    message: req.body.message,
+    date: req.body.date,
+    time: req.body.time,
+    set_score: "",
+    match_score: "",
+    winner_1: false,
+    winner_2: false,
+    confirm_1: false,
+    confirm_2: false,
+    report_secy: false
+  });
+  match.save().then(() => {
+    console.log('Done');
+  }).catch((error) => {
+    console.log(error);
+  });
 });
 
 app.get('/api/challenges', (req, res, next) => {

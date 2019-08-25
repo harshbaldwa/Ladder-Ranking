@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { LadderRanking } from './ladder-table/ladder.model';
 import { Challenges } from './challenge-list/challenges.model';
+import { Match } from './challenge-new/match.model';
 import { Confirmations } from './confirmation/confirm-result/confirmation.model';
 
 @Injectable({providedIn: 'root'})
@@ -47,9 +48,19 @@ export class LadderService {
     return this.confirmationsUpdates.asObservable();
   }
 
-  addChallenge(challenge: Challenges) {
-    this.challenges.push(challenge);
-    this.challengesUpdates.next([...this.challenges]);
+  // tslint:disable-next-line: variable-name
+  addChallenge(p1_id: string, p2_id: string, p1_name: string, p2_name: string, sport: string, date: string, time: string, message: string) {
+    const match: Match = {
+      id: null,
+      p1_id,
+      p2_id,
+      p1_name,
+      p2_name,
+      sport,
+      message,
+      date,
+      time};
+    this.http.post<{}>('http://localhost:3000/api/addMatch', match);
   }
 
   getLadder(sport: string) {

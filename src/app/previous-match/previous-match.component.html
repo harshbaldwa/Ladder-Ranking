@@ -26,6 +26,7 @@
       <p *ngIf="data.won != 'Undecided'"> Set Score : {{data.setScore}} </p>
       <p *ngIf="data.won != 'Undecided'"> Match Score : {{data.matchScore}} </p>
       <mat-action-row *ngIf="data.won=='Undecided'">
+        <button mat-raised-button [routerLink]="">Report Issue?</button>
         <button mat-raised-button [routerLink]="['/confirmation/update', data.id]">Update Result</button>
       </mat-action-row>
     </mat-expansion-panel>

@@ -55,7 +55,7 @@ const playerSchema = mongoose.Schema({
     default: 0
   },
   match_won_squash: {
-    type: String,
+    type: Number,
     required: true,
     default: 0
   },
@@ -65,7 +65,7 @@ const playerSchema = mongoose.Schema({
     default: 0
   },
   match_won_baddy: {
-    type: String,
+    type: Number,
     required: true,
     default: 0
   },
@@ -75,7 +75,7 @@ const playerSchema = mongoose.Schema({
     default: 0
   },
   match_won_tennis: {
-    type: String,
+    type: Number,
     required: true,
     default: 0
   },
@@ -85,7 +85,7 @@ const playerSchema = mongoose.Schema({
     default: 0
   },
   match_won_tt: {
-    type: String,
+    type: Number,
     required: true,
     default: 0
   }

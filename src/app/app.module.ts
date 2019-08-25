@@ -33,6 +33,7 @@ import { PreviousMatchComponent } from './previous-match/previous-match.componen
 import { ConfirmationComponent } from './confirmation/confirm-result/confirmation.component';
 import { ProfileMatchComponent } from './profile/matches/match.component';
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { UpdateResultComponent } from './confirmation/update-result/updateResult
     PreviousMatchComponent,
     ConfirmationComponent,
     ProfileMatchComponent,
-    UpdateResultComponent
+    UpdateResultComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

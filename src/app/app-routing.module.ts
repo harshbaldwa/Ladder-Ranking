@@ -9,6 +9,7 @@ import { PreviousMatchComponent } from './previous-match/previous-match.componen
 import { ConfirmationComponent } from './confirmation/confirm-result/confirmation.component';
 import { ProfileMatchComponent } from './profile/matches/match.component';
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: LadderTableComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'profile/edit', component: ProfileComponent },
   { path: 'previous', component: PreviousMatchComponent },
   { path: 'confirmation/confirm', component: ConfirmationComponent },
-  { path: 'confirmation/update/:id', component: UpdateResultComponent}
+  { path: 'confirmation/update/:id', component: UpdateResultComponent},
+  { path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

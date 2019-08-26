@@ -14,4 +14,12 @@ export class AuthService {
         console.log(response);
       });
   }
+
+  login(roll: string, password: string) {
+    const authData = {roll, password};
+    this.http.post('http://localhost:3000/api/login', authData)
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
 }

@@ -17,6 +17,7 @@ export class SignupComponent {
     if (form.invalid) {
       return;
     }
+    // tslint:disable-next-line: max-line-length
     this.authService.createUser(form.value.name, form.value.roll, form.value.hostel, form.value.gender, form.value.category, form.value.preferred, form.value.contact , form.value.password);
   }
 }

@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const check_auth = require('./check_auth');
 
 const app = express();
 
@@ -201,7 +204,7 @@ app.get('/api/confirmations', (req, res, next) => {
   res.status(200).json(confirmations);
 });
 
-// User
+// User signup and login
 
 app.post('/api/signup', (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
@@ -227,6 +230,38 @@ app.post('/api/signup', (req, res, next) => {
               error: err
             });
           });
+    });
+});
+
+app.post("/api/login", (req, res, next) => {
+  let fetchedPlayer;
+  Player.findOne({roll: req.body.roll})
+    .then(player => {
+      if (!player) {
+        return res.status(401).json({
+          messgae: 'Auth failed!'
+        });
+      }
+      fetchedPlayer = player;
+      return bcrypt.compare(req.body.password, player.password);
+    })
+    .then(result => {
+      if (!result) {
+        return res.status(401).json({
+          messgae: "Auth failed!"
+        });
+      }
+      const token = jwt.sign(
+        { roll: fetchedPlayer.roll, playerId: fetchedPlayer._id },
+        "harsh_is_god_he_is_invincible",
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({
+        token: token
+      })
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 

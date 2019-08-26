@@ -46,10 +46,10 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       return;
     }
     this.service.addChallenge(
-      'sdjbsKSUDnaenkcwu09324jsbc',
+      localStorage.getItem('_id'),
       this.id,
       this.name,
-      'Harshvardhan Baldwa',
+      localStorage.get('name'),
       this.sport,
       (form.value.date.getDate() + '/' + (form.value.date.getMonth() + 1) + '/' + form.value.date.getFullYear()),
       form.value.time,

@@ -1,9 +1,11 @@
 export interface Challenges {
-  challengeId: string;
-  challengerId: string;
-  challengerName: string;
+  id: string;
+  p1_id: string;
+  p2_id: string;
+  p1_name: string;
+  p2_name: string;
   sport: string;
   message: string;
-  time: string;
   date: string;
+  time: string;
 }

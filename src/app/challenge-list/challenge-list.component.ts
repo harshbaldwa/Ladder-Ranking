@@ -11,16 +11,22 @@ import { Subscription } from 'rxjs';
 
 export class ChallengeListComponent implements OnInit, OnDestroy {
   challengesR: Challenges[] = [];
+  challengesS: Challenges[] = [];
   private challengesSub: Subscription;
 
   constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
-    this.ladderService.getChallenges();
-    this.challengesSub = this.ladderService.getChallengesUpdateListener()
+    this.ladderService.getChallengesR(localStorage.getItem('_id'));
+    this.ladderService.getChallengesS(localStorage.getItem('_id'));
+    this.challengesSub = this.ladderService.getChallengesRUpdateListener()
      .subscribe((challenges: Challenges[]) => {
        this.challengesR = challenges;
      });
+    this.challengesSub = this.ladderService.getChallengesSUpdateListener()
+      .subscribe((challenges: Challenges[]) => {
+        this.challengesS = challenges;
+      });
   }
 
   ngOnDestroy() {

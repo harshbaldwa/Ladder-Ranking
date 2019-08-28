@@ -49,6 +49,10 @@ export class LadderService {
     return this.challengesUpdatesS.asObservable();
   }
 
+  deleteChallenge(id: string) {
+    return this.http.delete('http://localhost:3000/api/matches/' + id);
+  }
+
   getConfirmations() {
     this.http.get<Confirmations[]>('http://localhost:3000/api/confirmations')
       .subscribe((confirmationData) => {

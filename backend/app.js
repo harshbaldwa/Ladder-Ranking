@@ -9,7 +9,8 @@ const app = express();
 
 mongoose //YnwLdH8guBV9EOam
   .connect(
-    "mongodb://ladder:YnwLdH8guBV9EOam@cluster0-shard-00-00-cvuiq.mongodb.net:27017,cluster0-shard-00-01-cvuiq.mongodb.net:27017,cluster0-shard-00-02-cvuiq.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
+    //"mongodb://ladder:YnwLdH8guBV9EOam@cluster0-shard-00-00-cvuiq.mongodb.net:27017,cluster0-shard-00-01-cvuiq.mongodb.net:27017,cluster0-shard-00-02-cvuiq.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
+    "mongodb://localhost:27017/myapp"
   )
   .then(() => {
     console.log("Connected to database!");

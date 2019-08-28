@@ -169,8 +169,16 @@ app.get("/api/matches/1434", (req, res, next) => {
 });
 
 // Display Challenges
+app.post('/api/challengesN', (req, res, next) => {
+  Match.find( { $or: [ {p1_id: req.body.id} , {p2_id: req.body.id} , {rejected: false} ]} )
+    .then(documents => {
+      length = documents.length;
+      res.status(200).json(length);
+    });
+});
+
 app.post('/api/challengesR', (req, res, next) => {
-  Match.find( {p1_id: req.body.id} )
+  Match.find( { p1_id: req.body.id } )
     .then(documents => {
       documents = documents.filter(document_s => document_s.rejected == false);
       res.status(200).json(documents);

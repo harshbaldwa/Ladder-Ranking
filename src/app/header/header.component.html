@@ -26,9 +26,13 @@
       </button>
     </li>
     <li>
-      <button matBadge matBadgeColor="accent" matBadge={{notifications}} matBadgeOverlap="true" routerLink="/challenges"
+      <button *ngIf="notifications" matBadge matBadgeColor="accent" matBadge={{notifications}} matBadgeOverlap="true" routerLink="/challenges"
         routerLinkActive="mat-accent"
         color="primary" mat-raised-button>
+        <mat-icon>list_alt</mat-icon>
+        Challenges
+      </button>
+      <button *ngIf="!notifications" matBadgeColor="accent" routerLink="/challenges" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>list_alt</mat-icon>
         Challenges
       </button>

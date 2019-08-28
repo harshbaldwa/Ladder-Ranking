@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LadderService } from '../app.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 
 export class HeaderComponent implements OnInit {
   isMobile = ( window.innerWidth < 960 );
-  notifications = '2';
+  notifications = '0';
+  private challengesN: Subscription;
+
+  constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
+    this.ladderService.getNumberChallenge(localStorage.getItem('_id'));
+    this.challengesN = this.ladderService.getChallengesNUpdateListener()
+      .subscribe((notifications) => {
+        this.notifications = notifications;
+      });
+
     if (Number(this.notifications) >= 100) {
       this.notifications = '99+';
     }

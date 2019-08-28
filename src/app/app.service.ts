@@ -5,6 +5,7 @@ import { LadderRanking } from './ladder-table/ladder.model';
 import { Challenges } from './challenge-list/challenges.model';
 import { Match } from './challenge-new/match.model';
 import { Confirmations } from './confirmation/confirm-result/confirmation.model';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 
@@ -12,6 +13,9 @@ export class LadderService {
 
   private ladderTable: LadderRanking[] = [];
   private ladderUpdate = new Subject<LadderRanking[]>();
+
+  private challengesN: string;
+  private challengesUpdatesN = new Subject<string>();
 
   private challengesR: Challenges[] = [];
   private challengesUpdatesR = new Subject<Challenges[]>();
@@ -22,7 +26,7 @@ export class LadderService {
   private confirmations: Confirmations[] = [];
   private confirmationsUpdates = new Subject<Confirmations[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getChallengesR(id: string) {
     const myId = { id };
@@ -39,6 +43,10 @@ export class LadderService {
         this.challengesS = challengeData;
         this.challengesUpdatesS.next([...this.challengesS]);
       });
+  }
+
+  getChallengesNUpdateListener() {
+    return this.challengesUpdatesN.asObservable();
   }
 
   getChallengesRUpdateListener() {
@@ -95,6 +103,14 @@ export class LadderService {
     };
     this.http.post<{}>('http://localhost:3000/api/addMatch', match)
       .subscribe();
+  }
+
+  getNumberChallenge(id: string) {
+    this.http.post<string>('http://localhost:3000/api/challengesN', id)
+      .subscribe((notification) => {
+        this.challengesN = notification;
+        this.challengesUpdatesN.next(this.challengesN);
+      });
   }
 
   getLadder(sport: string) {

@@ -50,6 +50,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   }
 
   getTable(sport: string) {
+    localStorage.setItem('sport', sport);
     this.ladderService.getLadder(sport);
     this.tableSub = this.ladderService.getLadderUpdateListener()
       .subscribe((table: LadderRanking[]) => {

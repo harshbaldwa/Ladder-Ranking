@@ -14,8 +14,8 @@ export class LadderService {
   private ladderTable: LadderRanking[] = [];
   private ladderUpdate = new Subject<LadderRanking[]>();
 
-  private challengesN: string;
-  private challengesUpdatesN = new Subject<string>();
+  private challengesN: number;
+  private challengesUpdatesN = new Subject<number>();
 
   private challengesR: Challenges[] = [];
   private challengesUpdatesR = new Subject<Challenges[]>();
@@ -62,6 +62,7 @@ export class LadderService {
       .subscribe(() => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
+        this.challengesUpdatesN.next(this.challengesN - 1);
         this.challengesUpdatesR.next([...this.challengesR]);
       });
   }
@@ -71,6 +72,7 @@ export class LadderService {
       .subscribe(() => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
+        this.challengesUpdatesN.next(this.challengesN - 1);
         this.challengesUpdatesS.next([...this.challengesS]);
       });
   }
@@ -102,13 +104,15 @@ export class LadderService {
       rejected: false
     };
     this.http.post<{}>('http://localhost:3000/api/addMatch', match)
-      .subscribe();
+      .subscribe(() => {
+        this.getNumberChallenge(localStorage.getItem('_id'));
+      });
   }
 
   getNumberChallenge(id: string) {
     this.http.post<string>('http://localhost:3000/api/challengesN', id)
       .subscribe((notification) => {
-        this.challengesN = notification;
+        this.challengesN = Number(notification);
         this.challengesUpdatesN.next(this.challengesN);
       });
   }

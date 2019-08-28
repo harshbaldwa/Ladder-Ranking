@@ -53,7 +53,8 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       this.sport,
       (form.value.date.getDate() + '/' + (form.value.date.getMonth() + 1) + '/' + form.value.date.getFullYear()),
       form.value.time,
-      form.value.message);
+      form.value.message
+    );
     form.resetForm();
     this.router.navigate(['/challenges']);
   }

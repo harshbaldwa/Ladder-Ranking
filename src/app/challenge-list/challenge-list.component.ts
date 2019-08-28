@@ -22,12 +22,10 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
     this.challengesSub = this.ladderService.getChallengesRUpdateListener()
      .subscribe((challenges: Challenges[]) => {
        this.challengesR = challenges;
-       console.log(this.challengesR.length);
      });
     this.challengesSub = this.ladderService.getChallengesSUpdateListener()
       .subscribe((challenges: Challenges[]) => {
         this.challengesS = challenges;
-        console.log(this.challengesS.length);
       });
   }
 

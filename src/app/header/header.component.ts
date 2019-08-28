@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
 
 export class HeaderComponent implements OnInit {
   isMobile = ( window.innerWidth < 960 );
-  notifications = '0';
-  private challengesN: Subscription;
+  notifications = 0;
+  public challengesN: Subscription;
 
   constructor(public ladderService: LadderService) {}
 
@@ -21,10 +21,6 @@ export class HeaderComponent implements OnInit {
       .subscribe((notifications) => {
         this.notifications = notifications;
       });
-
-    if (Number(this.notifications) >= 100) {
-      this.notifications = '99+';
-    }
   }
 
 }

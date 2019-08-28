@@ -3,3 +3,4 @@
 3. Confirm Challenge
 4. Update Score
 5. Logout
+6. Fix the error of header

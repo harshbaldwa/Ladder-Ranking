@@ -154,8 +154,8 @@ app.post('/api/addMatch', (req, res, next) => {
     report_secy: false,
     rejected: false
   });
-  match.save().then(() => {
-    console.log('Done');
+  match.save().then((data) => {
+    res.status(200).json(data);
   }).catch((error) => {
     console.log(error);
   });

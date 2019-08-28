@@ -27,7 +27,10 @@ const Match = require('./models/match');
 
 app.get((req, res, next) =>{
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, authorization"
+  );
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
   res.setHeader("Access-Control-Allow-Headers", "*");
   next();
@@ -35,7 +38,7 @@ app.get((req, res, next) =>{
 
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
   next();
 });
 
@@ -156,32 +159,33 @@ app.post('/api/addMatch', (req, res, next) => {
   });
 });
 
-
+// Display match raw data
+app.get("/api/matches/1434", (req, res, next) => {
+  Match.find().then(documents => {
+    res.status(200).json(documents);
+  });
+});
 
 // Display Challenges
-app.get('/api/challenges', (req, res, next) => {
-  const challenges = [
-    {
-      challengerId: 'augubcieh',
-      challengeId: 'gosdifhiho',
-      challengerName: 'Harshvardhan Baldwa',
-      sport: 'Squash',
-      time: '9:30 A.M.',
-      date: '10/10/2019',
-      message: 'It would be fun!'
-    },
-    {
-      challengerId: 'alsdapsdasd',
-      challengeId: 'asdjaskdlk',
-      challengerName: 'Amal Sebastian',
-      sport: 'Squash',
-      time: '10:30 A.M.',
-      date: '10/10/2019',
-      message: 'See you at the court'
-    },
-  ];
-  res.status(200).json(challenges);
+app.post('/api/challengesR', (req, res, next) => {
+  Match.find( {p1_id: req.body.id} )
+    .then(documents => {
+      res.status(200).json(documents);
+    });
 });
+
+app.post("/api/challengesS", (req, res, next) => {
+  Match.find({ p2_id: req.body.id }).then(documents => {
+    res.status(200).json(documents);
+  });
+});
+
+app.get("/api/challenges/1434", (req, res, next) => {
+  Match.find({ p2_id: "5d660a088be82734214bf54d" }).then(documents => {
+    res.status(200).json(documents);
+  });
+});
+
 
 // Display Confirmations
 app.get('/api/confirmations', (req, res, next) => {
@@ -206,6 +210,11 @@ app.get('/api/confirmations', (req, res, next) => {
 });
 
 // User signup and login
+app.get("/api/players/1434", (req, res, next) => {
+  Player.find().then(documents => {
+    res.status(200).json(documents);
+  });
+});
 
 app.post('/api/signup', (req, res, next) => {
   bcrypt.hash(req.body.password, 10)

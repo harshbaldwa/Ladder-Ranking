@@ -1,0 +1,5 @@
+1. Profile Setup
+2. Algo
+3. Confirm Challenge
+4. Update Score
+5. Logout

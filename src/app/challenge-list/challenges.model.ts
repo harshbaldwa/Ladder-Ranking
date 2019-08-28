@@ -1,5 +1,5 @@
 export interface Challenges {
-  id: string;
+  _id: string;
   p1_id: string;
   p2_id: string;
   p1_name: string;

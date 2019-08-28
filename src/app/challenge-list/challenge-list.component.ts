@@ -30,9 +30,11 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteR(id: string) {
-    this.ladderService.deleteChallenge(id).subscribe(() => {
-      this.ladderService.getChallengesR(localStorage.getItem('_id'));
-    });
+    this.ladderService.deleteChallengeR(id);
+  }
+
+  onDeleteS(id: string) {
+    this.ladderService.deleteChallengeS(id);
   }
 
   ngOnDestroy() {

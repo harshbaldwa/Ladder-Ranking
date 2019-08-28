@@ -39,6 +39,7 @@ app.get((req, res, next) =>{
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
   next();
 });
 
@@ -180,8 +181,15 @@ app.post("/api/challengesS", (req, res, next) => {
   });
 });
 
+app.delete("/api/matches/:id", (req, res, next) => {
+  Match.deleteOne({ _id: req.params.id }).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Match deleted!" });
+  });
+});
+
 app.get("/api/challenges/1434", (req, res, next) => {
-  Match.find({ p2_id: "5d660a088be82734214bf54d" }).then(documents => {
+  Match.find({ p2_id: "5d665cd79d24ce3fca88fe1a" }).then(documents => {
     res.status(200).json(documents);
   });
 });

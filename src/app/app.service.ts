@@ -49,8 +49,22 @@ export class LadderService {
     return this.challengesUpdatesS.asObservable();
   }
 
-  deleteChallenge(id: string) {
-    return this.http.delete('http://localhost:3000/api/matches/' + id);
+  deleteChallengeR(id: string) {
+    this.http.delete('http://localhost:3000/api/matches/' + id)
+      .subscribe(() => {
+        const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
+        this.challengesR = updatedChallenges;
+        this.challengesUpdatesR.next([...this.challengesR]);
+      });
+  }
+
+  deleteChallengeS(id: string) {
+    this.http.delete('http://localhost:3000/api/matches/' + id)
+      .subscribe(() => {
+        const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
+        this.challengesS = updatedChallenges;
+        this.challengesUpdatesS.next([...this.challengesS]);
+      });
   }
 
   getConfirmations() {

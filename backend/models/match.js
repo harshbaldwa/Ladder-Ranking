@@ -34,10 +34,10 @@ const matchSchema = mongoose.Schema({
     required: true
   },
   set_score: {
-    type: String,
+    type: String
   },
   match_score: {
-    type: String,
+    type: String
   },
   winner_1: {
     type: Boolean,
@@ -64,6 +64,11 @@ const matchSchema = mongoose.Schema({
     required: true,
     default: false
   },
+  rejected: {
+    type: Boolean,
+    required: true,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('Match', matchSchema);

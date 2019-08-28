@@ -8,4 +8,5 @@ export interface Match {
   message: string;
   date: string;
   time: string;
+  rejected: boolean;
 }

@@ -8,4 +8,5 @@ export interface Challenges {
   message: string;
   date: string;
   time: string;
+  rejected: boolean;
 }

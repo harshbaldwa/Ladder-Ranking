@@ -18,16 +18,14 @@
   <p class="mat-sub-heading" *ngIf="(challengesR.length - 1)">No new challenges</p>
   <h1 class='mat-heading'>Challenges Sent</h1>
   <mat-accordion multi="true" *ngIf="challengesS">
-    <mat-expansion-panel *ngFor="let challenege of challengesS">
+    <mat-expansion-panel *ngFor="let challenege of challengesS" [ngClass]="{ 'rejected': (challenege.rejected == true)}" >
       <mat-expansion-panel-header>
         {{ challenege.p1_name }}
       </mat-expansion-panel-header>
-      <p> Sport - {{ challenege.sport }} </p>
-      <p> Date - {{ challenege.date }} </p>
-      <p> Time - {{ challenege.time }} </p>
-      <p> Message - {{ challenege.message }} </p>
+      <p>Sorry! Your Challenge has been declined!</p>
       <mat-action-row>
-        <button color='warn' (click)="onDeleteS(challenege._id)" mat-raised-button>Undo</button>
+        <button *ngIf="challenege.rejected" color='primary' (click)="onDeleteS(challenege._id)" mat-raised-button>OK</button>
+        <button *ngIf="!challenege.rejected" color='warn' (click)="onDeleteS(challenege._id)" mat-raised-button>Undo</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

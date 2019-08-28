@@ -11,3 +11,7 @@ button {
   width: 80%;
   margin: 1rem auto;
 }
+
+.rejected {
+  background-color: #E26D5A;
+}

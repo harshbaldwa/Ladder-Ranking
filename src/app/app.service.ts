@@ -50,7 +50,7 @@ export class LadderService {
   }
 
   deleteChallengeR(id: string) {
-    this.http.delete('http://localhost:3000/api/matches/' + id)
+    this.http.get('http://localhost:3000/api/matches/R/' + id)
       .subscribe(() => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
@@ -90,7 +90,9 @@ export class LadderService {
       sport,
       message,
       date,
-      time};
+      time,
+      rejected: false
+    };
     this.http.post<{}>('http://localhost:3000/api/addMatch', match)
       .subscribe();
   }

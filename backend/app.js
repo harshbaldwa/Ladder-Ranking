@@ -151,7 +151,8 @@ app.post('/api/addMatch', (req, res, next) => {
     winner_2: false,
     confirm_1: false,
     confirm_2: false,
-    report_secy: false
+    report_secy: false,
+    rejected: false
   });
   match.save().then(() => {
     console.log('Done');
@@ -171,6 +172,7 @@ app.get("/api/matches/1434", (req, res, next) => {
 app.post('/api/challengesR', (req, res, next) => {
   Match.find( {p1_id: req.body.id} )
     .then(documents => {
+      documents = documents.filter(document_s => document_s.rejected == false);
       res.status(200).json(documents);
     });
 });
@@ -185,6 +187,13 @@ app.delete("/api/matches/:id", (req, res, next) => {
   Match.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({ message: "Match deleted!" });
+  });
+});
+
+app.get("/api/matches/R/:id", (req, res, next) => {
+  Match.updateOne({ _id: req.params.id }, {rejected: true}).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Match rejected!" });
   });
 });
 

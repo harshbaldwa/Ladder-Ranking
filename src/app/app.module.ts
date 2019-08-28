@@ -21,7 +21,7 @@ import { MatToolbarModule,
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -36,6 +36,7 @@ import { ProfileMatchComponent } from './profile/matches/match.component';
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     AmazingTimePickerModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

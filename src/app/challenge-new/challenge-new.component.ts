@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LadderService } from '../app.service';
 
@@ -15,7 +15,7 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
   name: string;
   sport: string;
 
-  constructor(public service: LadderService, public route: ActivatedRoute) {}
+  constructor(public service: LadderService, public route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -46,15 +46,16 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       return;
     }
     this.service.addChallenge(
-      localStorage.getItem('_id'),
       this.id,
+      localStorage.getItem('_id'),
       this.name,
-      localStorage.get('name'),
+      localStorage.getItem('name'),
       this.sport,
       (form.value.date.getDate() + '/' + (form.value.date.getMonth() + 1) + '/' + form.value.date.getFullYear()),
       form.value.time,
       form.value.message);
     form.resetForm();
+    this.router.navigate(['/challenges']);
   }
 
   ngOnDestroy() {

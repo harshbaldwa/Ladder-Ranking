@@ -13,27 +13,40 @@ export class LadderService {
   private ladderTable: LadderRanking[] = [];
   private ladderUpdate = new Subject<LadderRanking[]>();
 
+  private challengesR: Challenges[] = [];
+  private challengesUpdatesR = new Subject<Challenges[]>();
 
-  private challenges: Challenges[] = [];
-  private challengesUpdates = new Subject<Challenges[]>();
+  private challengesS: Challenges[] = [];
+  private challengesUpdatesS = new Subject<Challenges[]>();
 
   private confirmations: Confirmations[] = [];
   private confirmationsUpdates = new Subject<Confirmations[]>();
 
   constructor(private http: HttpClient) {}
 
-
-
-  getChallenges() {
-    this.http.get<Challenges[]>('http://localhost:3000/api/challenges')
+  getChallengesR(id: string) {
+    const myId = { id };
+    this.http.post<Challenges[]>('http://localhost:3000/api/challengesR', myId)
      .subscribe((challengeData) => {
-      this.challenges =  challengeData;
-      this.challengesUpdates.next([...this.challenges]);
+      this.challengesR =  challengeData;
+      this.challengesUpdatesR.next([...this.challengesR]);
      });
   }
+  getChallengesS(id: string) {
+    const myId = { id };
+    this.http.post<Challenges[]>('http://localhost:3000/api/challengesS', myId)
+      .subscribe((challengeData) => {
+        this.challengesS = challengeData;
+        this.challengesUpdatesS.next([...this.challengesS]);
+      });
+  }
 
-  getChallengesUpdateListener() {
-    return this.challengesUpdates.asObservable();
+  getChallengesRUpdateListener() {
+    return this.challengesUpdatesR.asObservable();
+  }
+
+  getChallengesSUpdateListener() {
+    return this.challengesUpdatesS.asObservable();
   }
 
   getConfirmations() {
@@ -61,9 +74,7 @@ export class LadderService {
       date,
       time};
     this.http.post<{}>('http://localhost:3000/api/addMatch', match)
-      .subscribe((ResponseData) => {
-        console.log(ResponseData);
-      });
+      .subscribe();
   }
 
   getLadder(sport: string) {

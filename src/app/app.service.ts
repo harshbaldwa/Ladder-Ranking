@@ -162,4 +162,25 @@ export class LadderService {
       });
   }
 
+  confirmChallenge(id: string) {
+    const myId = { id };
+    this.http.post('http://localhost:3000/api/confirmChallenge/', myId)
+      .subscribe((result) => {
+        const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
+        this.challengesR = updatedChallenges;
+        this.challengesUpdatesN.next(this.challengesN - 1);
+        this.challengesUpdatesR.next([...this.challengesR]);
+      });
+  }
+
+  updateChallenge(id: string) {
+    const myId = { id };
+    this.http.post('http://localhost:3000/api/confirmOk/', myId)
+      .subscribe((result) => {
+        const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
+        this.challengesS = updatedChallenges;
+        this.challengesUpdatesN.next(this.challengesN - 1);
+        this.challengesUpdatesS.next([...this.challengesS]);
+      });
+  }
 }

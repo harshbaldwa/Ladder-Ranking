@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Challenges } from './challenges.model';
 import { LadderService } from '../app.service';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-challenge-list',
@@ -14,7 +15,7 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   challengesS: Challenges[] = [];
   private challengesSub: Subscription;
 
-  constructor(public ladderService: LadderService) {}
+  constructor(public ladderService: LadderService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.ladderService.getChallengesR(localStorage.getItem('_id'));
@@ -31,10 +32,26 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
 
   onDeleteR(id: string) {
     this.ladderService.deleteChallengeR(id);
+    this.openSnackBar('Challenge Declined!', 'OK!');
   }
 
   onDeleteS(id: string) {
     this.ladderService.deleteChallengeS(id);
+    this.openSnackBar('Challenge Deleted!', 'OK!');
+  }
+
+  onConfirmChallenge(id: string) {
+    this.ladderService.confirmChallenge(id);
+    this.openSnackBar('Challenge Confirmed!', 'OK!');
+  }
+
+  onBothConfirm(id: string) {
+    this.ladderService.updateChallenge(id);
+    this.openSnackBar('Challenge Confirmed!', 'OK!');
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2000 });
   }
 
   ngOnDestroy() {

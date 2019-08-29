@@ -15,3 +15,7 @@ button {
 .rejected {
   background-color: #E26D5A;
 }
+
+.accepted {
+  background-color: #A1CCA5;
+}

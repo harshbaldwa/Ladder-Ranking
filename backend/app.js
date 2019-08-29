@@ -180,14 +180,16 @@ app.post('/api/challengesN', (req, res, next) => {
 app.post('/api/challengesR', (req, res, next) => {
   Match.find( { p1_id: req.body.id } )
     .then(documents => {
-      documents = documents.filter(document_s => document_s.rejected == false);
+      documents = documents.filter(document_s => document_s.rejected == false && document_s.accepted == false);
       res.status(200).json(documents);
     });
 });
 
 app.post("/api/challengesS", (req, res, next) => {
-  Match.find({ p2_id: req.body.id }).then(documents => {
-    res.status(200).json(documents);
+  Match.find({ p2_id: req.body.id })
+    .then(documents => {
+      documents = documents.filter(document_s => document_s.ok == false);
+      res.status(200).json(documents);
   });
 });
 
@@ -345,5 +347,19 @@ app.post('/api/profileUpdate/', (req, res, next) => {
       res.status(200).json(result);
     });
 });
+
+app.post('/api/confirmChallenge/', (req, res, next) => {
+  Match.updateOne({_id: req.body.id}, {'accepted': true})
+    .then((result) => {
+      res.status(200).json(result);
+    });
+});
+
+app.post("/api/confirmOk/", (req, res, next) => {
+  Match.updateOne({ _id: req.body.id }, { ok: true }).then(result => {
+    res.status(200).json(result);
+  });
+});
+
 
 module.exports = app;

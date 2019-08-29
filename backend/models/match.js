@@ -68,6 +68,16 @@ const matchSchema = mongoose.Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  accepted: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  ok: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 

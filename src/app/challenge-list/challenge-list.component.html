@@ -11,25 +11,30 @@
       <p> Message - {{ challenege.message }} </p>
       <mat-action-row>
         <button color='warn' (click)="onDeleteR(challenege._id)" mat-raised-button>Reject</button>
-        <button color='primary' mat-raised-button>Confirm</button>
+        <button color='primary' (click)="onConfirmChallenge(challenege._id)" mat-raised-button>Confirm</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
   <p class="mat-sub-heading" *ngIf="!(challengesR.length)">No new challenges</p>
   <h1 class='mat-heading'>Challenges Sent</h1>
   <mat-accordion multi="true" *ngIf="challengesS">
-    <mat-expansion-panel *ngFor="let challenege of challengesS" [ngClass]="{ 'rejected': (challenege.rejected == true)}" >
+    <mat-expansion-panel *ngFor="let challenege of challengesS" [ngClass]="{ 'rejected': (challenege.rejected == true), 'accepted': (challenege.accepted == true)}" >
       <mat-expansion-panel-header>
         {{ challenege.p1_name }}
       </mat-expansion-panel-header>
-      <p *ngIf="!challenege.rejected"> Sport - {{ challenege.sport }} </p>
-      <p *ngIf="!challenege.rejected"> Date - {{ challenege.date }} </p>
-      <p *ngIf="!challenege.rejected"> Time - {{ challenege.time }} </p>
-      <p *ngIf="!challenege.rejected"> Message - {{ challenege.message }} </p>
+      <p *ngIf="!challenege.rejected && !challenege.accepted"> Sport - {{ challenege.sport }} </p>
+      <p *ngIf="!challenege.rejected && !challenege.accepted"> Date - {{ challenege.date }} </p>
+      <p *ngIf="!challenege.rejected && !challenege.accepted"> Time - {{ challenege.time }} </p>
+      <p *ngIf="!challenege.rejected && !challenege.accepted"> Message - {{ challenege.message }} </p>
       <p *ngIf="challenege.rejected">Sorry! Your Challenge has been declined!</p>
+      <p *ngIf="challenege.accepted">Yayy! Your Challenge has been accepted!</p>
       <mat-action-row>
-        <button *ngIf="challenege.rejected" color='primary' (click)="onDeleteS(challenege._id)" mat-raised-button>OK</button>
-        <button *ngIf="!challenege.rejected" color='warn' (click)="onDeleteS(challenege._id)" mat-raised-button>Undo</button>
+        <button *ngIf="challenege.accepted" color='primary' (click)="onBothConfirm(challenege._id)"
+          mat-raised-button>OK</button>
+        <button *ngIf="challenege.rejected && !challenege.accepted" color='primary' (click)="onDeleteS(challenege._id)"
+          mat-raised-button>OK</button>
+        <button *ngIf="!challenege.rejected && !challenege.accepted" color='warn' (click)="onDeleteS(challenege._id)"
+          mat-raised-button>Undo</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

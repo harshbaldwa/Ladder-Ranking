@@ -32,7 +32,6 @@ import { ChallengeListComponent } from './challenge-list/challenge-list.componen
 import { ProfileComponent } from './profile/edit/profile.component';
 import { PreviousMatchComponent } from './previous-match/previous-match.component';
 import { ConfirmationComponent } from './confirmation/confirm-result/confirmation.component';
-import { ProfileMatchComponent } from './profile/matches/match.component';
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -48,7 +47,6 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     ProfileComponent,
     PreviousMatchComponent,
     ConfirmationComponent,
-    ProfileMatchComponent,
     UpdateResultComponent,
     LoginComponent,
     SignupComponent

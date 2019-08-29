@@ -1,7 +1,15 @@
 mat-form-field {
   width: 100%;
+  margin: auto;
 }
 
-mat-spinner {
+.mat-card {
+  width: 70%;
   margin: auto;
+}
+
+
+:host {
+  display: block;
+  margin-top: 1rem;
 }

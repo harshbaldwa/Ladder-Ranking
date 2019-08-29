@@ -6,6 +6,7 @@ import { Challenges } from './challenge-list/challenges.model';
 import { Match } from './challenge-new/match.model';
 import { Confirmations } from './confirmation/confirm-result/confirmation.model';
 import { Router } from '@angular/router';
+import { Profile } from 'selenium-webdriver/firefox';
 
 @Injectable({providedIn: 'root'})
 
@@ -25,6 +26,9 @@ export class LadderService {
 
   private confirmations: Confirmations[] = [];
   private confirmationsUpdates = new Subject<Confirmations[]>();
+
+  private profileData: Profile;
+  private profileUpdate = new Subject<Profile>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -127,6 +131,35 @@ export class LadderService {
 
   getLadderUpdateListener() {
     return this.ladderUpdate.asObservable();
+  }
+
+  getProfile(id: string) {
+    const data = {id};
+    this.http.post<any>('http://localhost:3000/api/profile/', data)
+      .subscribe((profileData) => {
+        this.profileData = profileData;
+        this.profileUpdate.next(this.profileData);
+      });
+  }
+
+  getProfileUpdateListener() {
+    return this.profileUpdate.asObservable();
+  }
+
+  changeProfile(id: string, name: string, hostel: string, gender: string, preferred: string, contact: string) {
+    const data = {
+      id,
+      name,
+      hostel,
+      gender,
+      preferred,
+      contact
+    };
+    console.log(data);
+    this.http.post('http://localhost:3000/api/profileUpdate/', data)
+      .subscribe((result) => {
+        console.log(result);
+      });
   }
 
 }

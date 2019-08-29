@@ -300,4 +300,50 @@ app.post("/api/login", (req, res, next) => {
     });
 });
 
+// Get Profile
+
+app.get('/api/profile/1434', (req, res, next) => {
+  Player.findOne({_id: '5d665cd79d24ce3fca88fe1a'})
+    .then((documents) => {
+      res.status(200).json(documents);
+    });
+});
+
+
+app.post('/api/profile', (req, res, next) => {
+  Player.findOne({_id: req.body.id})
+    .then((documents) => {
+      const player = {
+        id: documents._id,
+        name: documents.name,
+        roll: documents.roll,
+        hostel: documents.hostel,
+        gender: documents.gender,
+        category: documents.category,
+        preferred: documents.preferred,
+        contact: documents.contact,
+        squash_score: documents.squash_score,
+        tennis_score: documents.tennis_score,
+        baddy_score: documents.baddy_score,
+        tt_score: documents.tt_score,
+        match_played_squash: documents.match_played_squash,
+        match_played_tennis: documents.match_played_tennis,
+        match_played_baddy: documents.match_played_baddy,
+        match_played_tt: documents.match_played_tt,
+        match_won_squash: documents.match_won_squash,
+        match_won_tennis: documents.match_won_tennis,
+        match_won_baddy: documents.match_won_baddy,
+        match_won_tt: documents.match_won_tt
+      };
+      res.status(200).json(player);
+    });
+});
+
+app.post('/api/profileUpdate/', (req, res, next) => {
+  Player.updateOne({_id: req.body.id}, {'name': req.body.name, 'hostel': req.body.hostel, 'gender': req.body.gender, 'preferred': req.body.preferred, 'contact': req.body.contact} )
+    .then((result) => {
+      res.status(200).json(result);
+    });
+});
+
 module.exports = app;

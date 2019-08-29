@@ -10,14 +10,25 @@
     <mat-form-field>
       <input matInput name="hostel" ngModel placeholder="Hostel" #hostelInput="ngModel" required hostel>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput name="gender" ngModel placeholder="Gender" #genderInput="ngModel" required gender>
+    <mat-form-field name="gender" ngModel placeholder="Gender" #genderInput="ngModel" required gender>
+      <mat-label>Gender</mat-label>
+      <mat-select>
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+        <mat-option value="other">Others</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <input matInput name="category" ngModel placeholder="Category" #categoryInput="ngModel" required category>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput name="preferred" ngModel placeholder="Preferred Sport" #preferredInput="ngModel" required preferred>
+    <mat-form-field name="preferred" ngModel placeholder="Preferred Sport" #preferredInput="ngModel" required preferred>
+      <mat-label>Preferred Sport</mat-label>
+      <mat-select>
+        <mat-option value="squash">Squash</mat-option>
+        <mat-option value="tt">Table Tennis</mat-option>
+        <mat-option value="tennis">Lawn Tennis</mat-option>
+        <mat-option value="badminton">Badminton</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <input matInput name="contact" ngModel placeholder="Contact Number" #contactInput="ngModel" required contact>

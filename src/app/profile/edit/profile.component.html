@@ -1,32 +1,55 @@
 <h1 style="margin-left: 20%;">Profile</h1>
-<mat-card style="width: 60%; margin: auto; margin-top: 1rem;">
-  <mat-form-field>
-    <input type="text" placeholder="Name" matInput>
-  </mat-form-field>
-  <mat-form-field>
-    <input type="text" placeholder="Roll No." matInput>
-  </mat-form-field>
-  <mat-form-field>
-    <input type="text" placeholder="Hostel" matInput>
-  </mat-form-field>
-  <mat-form-field>
-    <input type="text" placeholder="Contact No." matInput>
-  </mat-form-field>
-  <mat-form-field class="gender">
-    <mat-label>Gender</mat-label>
-    <mat-select>
-      <mat-option value="male">Male</mat-option>
-      <mat-option value="female">Female</mat-option>
-      <mat-option value="other">Others</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field class="sport">
-    <mat-label>Preferred Sport</mat-label>
-    <mat-select>
-      <mat-option value="squash">Squash</mat-option>
-      <mat-option value="tt">Table Tennis</mat-option>
-      <mat-option value="tennis">Lawn Tennis</mat-option>
-      <mat-option value="badminton">Badminton</mat-option>
-    </mat-select>
-  </mat-form-field>
+
+  <mat-card style="width: 60%; margin: auto; margin-top: 1rem;">
+  <form (submit)="changeProfile(profileForm)" #profileForm="ngForm">
+    <mat-form-field>
+      <input name='name' type="text" placeholder="Name" matInput value="{{profile.name}}" [(ngModel)]="name">
+    </mat-form-field>
+    <mat-form-field name='hostel'>
+      <mat-label>Hostel</mat-label>
+      <mat-select name='hostel' [(ngModel)]="hostel">
+        <mat-option value="1">Hostel 1</mat-option>
+        <mat-option value="2">Hostel 2</mat-option>
+        <mat-option value="3">Hostel 3</mat-option>
+        <mat-option value="4">Hostel 4</mat-option>
+        <mat-option value="5">Hostel 5</mat-option>
+        <mat-option value="6">Hostel 6</mat-option>
+        <mat-option value="7">Hostel 7</mat-option>
+        <mat-option value="8">Hostel 8</mat-option>
+        <mat-option value="9">Hostel 9</mat-option>
+        <mat-option value="10">Hostel 10</mat-option>
+        <mat-option value="11">Hostel 11</mat-option>
+        <mat-option value="12">Hostel 12</mat-option>
+        <mat-option value="13">Hostel 13</mat-option>
+        <mat-option value="14">Hostel 14</mat-option>
+        <mat-option value="15">Hostel 15</mat-option>
+        <mat-option value="16">Hostel 16</mat-option>
+        <mat-option value="18">Hostel 18</mat-option>
+        <mat-option value="tansa">Tansa</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input name='contact' [(ngModel)]="contact" type="text" placeholder="Contact No." matInput
+        value="{{profile.contact}}">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select name='gender' [(ngModel)]="gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+        <mat-option value="other">Others</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Preferred Sport</mat-label>
+      <mat-select name="sport" [(ngModel)]="sport">
+        <mat-option value="squash">Squash</mat-option>
+        <mat-option value="tt">Table Tennis</mat-option>
+        <mat-option value="tennis">Lawn Tennis</mat-option>
+        <mat-option value="badminton">Badminton</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color='primary'>Update</button>
+  </form>
 </mat-card>
+

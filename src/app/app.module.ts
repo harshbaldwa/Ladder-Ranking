@@ -17,6 +17,8 @@ import { MatToolbarModule,
          MatMenuModule,
          MatNativeDateModule,
          MatProgressSpinnerModule,
+         MatSnackBar,
+         MatSnackBarModule
          } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -74,7 +76,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatDatepickerModule,
     MatNativeDateModule,
     AmazingTimePickerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

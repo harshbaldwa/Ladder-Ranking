@@ -362,4 +362,11 @@ app.post("/api/confirmOk/", (req, res, next) => {
 });
 
 
+app.post('/api/updateScore', (req, res, next) => {
+  Match.updateOne({_id: req.body.id}, {match_score: req.body.matchScore, set_score: req.body.setScore, confirm_1: true})
+    .then(result => {
+      res.status(200).json(result);
+    });
+});
+
 module.exports = app;

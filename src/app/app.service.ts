@@ -7,6 +7,7 @@ import { Match } from './challenge-new/match.model';
 import { Confirmations } from './confirmation/confirm-result/confirmation.model';
 import { Router } from '@angular/router';
 import { Profile } from 'selenium-webdriver/firefox';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({providedIn: 'root'})
 
@@ -30,7 +31,7 @@ export class LadderService {
   private profileData: Profile;
   private profileUpdate = new Subject<Profile>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
 
   getChallengesR(id: string) {
     const myId = { id };
@@ -182,5 +183,22 @@ export class LadderService {
         this.challengesUpdatesN.next(this.challengesN - 1);
         this.challengesUpdatesS.next([...this.challengesS]);
       });
+  }
+
+  updateScore(id: string, matchScore: string, setScore: string) {
+    const data = { id, matchScore, setScore };
+    this.http.post('http://localhost:3000/api/updateScore', data)
+      .subscribe((result) => {
+        console.log(result);
+      });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2000 });
+  }
+
+  updatedResult(router: Router) {
+    router.navigate(['/previous']);
+    this.openSnackBar('Awaiting Confirmation!', 'OK!');
   }
 }

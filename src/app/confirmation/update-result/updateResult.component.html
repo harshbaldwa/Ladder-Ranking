@@ -1,10 +1,22 @@
 <h1 style="margin-left: 20%;">Update Result</h1>
-<mat-card style="width: 60%; margin: auto; margin-top: 1rem;">
-  <mat-form-field>
-    <input type="text" placeholder="Set Score" matInput>
-  </mat-form-field>
-  <mat-form-field>
-    <input type="text" placeholder="Match Score (separated by semi-colon[;]) Eg -> 11-5;6-11;11-10" matInput>
-  </mat-form-field>
-  <button mat-raised-button>Submit Result</button>
+<mat-card style="width: 70%; margin: auto; margin-top: 1rem;">
+  <form (submit)="updateScore(scoreForm)" #scoreForm = "ngForm">
+    <mat-form-field>
+      <mat-label>Match Score</mat-label>
+      <input type="text" matInput [(ngModel)]="matchScore" required name="matchScore">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Set Score</mat-label>
+      <input type="text" matInput [(ngModel)]="setScore" required name=setScore>
+    </mat-form-field>
+    <button color='accent' mat-raised-button type="submit">Submit Result</button>
+  </form>
+</mat-card>
+
+<mat-card style="width: 70%; margin: auto; margin-top: 1rem;">
+  <div style="text-align: center;">
+    <h2>How to enter score?</h2>
+  </div>
+  <p>Enter the match score in first one <br>
+    Enter set score like <br> 11-0; 11-10; 11-9  </p>
 </mat-card>

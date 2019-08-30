@@ -60,7 +60,7 @@ const matchSchema = mongoose.Schema({
     default: false
   },
   report_secy: {
-    type: String,
+    type: Boolean,
     required: true,
     default: false
   },

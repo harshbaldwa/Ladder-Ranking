@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { LadderRanking } from './ladder-table/ladder.model';
 import { Challenges } from './challenge-list/challenges.model';
 import { Match } from './challenge-new/match.model';
+import { PreviousMatch } from './previous-match/previous_match.model';
 import { Confirmations } from './confirmation/confirm-result/confirmation.model';
 import { Router } from '@angular/router';
 import { Profile } from 'selenium-webdriver/firefox';
@@ -24,6 +25,9 @@ export class LadderService {
 
   private challengesS: Challenges[] = [];
   private challengesUpdatesS = new Subject<Challenges[]>();
+
+  private previousMatches: PreviousMatch[] = [];
+  private previousMatchesUpdates = new Subject<PreviousMatch[]>();
 
   private confirmations: Confirmations[] = [];
   private confirmationsUpdates = new Subject<Confirmations[]>();
@@ -200,5 +204,19 @@ export class LadderService {
   updatedResult(router: Router) {
     router.navigate(['/previous']);
     this.openSnackBar('Awaiting Confirmation!', 'OK!');
+  }
+
+  getPreviousMatchResult(id: string) {
+    const myId = { id };
+
+    this.http.post<PreviousMatch[]>('http://localhost:3000/api/previousMatch', myId)
+      .subscribe((matchData) => {
+        this.previousMatches = matchData;
+        this.previousMatchesUpdates.next([...this.previousMatches]);
+      });
+  }
+
+  getPreviousUpdateListener() {
+    return this.previousMatchesUpdates.asObservable();
   }
 }

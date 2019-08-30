@@ -294,7 +294,10 @@ app.post("/api/login", (req, res, next) => {
         { expiresIn: "1h" }
       );
       res.status(200).json({
-        token: token
+        token: token,
+        id: fetchedPlayer._id,
+        name: fetchedPlayer.name,
+        sport: fetchedPlayer.preferred
       })
     })
     .catch(err => {
@@ -366,6 +369,14 @@ app.post('/api/updateScore', (req, res, next) => {
   Match.updateOne({_id: req.body.id}, {match_score: req.body.matchScore, set_score: req.body.setScore, confirm_1: true})
     .then(result => {
       res.status(200).json(result);
+    });
+});
+
+app.post("/api/previousMatch", (req, res, next) => {
+  Match.find({$and: [{$or: [ { p1_id : req.body.id }, {p2_id : req.body.id} ] }, {accepted: true} ] })
+    .then(documents => {
+      console.log(documents);
+      res.status(200).json(documents);
     });
 });
 

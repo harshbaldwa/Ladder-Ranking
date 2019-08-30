@@ -10,4 +10,5 @@ export interface Challenges {
   time: string;
   rejected: boolean;
   accepted: boolean;
+  ok: boolean;
 }

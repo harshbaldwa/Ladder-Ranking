@@ -1,27 +1,33 @@
-import { Component } from '@angular/core';
-
-export interface MatchData {
-  id: string;
-  player: string;
-  date: string;
-  setScore: string;
-  matchScore: string;
-  won: string;
-}
-
-const data: MatchData[] = [
-  { id: 'kjahsdkjashdk', player: 'Harshvardhan Baldwa', date: '12th November', setScore: '3-2', matchScore: '11-0; 11-4; 11-6', won: 'Undecided' },
-  { id: 'kjahsdkjashdk', player: 'Harshvardhan Baldwa', date: '12th November', setScore: '4-1', matchScore: '11-0; 11-4; 11-6', won: 'Won' },
-  { id: 'kjahsdkjashdk', player: 'Harshvardhan Baldwa', date: '12th November', setScore: '1-4', matchScore: '11-0; 11-4; 11-6', won: 'Won' },
-  { id: 'kjahsdkjashdk', player: 'Harshvardhan Baldwa', date: '12th November', setScore: '5-0', matchScore: '11-0; 11-4; 11-6', won: 'Lost' },
-];
+import { Component, OnInit } from '@angular/core';
+import { LadderService } from '../app.service';
+import { Subscription } from 'rxjs';
+import { PreviousMatch } from './previous_match.model';
 
 @Component({
   templateUrl: './previous-match.component.html',
   styleUrls: ['./previous-match.component.css']
 })
 
-export class PreviousMatchComponent {
-  displayedColumns: string[] = ['date', 'player', 'result'];
-  dataSource = data;
+export class PreviousMatchComponent implements OnInit {
+  public displayedColumns: string[] = ['date', 'player', 'result'];
+  public id = localStorage.getItem('_id');
+  public previousMatches: PreviousMatch[];
+  public previousSub: Subscription;
+  constructor(public ladderService: LadderService) {}
+
+  ngOnInit() {
+    this.ladderService.getPreviousMatchResult(this.id);
+    this.previousSub = this.ladderService.getPreviousUpdateListener()
+    .subscribe((matches: PreviousMatch[]) => {
+        this.previousMatches = matches;
+        for (const entry of this.previousMatches) {
+          entry.set_score = entry.set_score.split(' ').join(' | ');
+          if (entry.p1_id === this.id) {
+            entry.p1_yes = true;
+          } else {
+            entry.p1_yes = false;
+          }
+        }
+    });
+  }
 }

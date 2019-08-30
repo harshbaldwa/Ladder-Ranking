@@ -18,16 +18,24 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'won': (row.won=='Won'), 'lost': (row.won=='Lost') }"></tr>
 </table> -->
 <div class="container">
-  <mat-accordion *ngIf="dataSource">
-    <mat-expansion-panel *ngFor="let data of dataSource" [ngClass]="{ 'won': (data.won=='Won'), 'lost': (data.won=='Lost') }">
-      <mat-expansion-panel-header>
-        {{ data.date }} - {{ data.player }}
+  <h1 class='mat-heading'>Previous Matches</h1>
+  <mat-accordion *ngIf="previousMatches">
+    <mat-expansion-panel *ngFor="let data of previousMatches"
+      [ngClass]="{ 'awaiting' : ((data.confirm_1 || data.confirm_2) && !(data.confirm_1 && data.confirm_2)) }">
+      <mat-expansion-panel-header *ngIf="data.p1_yes">
+        {{ data.date }} - {{ data.p2_name }}
       </mat-expansion-panel-header>
-      <p *ngIf="data.won != 'Undecided'"> Set Score : {{data.setScore}} </p>
-      <p *ngIf="data.won != 'Undecided'"> Match Score : {{data.matchScore}} </p>
-      <mat-action-row *ngIf="data.won == 'Undecided'">
+      <mat-expansion-panel-header *ngIf="!data.p1_yes">
+        {{ data.date }} - {{ data.p1_name }}
+      </mat-expansion-panel-header>
+      <p *ngIf="data.confirm_1 || data.confirm_2"> Set Score :
+        {{data.set_score}} </p>
+      <p *ngIf="data.confirm_1 || data.confirm_2"> Match Score :
+        {{data.match_score}} </p>
+
+      <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
         <button mat-raised-button [routerLink]="">Report Issue?</button>
-        <button mat-raised-button [routerLink]="['/confirmation/update', data.id]">Update Result</button>
+        <button mat-raised-button [routerLink]="['/confirmation/update/', data._id]">Update Result</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

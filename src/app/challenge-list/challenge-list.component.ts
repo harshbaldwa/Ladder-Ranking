@@ -15,7 +15,7 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   challengesS: Challenges[] = [];
   private challengesSub: Subscription;
 
-  constructor(public ladderService: LadderService, private snackBar: MatSnackBar) {}
+  constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
     this.ladderService.getChallengesR(localStorage.getItem('_id'));
@@ -32,26 +32,22 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
 
   onDeleteR(id: string) {
     this.ladderService.deleteChallengeR(id);
-    this.openSnackBar('Challenge Declined!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Declined!', 'OK!');
   }
 
   onDeleteS(id: string) {
     this.ladderService.deleteChallengeS(id);
-    this.openSnackBar('Challenge Deleted!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Deleted!', 'OK!');
   }
 
   onConfirmChallenge(id: string) {
     this.ladderService.confirmChallenge(id);
-    this.openSnackBar('Challenge Confirmed!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Confirmed!', 'OK!');
   }
 
   onBothConfirm(id: string) {
     this.ladderService.updateChallenge(id);
-    this.openSnackBar('Challenge Confirmed!', 'OK!');
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2000 });
+    this.ladderService.openSnackBar('Challenge Confirmed!', 'OK!');
   }
 
   ngOnDestroy() {

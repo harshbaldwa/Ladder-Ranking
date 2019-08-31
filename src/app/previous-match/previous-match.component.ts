@@ -21,7 +21,8 @@ export class PreviousMatchComponent implements OnInit {
     .subscribe((matches: PreviousMatch[]) => {
         this.previousMatches = matches;
         for (const entry of this.previousMatches) {
-          entry.set_score = entry.set_score.split(' ').join(' | ');
+          const finalSetScore = entry.set_score.split(' ').join(' | ');
+          console.log(finalSetScore);
           if (entry.p1_id === this.id) {
             entry.p1_yes = true;
           } else {

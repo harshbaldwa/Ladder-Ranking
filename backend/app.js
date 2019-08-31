@@ -201,7 +201,6 @@ app.post("/api/challengesN", (req, res, next) => {
       }
     ]
   }).then(documents => {
-    console.log(documents.length);
     length = documents.length;
     res.status(200).json(length);
   });

@@ -5,6 +5,6 @@
 
 4. Change Accent color
 5. Remove previous match from confirming person page
-6. Why multiple | after setting set score
+
 7. Colour Goes Away make that right
 8. Multiple rejects

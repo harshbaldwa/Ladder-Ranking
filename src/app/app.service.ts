@@ -71,7 +71,7 @@ export class LadderService {
       .subscribe(() => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
-        this.challengesUpdatesN.next(this.challengesN - 1);
+        this.getNumberChallenge(id);
         this.challengesUpdatesR.next([...this.challengesR]);
       });
   }
@@ -81,7 +81,7 @@ export class LadderService {
       .subscribe(() => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
-        this.challengesUpdatesN.next(this.challengesN - 1);
+        this.getNumberChallenge(id);
         this.challengesUpdatesS.next([...this.challengesS]);
       });
   }
@@ -125,12 +125,13 @@ export class LadderService {
     };
     this.http.post<{}>('http://localhost:3000/api/addMatch', match)
       .subscribe(() => {
-        this.getNumberChallenge(localStorage.getItem('_id'));
+        this.getNumberChallenge(p2_id);
       });
   }
 
   getNumberChallenge(id: string) {
-    this.http.post<string>('http://localhost:3000/api/challengesN', id)
+    const myId = { id };
+    this.http.post<string>('http://localhost:3000/api/challengesN', myId)
       .subscribe((notification) => {
         this.challengesN = Number(notification);
         this.challengesUpdatesN.next(this.challengesN);
@@ -184,7 +185,7 @@ export class LadderService {
       .subscribe((result) => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
-        this.challengesUpdatesN.next(this.challengesN - 1);
+        this.getNumberChallenge(id);
         this.challengesUpdatesR.next([...this.challengesR]);
       });
   }
@@ -195,7 +196,7 @@ export class LadderService {
       .subscribe((result) => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
-        this.challengesUpdatesN.next(this.challengesN - 1);
+        this.getNumberChallenge(id);
         this.challengesUpdatesS.next([...this.challengesS]);
       });
   }

@@ -169,12 +169,42 @@ app.get("/api/matches/1434", (req, res, next) => {
 });
 
 // Display Challenges
-app.post('/api/challengesN', (req, res, next) => {
-  Match.find( { $or: [ {p1_id: req.body.id} , {p2_id: req.body.id} , {rejected: false} ]} )
-    .then(documents => {
-      length = documents.length;
-      res.status(200).json(length);
-    });
+// app.post('/api/challengesN', (req, res, next) => {
+//   Match.find( { p1_id: req.body.id } )
+//     .then(documents => {
+//       console.log(documents);
+//       length = documents.length;
+//       res.status(200).json(length);
+//     });
+// });
+
+app.post("/api/challengesN", (req, res, next) => {
+  Match.find({
+    $or: [
+      {
+        $and: [
+          { p1_id: req.body.id },
+          { accepted: false },
+          { rejected: false }
+        ]
+      },
+      {
+        $and: [
+          { p2_id: req.body.id },
+          { ok: false },
+          { $or: [
+              { accepted: true },
+              { rejected: true }
+            ]
+          }
+        ]
+      }
+    ]
+  }).then(documents => {
+    console.log(documents.length);
+    length = documents.length;
+    res.status(200).json(length);
+  });
 });
 
 app.post('/api/challengesR', (req, res, next) => {
@@ -292,8 +322,7 @@ app.post("/api/login", (req, res, next) => {
       }
       const token = jwt.sign(
         { roll: fetchedPlayer.roll, playerId: fetchedPlayer._id },
-        "harsh_is_god_he_is_invincible",
-        { expiresIn: "" }
+        "harsh_is_god_he_is_invincible"
       );
       res.status(200).json({
         token: token,

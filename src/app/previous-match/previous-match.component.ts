@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LadderService } from '../app.service';
 import { Subscription } from 'rxjs';
 import { PreviousMatch } from './previous_match.model';
@@ -8,7 +8,7 @@ import { PreviousMatch } from './previous_match.model';
   styleUrls: ['./previous-match.component.css']
 })
 
-export class PreviousMatchComponent implements OnInit {
+export class PreviousMatchComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['date', 'player', 'result'];
   public id = localStorage.getItem('_id');
   public previousMatches: PreviousMatch[];
@@ -22,7 +22,7 @@ export class PreviousMatchComponent implements OnInit {
         this.previousMatches = matches;
         for (const entry of this.previousMatches) {
           const finalSetScore = entry.set_score.split(' ').join(' | ');
-          console.log(finalSetScore);
+          entry.set_score = finalSetScore;
           if (entry.p1_id === this.id) {
             entry.p1_yes = true;
           } else {
@@ -30,5 +30,9 @@ export class PreviousMatchComponent implements OnInit {
           }
         }
     });
+  }
+
+  ngOnDestroy() {
+    this.previousSub.unsubscribe();
   }
 }

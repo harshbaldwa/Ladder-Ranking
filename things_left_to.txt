@@ -1,4 +1,3 @@
-0. Confirmation
 1. Algo
 2. Logout
 ------------------

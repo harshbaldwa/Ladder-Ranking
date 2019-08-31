@@ -412,7 +412,7 @@ app.post('/api/finalResult/', (req, res, next) => {
                 { _id: req.body.matchId },
                 { confirm_1: true, winner_1: true }
               ).then(docs => {
-                res.status(200).json(documents);
+                res.status(200).json(docs);
               });
             }
             res.status(200).json(documents);
@@ -428,7 +428,7 @@ app.post('/api/finalResult/', (req, res, next) => {
                 { _id: req.body.matchId },
                 { confirm_2: true, winner_1: true }
               ).then(docs => {
-                res.status(200).json(documents);
+                res.status(200).json(docs);
               });
             }
             res.status(200).json(documents);
@@ -446,7 +446,7 @@ app.post('/api/finalResult/', (req, res, next) => {
                 { _id: req.body.matchId },
                 { confirm_1: true, winner_2: true }
               ).then(docs => {
-                res.status(200).json(documents);
+                res.status(200).json(docs);
               });
             }
             res.status(200).json(documents);
@@ -461,7 +461,7 @@ app.post('/api/finalResult/', (req, res, next) => {
                 { _id: req.body.matchId },
                 { confirm_2: true, winner_2: true }
               ).then(docs => {
-                res.status(200).json(documents);
+                res.status(200).json(docs);
               });
             }
             res.status(200).json(documents);
@@ -478,7 +478,7 @@ app.post('/api/finalResult/', (req, res, next) => {
               { _id: req.body.matchId },
               { confirm_1: true, winner_2: true, winner_1: true }
             ).then(docs => {
-              res.status(200).json(documents);
+              res.status(200).json(docs);
             });
           }
           res.status(200).json(documents);

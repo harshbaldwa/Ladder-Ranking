@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LadderService } from '../app.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,19 +9,32 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
-  isMobile = ( window.innerWidth < 960 );
-  notifications = 0;
+export class HeaderComponent implements OnInit, OnDestroy {
+  public isMobile = ( window.innerWidth < 960 );
+  public notifications = 0;
   public challengesN: Subscription;
-
-  constructor(public ladderService: LadderService) {}
+  private authListenerSub: Subscription;
+  userAuthenticated = false;
+  constructor(public ladderService: LadderService, private authService: AuthService) {}
 
   ngOnInit() {
+    this.authListenerSub = this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userAuthenticated = isAuthenticated;
+      });
     this.ladderService.getNumberChallenge(localStorage.getItem('_id'));
     this.challengesN = this.ladderService.getChallengesNUpdateListener()
       .subscribe((notifications) => {
         this.notifications = notifications;
       });
+  }
+
+  onLogout() {
+    this.authService.logout();
+  }
+
+  ngOnDestroy() {
+    this.authListenerSub.unsubscribe();
   }
 
 }

@@ -35,7 +35,7 @@
           <div class="example-element-description">
             <span>Category - {{element.category}}</span>
             <span>
-              <button style="margin-left: 70%;" [routerLink]="['/challenge', element.id, element.username]" mat-raised-button color="primary">Challenge</button>
+              <button *ngIf = "userAuthenticated" style="margin-left: 70%;" [routerLink]="['/challenge', element.id, element.username]" mat-raised-button color="primary">Challenge</button>
             </span>
           </div>
         </div>

@@ -293,7 +293,7 @@ app.post("/api/login", (req, res, next) => {
       const token = jwt.sign(
         { roll: fetchedPlayer.roll, playerId: fetchedPlayer._id },
         "harsh_is_god_he_is_invincible",
-        { expiresIn: "1h" }
+        { expiresIn: "" }
       );
       res.status(200).json({
         token: token,

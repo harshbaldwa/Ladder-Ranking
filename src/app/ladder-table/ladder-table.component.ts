@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { LadderService } from '../app.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-ladder-table',
@@ -24,16 +25,18 @@ export class LadderTableComponent implements OnInit, OnDestroy {
 
   sportName = new FormControl('');
   filter = new FormControl('');
+  private authSubs: Subscription;
 
   table: LadderRanking[] = [];
   private tableSub: Subscription;
+  userAuthenticated = false;
 
   dataSource;
 
   displayedColumns: string[] = ['rank', 'username', 'points'];
   expandedElement: LadderRanking | null;
 
-  constructor(public ladderService: LadderService, private router: Router) { }
+  constructor(public ladderService: LadderService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.sportName.setValue(localStorage.getItem('sport'));
@@ -43,6 +46,12 @@ export class LadderTableComponent implements OnInit, OnDestroy {
         this.table = table;
         this.dataSource = new MatTableDataSource(table);
       });
+    this.userAuthenticated = this.authService.getIsAuth();
+    this.authSubs = this.authService.getAuthStatusListener().subscribe(
+      isAuthenticated => {
+        this.userAuthenticated = isAuthenticated;
+      }
+    );
   }
 
   applyFilter(filterValue: string) {

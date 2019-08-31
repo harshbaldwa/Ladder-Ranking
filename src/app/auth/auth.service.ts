@@ -2,16 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthData } from './auth-data.model';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   private token: string;
+  private isAuthenticated = false;
+  private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token;
+  }
+
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
   }
 
   createUser(
@@ -36,9 +48,31 @@ export class AuthService {
       .subscribe(response => {
         const token = response.token;
         this.token = token;
-        localStorage.setItem('_id', response.id);
-        localStorage.setItem('name', response.name);
-        localStorage.setItem('sport', response.sport);
+        if (token) {
+          localStorage.setItem('_id', response.id);
+          localStorage.setItem('name', response.name);
+          localStorage.setItem('sport', response.sport);
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          this.saveAuthData(token);
+          this.router.navigate(['/']);
+        }
       });
+  }
+
+  logout() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    this.clearAuthData();
+    this.router.navigate(['/']);
+  }
+
+  private saveAuthData(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem('token');
   }
 }

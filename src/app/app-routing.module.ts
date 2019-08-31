@@ -10,21 +10,23 @@ import { ConfirmationComponent } from './confirmation/confirm-result/confirmatio
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LadderTableComponent },
-  { path: 'challenge/:id/:name', component: ChallengeNewComponent },
-  { path: 'challenges', component: ChallengeListComponent },
-  { path: 'profile/edit', component: ProfileComponent },
-  { path: 'previous', component: PreviousMatchComponent },
-  { path: 'confirmation/confirm', component: ConfirmationComponent },
-  { path: 'confirmation/update/:id', component: UpdateResultComponent},
+  { path: 'challenge/:id/:name', component: ChallengeNewComponent, canActivate: [AuthGuard] },
+  { path: 'challenges', component: ChallengeListComponent, canActivate: [AuthGuard] },
+  { path: 'profile/edit', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'previous', component: PreviousMatchComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation/confirm', component: ConfirmationComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation/update/:id', component: UpdateResultComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

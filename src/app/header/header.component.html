@@ -7,40 +7,54 @@
   <span class="spacer"></span>
   <ul *ngIf="!isMobile">
     <li>
-      <button routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+      <button *ngIf="userAuthenticated" routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>done</mat-icon>
         Confirm Result
       </button>
     </li>
     <li>
-      <button routerLink="/previous" routerLinkActive="mat-accent"
+      <button *ngIf="userAuthenticated" routerLink="/previous" routerLinkActive="mat-accent"
         color="primary" mat-raised-button>
         <mat-icon>history</mat-icon>
         Recent Matches
       </button>
     </li>
     <li>
-      <button routerLink="/profile/edit" routerLinkActive="mat-accent" mat-raised-button color="primary">
+      <button *ngIf="userAuthenticated" routerLink="/profile/edit" routerLinkActive="mat-accent" mat-raised-button color="primary">
         <mat-icon>person</mat-icon>
         Profile
       </button>
     </li>
     <li>
-      <button *ngIf="notifications" matBadge matBadgeColor="accent" matBadge={{notifications}} matBadgeOverlap="true" routerLink="/challenges"
+      <button *ngIf="userAuthenticated && notifications" matBadge matBadgeColor="accent" matBadge={{notifications}} matBadgeOverlap="true" routerLink="/challenges"
         routerLinkActive="mat-accent"
         color="primary" mat-raised-button>
         <mat-icon>list_alt</mat-icon>
         Challenges
       </button>
-      <button *ngIf="!notifications" routerLink="/challenges" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+      <button *ngIf="userAuthenticated && !notifications" routerLink="/challenges" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>list_alt</mat-icon>
         Challenges
       </button>
     </li>
     <li>
-      <button color="primary" mat-raised-button>
+      <button (click)="onLogout()" *ngIf="userAuthenticated" color="primary" mat-raised-button>
         <mat-icon>exit_to_app</mat-icon>
         Logout
+      </button>
+    </li>
+    <li>
+      <button routerLink="/signup" routerLinkActive="mat-accent" *ngIf="!userAuthenticated" color="primary"
+        mat-raised-button>
+        <mat-icon>person_add</mat-icon>
+        Signup
+      </button>
+    </li>
+    <li>
+      <button routerLink="/login" routerLinkActive="mat-accent" *ngIf="!userAuthenticated" color="primary"
+        mat-raised-button>
+        <mat-icon>power_settings_new</mat-icon>
+        Login
       </button>
     </li>
   </ul>

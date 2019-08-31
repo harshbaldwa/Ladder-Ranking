@@ -60,6 +60,16 @@ export class AuthService {
       });
   }
 
+  autoAuthUser() {
+    const information = this.getAuthData();
+    if (!information) {
+      return;
+    }
+    this.token = information;
+    this.isAuthenticated = true;
+    this.authStatusListener.next(true);
+  }
+
   logout() {
     this.token = null;
     this.isAuthenticated = false;
@@ -74,5 +84,9 @@ export class AuthService {
 
   private clearAuthData() {
     localStorage.removeItem('token');
+  }
+
+  private getAuthData() {
+    return localStorage.getItem('token');
   }
 }

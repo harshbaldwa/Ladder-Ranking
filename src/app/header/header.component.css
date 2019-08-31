@@ -21,3 +21,7 @@ li {
 span {
   margin: 1%
 }
+
+.mat-menu-item {
+  width: 200px;
+}

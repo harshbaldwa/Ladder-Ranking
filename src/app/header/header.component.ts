@@ -12,12 +12,14 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   public isMobile = ( window.innerWidth < 960 );
   public notifications = 0;
+  private notifListenerSub: Subscription;
   public challengesN: Subscription;
   private authListenerSub: Subscription;
   userAuthenticated = false;
   constructor(public ladderService: LadderService, private authService: AuthService) {}
 
   ngOnInit() {
+    this.userAuthenticated = this.authService.getIsAuth();
     this.authListenerSub = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userAuthenticated = isAuthenticated;
@@ -35,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSub.unsubscribe();
+    this.challengesN.unsubscribe();
   }
 
 }

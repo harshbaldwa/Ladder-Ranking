@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.autoAuthUser();
     this.id = localStorage.getItem('_id');
-    this.notif = timer(5000)
+    this.notif = timer(1000, 5000)
       .subscribe(data => {
         this.ladderService.getNumberChallenge(this.id);
       });

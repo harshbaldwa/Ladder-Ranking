@@ -14,6 +14,7 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
   id: string;
   name: string;
   sport: string;
+  sport1: string;
 
   constructor(public service: LadderService, public route: ActivatedRoute, private router: Router) {}
 
@@ -23,6 +24,7 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       this.name = paramMap.get('name');
     });
     this.sport = localStorage.getItem('sport');
+    this.sport1 = localStorage.getItem('sport');
     switch (this.sport) {
       case 'squash':
         this.sport = 'Squash';
@@ -50,7 +52,7 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       localStorage.getItem('_id'),
       this.name,
       localStorage.getItem('name'),
-      this.sport,
+      this.sport1,
       (form.value.date.getDate() + '/' + (form.value.date.getMonth() + 1) + '/' + form.value.date.getFullYear()),
       form.value.time,
       form.value.message

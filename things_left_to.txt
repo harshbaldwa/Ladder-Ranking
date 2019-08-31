@@ -1,6 +1,6 @@
 
-1. Algo and winner decider
-2. Logout
+
+
 ------------------
 
 4. Change Accent color - hold

@@ -106,6 +106,11 @@ export class LadderService {
           this.confirmations = updatedConfirmations;
           this.confirmationsUpdates.next([...this.confirmations]);
         });
+    const dataset = { matchId };
+    this.http.post('http://localhost:3000/api/calculate', dataset)
+        .subscribe((sport: string) => {
+          this.getLadder(sport);
+        });
   }
 
   getConfirmationsUpdateListener() {

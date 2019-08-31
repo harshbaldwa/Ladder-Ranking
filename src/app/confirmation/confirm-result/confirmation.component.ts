@@ -8,19 +8,31 @@ import { LadderService } from '../../app.service';
   styleUrls: ['./confirmation.component.css']
 })
 
-export class ConfirmationComponent implements OnInit, OnDestroy{
+export class ConfirmationComponent implements OnInit, OnDestroy {
 
-  confirmations: Confirmations[] = [];
-  private confirmSub: Subscription;
-
+  public confirmations: Confirmations[] = [];
+  public confirmSub: Subscription;
+  public id = localStorage.getItem('_id');
   constructor(public ladderService: LadderService) { }
 
   ngOnInit() {
-    this.ladderService.getConfirmations();
+    this.ladderService.getConfirmations(this.id);
     this.confirmSub = this.ladderService.getConfirmationsUpdateListener()
       .subscribe((confirmations: Confirmations[]) => {
         this.confirmations = confirmations;
+        for (const entry of this.confirmations) {
+          entry.set_score = entry.set_score.split(' ').join(' | ');
+          if (entry.p1_id === this.id) {
+            entry.p1_yes = true;
+          } else {
+            entry.p1_yes = false;
+          }
+        }
       });
+  }
+
+  confirmFinal(id: string, p1Yes: boolean) {
+    this.ladderService.setFinalResult(id, p1Yes);
   }
 
   ngOnDestroy() {

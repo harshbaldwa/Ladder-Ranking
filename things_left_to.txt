@@ -1,5 +1,8 @@
+0. Confirmation
 1. Algo
 2. Logout
 ------------------
 3. Minor Notification wali cheez (some extra on badge)
 4. Change Accent color
+5. Remove previous match from confirming person page
+6. Why multiple | after setting set score

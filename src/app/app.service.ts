@@ -86,12 +86,23 @@ export class LadderService {
       });
   }
 
-  getConfirmations() {
-    this.http.get<Confirmations[]>('http://localhost:3000/api/confirmations')
+  getConfirmations(id: string) {
+    const myId = { id };
+    this.http.post<Confirmations[]>('http://localhost:3000/api/confirmations', myId)
       .subscribe((confirmationData) => {
         this.confirmations = confirmationData;
         this.confirmationsUpdates.next([...this.confirmations]);
       });
+  }
+
+  setFinalResult(id: string, p1Yes: boolean) {
+    const dataSend = { id, p1Yes };
+    this.http.post('http://localhost:3000/api/finalResult', dataSend)
+        .subscribe(data => {
+          const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== id);
+          this.confirmations = updatedConfirmations;
+          this.confirmationsUpdates.next([...this.confirmations]);
+        });
   }
 
   getConfirmationsUpdateListener() {

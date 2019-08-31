@@ -215,25 +215,27 @@ app.get("/api/challenges/1434", (req, res, next) => {
 
 
 // Display Confirmations
-app.get('/api/confirmations', (req, res, next) => {
-  const confirmations = [{
-      challengerId: 'augubcieh',
-      challengeId: 'gosdifhiho',
-      challengerName: 'Harshvardhan Baldwa',
-      sport: 'Squash',
-      setScore: '11-5;11-6;11-3;11-9;11-7',
-      matchScore: '5-0'
-    },
-    {
-      challengerId: 'alsdapsdasd',
-      challengeId: 'asdjaskdlk',
-      challengerName: 'Amal Sebastian',
-      sport: 'Squash',
-      setScore: '11-5;11-6;11-3;11-9;11-7',
-      matchScore: '5-0'
-    },
-  ];
-  res.status(200).json(confirmations);
+app.post('/api/confirmations/', (req, res, next) => {
+  Match.find({
+    $or: [
+      {
+        $and: [
+          { p2_id: req.body.id },
+          { confirm_1: true },
+          { confirm_2: false }
+        ]
+      },
+      {
+        $and: [
+          { p1_id: req.body.id },
+          { confirm_1: false },
+          { confirm_2: true }
+        ]
+      }
+    ]
+  }).then(documents => {
+    res.status(200).json(documents);
+  });
 });
 
 // User signup and login
@@ -372,10 +374,22 @@ app.post('/api/updateScore', (req, res, next) => {
     });
 });
 
+app.post('/api/finalResult', (req, res, next) => {
+  Match.updateOne( { _id: req.body.id }, { confirm_2: true } )
+    .then(documents => {
+      if (documents.nModified == 0) {
+        Match.updateOne ( { _id: req.body.id }, { confirm_1: true } )
+          .then(docs => {
+            res.status(200).json(documents);
+          })
+      }
+      res.status(200).json(documents);
+    });
+});
+
 app.post("/api/previousMatch", (req, res, next) => {
   Match.find({$and: [{$or: [ { p1_id : req.body.id }, {p2_id : req.body.id} ] }, {accepted: true} ] })
     .then(documents => {
-      console.log(documents);
       res.status(200).json(documents);
     });
 });

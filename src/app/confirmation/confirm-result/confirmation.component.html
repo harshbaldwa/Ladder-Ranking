@@ -2,17 +2,20 @@
   <h1 class='mat-heading'>Confirmations Received</h1>
   <mat-accordion multi="true" *ngIf="confirmations">
     <mat-expansion-panel *ngFor="let data of confirmations">
-      <mat-expansion-panel-header>
-        {{ data.challengerName }}
+      <mat-expansion-panel-header *ngIf="data.p1_yes">
+        {{ data.p2_name }}
+      </mat-expansion-panel-header>
+      <mat-expansion-panel-header *ngIf="!data.p1_yes">
+        {{ data.p1_name }}
       </mat-expansion-panel-header>
       <p> Sport - {{ data.sport }} </p>
-      <p> Set Score - {{ data.setScore }} </p>
-      <p> Match Score - {{ data.matchScore }} </p>
+      <p> Set Score - {{ data.set_score }} </p>
+      <p> Match Score - {{ data.match_score }} </p>
       <mat-action-row>
         <button color="warn" mat-raised-button>Disagree</button>
-        <button color="primary" mat-raised-button>Agree</button>
+        <button color="primary" (click)="confirmFinal(data._id, data.p1_yes)" mat-raised-button>Agree</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
-  <p class="mat-sub-heading" *ngIf="!confirmations">No new confirmations</p>
+  <p class="mat-sub-heading" *ngIf="!(confirmations.length)">No new confirmations</p>
 </div>

@@ -99,7 +99,7 @@ export class LadderService {
     const dataSend = { id, matchId, p1Yes };
     this.http.post('http://localhost:3000/api/finalResult', dataSend)
         .subscribe(data => {
-          const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== id);
+          const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
           this.confirmations = updatedConfirmations;
           this.confirmationsUpdates.next([...this.confirmations]);
         });

@@ -16,6 +16,10 @@ button {
   background-color: #E26D5A;
 }
 
+.draw {
+  background-color: rgb(220, 184, 253);
+}
+
 .awaiting {
   background-color: #FFDA84;
 }

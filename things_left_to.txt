@@ -1,7 +1,10 @@
-1. Algo
+0. Updating Previous Matches
+1. Algo and winner decider
 2. Logout
 ------------------
 3. Minor Notification wali cheez (some extra on badge)
 4. Change Accent color
 5. Remove previous match from confirming person page
 6. Why multiple | after setting set score
+7. Colour Goes Away make that right
+8. Multiple rejects

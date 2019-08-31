@@ -374,17 +374,61 @@ app.post('/api/updateScore', (req, res, next) => {
     });
 });
 
-app.post('/api/finalResult', (req, res, next) => {
-  Match.updateOne( { _id: req.body.id }, { confirm_2: true } )
-    .then(documents => {
-      if (documents.nModified == 0) {
-        Match.updateOne ( { _id: req.body.id }, { confirm_1: true } )
-          .then(docs => {
-            res.status(200).json(documents);
-          })
+app.post('/api/finalResult/', (req, res, next) => {
+  Match.findOne({_id: req.body.id})
+    .then(match => {
+      const score = match.match_score.split('-').map(Number);
+      console.log(score);
+      if (score[0] > score[1]){
+        Match.updateOne(
+          { _id: req.body.id },
+          { confirm_2: true, winner_1: true }
+        ).then(documents => {
+          if (documents.nModified == 0) {
+            Match.updateOne(
+              { _id: req.body.id },
+              { confirm_1: true, winner_1: true }
+            ).then(docs => {
+              res.status(200).json(documents);
+            });
+          }
+          res.status(200).json(documents);
+        });
       }
-      res.status(200).json(documents);
+      else if (score[0] < score[1]) {
+        Match.updateOne(
+          { _id: req.body.id },
+          { confirm_2: true, winner_2: true }
+        ).then(documents => {
+          if (documents.nModified == 0) {
+            Match.updateOne(
+              { _id: req.body.id },
+              { confirm_1: true, winner_2: true }
+            ).then(docs => {
+              res.status(200).json(documents);
+            });
+          }
+          res.status(200).json(documents);
+        });
+      }
+      else {
+        Match.updateOne(
+          { _id: req.body.id },
+          { confirm_2: true, winner_2: true, winner_1: true }
+        ).then(documents => {
+          if (documents.nModified == 0) {
+            Match.updateOne(
+              { _id: req.body.id },
+              { confirm_1: true, winner_2: true, winner_1: true }
+            ).then(docs => {
+              res.status(200).json(documents);
+            });
+          }
+          res.status(200).json(documents);
+        });
+      }
     });
+
 });
 
 app.post("/api/previousMatch", (req, res, next) => {

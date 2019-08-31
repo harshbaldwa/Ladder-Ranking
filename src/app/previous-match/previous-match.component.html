@@ -21,7 +21,11 @@
   <h1 class='mat-heading'>Previous Matches</h1>
   <mat-accordion *ngIf="previousMatches">
     <mat-expansion-panel *ngFor="let data of previousMatches"
-      [ngClass]="{ 'awaiting' : ((data.confirm_1 || data.confirm_2) && !(data.confirm_1 && data.confirm_2)) }">
+      [ngClass]="{
+        'awaiting' : ((data.confirm_1 || data.confirm_2) && !(data.confirm_1 && data.confirm_2)),
+        'won' : ((data.p1_yes && data.winner_1) || (!data.p1_yes && data.winner_2)),
+        'lost' : ((data.p1_yes && data.winner_2) || (!data.p1_yes && data.winner_1)),
+        'draw' : (data.winner_1 && data.winner_2) }">
       <mat-expansion-panel-header *ngIf="data.p1_yes">
         {{ data.date }} - {{ data.p2_name }}
       </mat-expansion-panel-header>
@@ -32,7 +36,6 @@
         {{data.set_score}} </p>
       <p *ngIf="data.confirm_1 || data.confirm_2"> Match Score :
         {{data.match_score}} </p>
-
       <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
         <button mat-raised-button [routerLink]="">Report Issue?</button>
         <button mat-raised-button [routerLink]="['/confirmation/update/', data._id]">Update Result</button>

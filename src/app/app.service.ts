@@ -35,6 +35,9 @@ export class LadderService {
   private profileData: Profile;
   private profileUpdate = new Subject<Profile>();
 
+  private player1: boolean;
+  private player1Sub = new Subject<boolean>();
+
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
 
   getChallengesR(id: string) {
@@ -230,5 +233,18 @@ export class LadderService {
 
   getPreviousUpdateListener() {
     return this.previousMatchesUpdates.asObservable();
+  }
+
+  isPlayer1(id: string, matchId: string) {
+    const data = {id, matchId};
+    this.http.post<boolean>('http://localhost:3000/api/isPlayer1', data)
+      .subscribe((is1) => {
+        this.player1 = is1;
+        this.player1Sub.next(this.player1);
+      });
+  }
+
+  getPlayer1UpdateListener() {
+    return this.player1Sub.asObservable();
   }
 }

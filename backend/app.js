@@ -523,4 +523,16 @@ app.post("/api/previousMatch", (req, res, next) => {
     });
 });
 
+app.post("/api/isPlayer1", (req, res, next) => {
+  Match.find({$and: [{p1_id: req.body.id}, {_id: req.body.matchId}]})
+    .then(documents => {
+      length = documents.length;
+      if (length == 0){
+        res.status(200).json(false);
+        return;
+      }
+      res.status(200).json(true);
+    })
+});
+
 module.exports = app;

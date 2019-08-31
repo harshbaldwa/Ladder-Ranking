@@ -1,10 +1,11 @@
-0. Updating Previous Matches
+
 1. Algo and winner decider
 2. Logout
 ------------------
 
-4. Change Accent color
-5. Remove previous match from confirming person page
+4. Change Accent color - hold
+5. Notification for recent and confirmations
 
-7. Colour Goes Away make that right
-8. Multiple rejects
+7. Colour Goes Away make that right - hold
+8. Multiple rejects - hold
+9. Awards - hold

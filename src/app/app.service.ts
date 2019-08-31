@@ -95,8 +95,8 @@ export class LadderService {
       });
   }
 
-  setFinalResult(id: string, p1Yes: boolean) {
-    const dataSend = { id, p1Yes };
+  setFinalResult(id: string, matchId: string, p1Yes: boolean) {
+    const dataSend = { id, matchId, p1Yes };
     this.http.post('http://localhost:3000/api/finalResult', dataSend)
         .subscribe(data => {
           const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== id);
@@ -200,8 +200,8 @@ export class LadderService {
       });
   }
 
-  updateScore(id: string, matchScore: string, setScore: string) {
-    const data = { id, matchScore, setScore };
+  updateScore(id: string, matchId: string, matchScore: string, setScore: string) {
+    const data = { id, matchId, matchScore, setScore };
     this.http.post('http://localhost:3000/api/updateScore', data)
       .subscribe((result) => {
         console.log(result);

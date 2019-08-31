@@ -368,57 +368,114 @@ app.post("/api/confirmOk/", (req, res, next) => {
 
 
 app.post('/api/updateScore', (req, res, next) => {
-  Match.updateOne({_id: req.body.id}, {match_score: req.body.matchScore, set_score: req.body.setScore, confirm_1: true})
-    .then(result => {
-      res.status(200).json(result);
-    });
-});
-
-app.post('/api/finalResult/', (req, res, next) => {
-  Match.findOne({_id: req.body.id})
+  Match.findOne({_id: req.body.matchId})
     .then(match => {
-      const score = match.match_score.split('-').map(Number);
-      console.log(score);
-      if (score[0] > score[1]){
+      if (match.p1_id == req.body.id) {
         Match.updateOne(
-          { _id: req.body.id },
-          { confirm_2: true, winner_1: true }
-        ).then(documents => {
-          if (documents.nModified == 0) {
-            Match.updateOne(
-              { _id: req.body.id },
-              { confirm_1: true, winner_1: true }
-            ).then(docs => {
-              res.status(200).json(documents);
-            });
+          { _id: req.body.matchId },
+          {
+            match_score: req.body.matchScore,
+            set_score: req.body.setScore,
+            confirm_1: true
           }
-          res.status(200).json(documents);
-        });
-      }
-      else if (score[0] < score[1]) {
-        Match.updateOne(
-          { _id: req.body.id },
-          { confirm_2: true, winner_2: true }
-        ).then(documents => {
-          if (documents.nModified == 0) {
-            Match.updateOne(
-              { _id: req.body.id },
-              { confirm_1: true, winner_2: true }
-            ).then(docs => {
-              res.status(200).json(documents);
-            });
-          }
-          res.status(200).json(documents);
+        ).then(result => {
+          res.status(200).json(result);
         });
       }
       else {
         Match.updateOne(
-          { _id: req.body.id },
+          { _id: req.body.matchId },
+          {
+            match_score: req.body.matchScore,
+            set_score: req.body.setScore,
+            confirm_2: true
+          }
+        ).then(result => {
+          res.status(200).json(result);
+        });
+      }
+    });
+});
+
+app.post('/api/finalResult/', (req, res, next) => {
+  Match.findOne({_id: req.body.matchId})
+    .then(match => {
+      const score = match.match_score.split('-').map(Number);
+      if (score[0] > score[1]){
+        if (match.p1_id == req.body.id) {
+          Match.updateOne(
+          { _id: req.body.matchId },
+          { confirm_1: true, winner_1: true }
+          ).then(documents => {
+            if (documents.nModified == 0) {
+              Match.updateOne(
+                { _id: req.body.matchId },
+                { confirm_1: true, winner_1: true }
+              ).then(docs => {
+                res.status(200).json(documents);
+              });
+            }
+            res.status(200).json(documents);
+          });
+        }
+        else {
+          Match.updateOne(
+            { _id: req.body.matchId },
+            { confirm_2: true, winner_1: true }
+          ).then(documents => {
+            if (documents.nModified == 0) {
+              Match.updateOne(
+                { _id: req.body.matchId },
+                { confirm_2: true, winner_1: true }
+              ).then(docs => {
+                res.status(200).json(documents);
+              });
+            }
+            res.status(200).json(documents);
+          });
+        }
+      }
+      else if (score[0] < score[1]) {
+        if (match.p1_id == req.body.id) {
+          Match.updateOne(
+            { _id: req.body.matchId },
+            { confirm_1: true, winner_2: true }
+          ).then(documents => {
+            if (documents.nModified == 0) {
+              Match.updateOne(
+                { _id: req.body.matchId },
+                { confirm_1: true, winner_2: true }
+              ).then(docs => {
+                res.status(200).json(documents);
+              });
+            }
+            res.status(200).json(documents);
+          });
+        } else {
+          Match.updateOne(
+            { _id: req.body.matchId },
+            { confirm_2: true, winner_2: true }
+          ).then(documents => {
+            if (documents.nModified == 0) {
+              Match.updateOne(
+                { _id: req.body.matchId },
+                { confirm_2: true, winner_2: true }
+              ).then(docs => {
+                res.status(200).json(documents);
+              });
+            }
+            res.status(200).json(documents);
+          });
+        }
+      }
+      else {
+        Match.updateOne(
+          { _id: req.body.matchId },
           { confirm_2: true, winner_2: true, winner_1: true }
         ).then(documents => {
           if (documents.nModified == 0) {
             Match.updateOne(
-              { _id: req.body.id },
+              { _id: req.body.matchId },
               { confirm_1: true, winner_2: true, winner_1: true }
             ).then(docs => {
               res.status(200).json(documents);

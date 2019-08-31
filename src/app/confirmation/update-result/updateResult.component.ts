@@ -10,6 +10,7 @@ import { LadderService } from 'src/app/app.service';
 
 export class UpdateResultComponent implements OnInit {
 
+  public matchId: string;
   public id: string;
   public matchScore: string;
   public setScore: string;
@@ -18,8 +19,9 @@ export class UpdateResultComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      this.id = paramMap.get('id');
+      this.matchId = paramMap.get('id');
     });
+    this.id = localStorage.getItem('_id');
   }
 
   updateScore(form: NgForm) {
@@ -28,8 +30,9 @@ export class UpdateResultComponent implements OnInit {
     }
     this.ladderService.updateScore(
       this.id,
+      this.matchId,
       form.value.matchScore,
-      form.value.setScore
+      form.value.setScore,
     );
     this.ladderService.updatedResult(this.router);
   }

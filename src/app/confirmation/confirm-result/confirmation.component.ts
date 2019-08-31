@@ -31,8 +31,8 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
       });
   }
 
-  confirmFinal(id: string, p1Yes: boolean) {
-    this.ladderService.setFinalResult(id, p1Yes);
+  confirmFinal(matchId: string, p1Yes: boolean) {
+    this.ladderService.setFinalResult(this.id, matchId, p1Yes);
   }
 
   ngOnDestroy() {

@@ -26,9 +26,14 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
 
           if (entry.p1_id === this.id) {
             entry.p1_yes = true;
-
           } else {
             entry.p1_yes = false;
+            const yellow = [];
+            for (const data of finalSetScore.split(' | ')) {
+              yellow.push(data.split('-').reverse().join('-'));
+            }
+            entry.set_score = yellow.join(' | ');
+            entry.match_score = entry.match_score.split('-').reverse().join('-');
           }
         }
     });

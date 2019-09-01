@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LadderService } from '../app.service';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { PreviousMatch } from './previous_match.model';
 
 @Component({
@@ -12,11 +12,15 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['date', 'player', 'result'];
   public id = localStorage.getItem('_id');
   public previousMatches: PreviousMatch[];
+  private refresher: Subscription;
   public previousSub: Subscription;
   constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
-    this.ladderService.getPreviousMatchResult(this.id);
+    this.refresher = timer(0, 5000)
+      .subscribe(data => {
+        this.ladderService.getPreviousMatchResult(this.id);
+      });
     this.previousSub = this.ladderService.getPreviousUpdateListener()
     .subscribe((matches: PreviousMatch[]) => {
         this.previousMatches = matches;
@@ -41,5 +45,6 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.previousSub.unsubscribe();
+    this.refresher.unsubscribe();
   }
 }

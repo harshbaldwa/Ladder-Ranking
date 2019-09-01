@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { LadderRanking } from './ladder.model';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { LadderService } from '../app.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
@@ -26,6 +26,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   sportName = new FormControl('');
   filter = new FormControl('');
   private authSubs: Subscription;
+  private refresher: Subscription;
   public Id = localStorage.getItem('_id');
 
   table: LadderRanking[] = [];
@@ -41,7 +42,10 @@ export class LadderTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sportName.setValue(localStorage.getItem('sport'));
-    this.ladderService.getLadder(this.sportName.value);
+    this.refresher = timer(0, 5000)
+      .subscribe(data => {
+        this.ladderService.getLadder(this.sportName.value);
+      });
     this.tableSub = this.ladderService.getLadderUpdateListener()
       .subscribe((table: LadderRanking[]) => {
         this.table = table;
@@ -71,6 +75,8 @@ export class LadderTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.tableSub.unsubscribe();
+    this.authSubs.unsubscribe();
+    this.refresher.unsubscribe();
     localStorage.setItem('sport', this.sportName.value);
   }
 }

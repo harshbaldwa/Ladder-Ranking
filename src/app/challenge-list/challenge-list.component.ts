@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Challenges } from './challenges.model';
 import { LadderService } from '../app.service';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -13,13 +13,18 @@ import { MatSnackBar } from '@angular/material';
 export class ChallengeListComponent implements OnInit, OnDestroy {
   challengesR: Challenges[] = [];
   challengesS: Challenges[] = [];
+  private refresher: Subscription;
   private challengesSub: Subscription;
+  public id = localStorage.getItem('_id');
 
   constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
-    this.ladderService.getChallengesR(localStorage.getItem('_id'));
-    this.ladderService.getChallengesS(localStorage.getItem('_id'));
+    this.refresher = timer(0, 5000)
+      .subscribe(data => {
+        this.ladderService.getChallengesR(this.id);
+        this.ladderService.getChallengesS(this.id);
+      });
     this.challengesSub = this.ladderService.getChallengesRUpdateListener()
      .subscribe((challenges: Challenges[]) => {
        this.challengesR = challenges;
@@ -52,5 +57,6 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.challengesSub.unsubscribe();
+    this.refresher.unsubscribe();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { Confirmations } from './confirmation.model';
 import { LadderService } from '../../app.service';
 
@@ -12,11 +12,15 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
 
   public confirmations: Confirmations[] = [];
   public confirmSub: Subscription;
+  private refresher: Subscription;
   public id = localStorage.getItem('_id');
   constructor(public ladderService: LadderService) { }
 
   ngOnInit() {
-    this.ladderService.getConfirmations(this.id);
+    this.refresher = timer(0, 5000)
+      .subscribe(data => {
+        this.ladderService.getConfirmations(this.id);
+      });
     this.confirmSub = this.ladderService.getConfirmationsUpdateListener()
       .subscribe((confirmations: Confirmations[]) => {
         this.confirmations = confirmations;

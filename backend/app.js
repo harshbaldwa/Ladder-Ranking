@@ -773,4 +773,10 @@ app.post("/api/calculate", (req, res, next) => {
     });
 });
 
+app.post('/api/finalReject', (req, res, next) => {
+  Match.updateOne({_id: req.body.matchId}, {confirm_1: false,confirm_2: false, set_score: '', match_score: ''})
+    .then(data => {
+    });
+});
+
 module.exports = app;

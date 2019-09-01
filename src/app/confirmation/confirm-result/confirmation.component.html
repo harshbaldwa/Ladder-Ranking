@@ -12,7 +12,7 @@
       <p> Set Score - {{ data.set_score }} </p>
       <p> Match Score - {{ data.match_score }} </p>
       <mat-action-row>
-        <button color="warn" mat-raised-button>Disagree</button>
+        <button color="warn" (click)="rejectFinal(data._id)" mat-raised-button>Disagree</button>
         <button color="primary" (click)="confirmFinal(data._id, data.p1_yes)" mat-raised-button>Agree</button>
       </mat-action-row>
     </mat-expansion-panel>

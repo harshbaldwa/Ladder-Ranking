@@ -35,6 +35,10 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
       });
   }
 
+  rejectFinal(matchId: string) {
+    this.ladderService.rejectFinalResult(matchId);
+  }
+
   confirmFinal(matchId: string, p1Yes: boolean) {
     this.ladderService.setFinalResult(this.id, matchId, p1Yes);
   }

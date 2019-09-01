@@ -127,6 +127,16 @@ export class LadderService {
         });
   }
 
+  rejectFinalResult(matchId: string) {
+    const data = { matchId };
+    this.http.post('http://localhost:3000/api/finalReject', data)
+      .subscribe(result => {
+        const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
+        this.confirmations = updatedConfirmations;
+        this.confirmationsUpdates.next([...this.confirmations]);
+      });
+  }
+
   getConfirmationsUpdateListener() {
     return this.confirmationsUpdates.asObservable();
   }

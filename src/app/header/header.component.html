@@ -22,7 +22,7 @@
       <button *ngIf="userAuthenticated && notificationsP" matBadge matBadgeColor="accent" matBadge={{notificationsP}}
         matBadgeOverlap="true" routerLink="/previous" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>history</mat-icon>
-        Challenges
+        Recent Matches
       </button>
 
       <button *ngIf="userAuthenticated && !notificationsP" routerLink="/previous" routerLinkActive="mat-accent"

@@ -11,9 +11,13 @@ import { AuthService } from '../auth/auth.service';
 
 export class HeaderComponent implements OnInit, OnDestroy {
   public isMobile = ( window.innerWidth < 960 );
-  public notifications = 0;
-  private notifListenerSub: Subscription;
+  public id = localStorage.getItem('_id');
+  public notificationsN = 0;
   public challengesN: Subscription;
+  public notificationsP = 0;
+  public challengesP: Subscription;
+  public notificationsC = 0;
+  public challengesC: Subscription;
   private authListenerSub: Subscription;
   userAuthenticated = false;
   constructor(public ladderService: LadderService, private authService: AuthService) {}
@@ -24,10 +28,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userAuthenticated = isAuthenticated;
       });
-    this.ladderService.getNumberChallenge(localStorage.getItem('_id'));
+    this.ladderService.getNumberChallenge(this.id);
+    this.ladderService.getNumberPrevious(this.id);
+    this.ladderService.getNumberConfirmations(this.id);
     this.challengesN = this.ladderService.getChallengesNUpdateListener()
       .subscribe((notifications) => {
-        this.notifications = notifications;
+        this.notificationsN = notifications;
+      });
+    this.challengesC = this.ladderService.getChallengesCUpdateListener()
+      .subscribe((notifications) => {
+        this.notificationsC = notifications;
+      });
+    this.challengesP = this.ladderService.getChallengesPUpdateListener()
+      .subscribe((notifications) => {
+        this.notificationsP = notifications;
       });
   }
 
@@ -38,6 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authListenerSub.unsubscribe();
     this.challengesN.unsubscribe();
+    this.challengesC.unsubscribe();
+    this.challengesP.unsubscribe();
   }
 
 }

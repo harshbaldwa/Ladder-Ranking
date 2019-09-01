@@ -10,7 +10,9 @@ import { Subscription, timer } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'ladder-ranking';
-  private notif: Subscription;
+  private notifN: Subscription;
+  private notifC: Subscription;
+  private notifP: Subscription;
   public id: string;
 
   constructor( private authService: AuthService, private ladderService: LadderService) {}
@@ -18,9 +20,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.autoAuthUser();
     this.id = localStorage.getItem('_id');
-    this.notif = timer(1000, 5000)
+    this.notifN = timer(1000, 5000)
       .subscribe(data => {
         this.ladderService.getNumberChallenge(this.id);
+      });
+    this.notifC = timer(1000, 5000)
+      .subscribe(data => {
+        this.ladderService.getNumberConfirmations(this.id);
+      });
+    this.notifP = timer(1000, 5000)
+      .subscribe(data => {
+        this.ladderService.getNumberPrevious(this.id);
       });
   }
 }

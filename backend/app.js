@@ -183,14 +183,6 @@ app.get("/api/matches/1434", (req, res, next) => {
 });
 
 // Display Challenges
-// app.post('/api/challengesN', (req, res, next) => {
-//   Match.find( { p1_id: req.body.id } )
-//     .then(documents => {
-//       console.log(documents);
-//       length = documents.length;
-//       res.status(200).json(length);
-//     });
-// });
 
 app.post("/api/challengesN", (req, res, next) => {
   Match.find({
@@ -211,6 +203,43 @@ app.post("/api/challengesN", (req, res, next) => {
               { rejected: true }
             ]
           }
+        ]
+      }
+    ]
+  }).then(documents => {
+    length = documents.length;
+    res.status(200).json(length);
+  });
+});
+
+app.post("/api/challengesP", (req, res, next) => {
+  Match.find({
+    $and: [
+      { $or: [{ p1_id: req.body.id }, { p2_id: req.body.id }] },
+      { $or: [{ accepted: true }, { rejected: true }] },
+      { $and: [{ confirm_1: false }, { confirm_2: false }] }
+    ]
+  }).then(documents => {
+    length = documents.length;
+    res.status(200).json(length);
+  });
+});
+
+app.post("/api/challengesC", (req, res, next) => {
+  Match.find({
+    $or: [
+      {
+        $and: [
+          { p1_id: req.body.id },
+          { confirm_2: true },
+          { confirm_1: false }
+        ]
+      },
+      {
+        $and: [
+          { p2_id: req.body.id },
+          { confirm_1: true },
+          { confirm_2: false }
         ]
       }
     ]

@@ -7,13 +7,25 @@
   <span class="spacer"></span>
   <ul *ngIf="!isMobile">
     <li>
-      <button *ngIf="userAuthenticated" routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+      <button *ngIf="userAuthenticated && notificationsC" matBadge matBadgeColor="accent" matBadge={{notificationsC}}
+        matBadgeOverlap="true" routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+        <mat-icon>done</mat-icon>
+        Confirm Result
+      </button>
+
+      <button *ngIf="userAuthenticated && !notificationsC" routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>done</mat-icon>
         Confirm Result
       </button>
     </li>
     <li>
-      <button *ngIf="userAuthenticated" routerLink="/previous" routerLinkActive="mat-accent"
+      <button *ngIf="userAuthenticated && notificationsP" matBadge matBadgeColor="accent" matBadge={{notificationsP}}
+        matBadgeOverlap="true" routerLink="/previous" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+        <mat-icon>history</mat-icon>
+        Challenges
+      </button>
+
+      <button *ngIf="userAuthenticated && !notificationsP" routerLink="/previous" routerLinkActive="mat-accent"
         color="primary" mat-raised-button>
         <mat-icon>history</mat-icon>
         Recent Matches
@@ -26,13 +38,14 @@
       </button>
     </li>
     <li>
-      <button *ngIf="userAuthenticated && notifications" matBadge matBadgeColor="accent" matBadge={{notifications}} matBadgeOverlap="true" routerLink="/challenges"
-        routerLinkActive="mat-accent"
-        color="primary" mat-raised-button>
+      <button *ngIf="userAuthenticated && notificationsN" matBadge matBadgeColor="accent" matBadge={{notificationsN}}
+        matBadgeOverlap="true" routerLink="/challenges" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>list_alt</mat-icon>
         Challenges
       </button>
-      <button *ngIf="userAuthenticated && !notifications" routerLink="/challenges" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+
+      <button *ngIf="userAuthenticated && !notificationsN" routerLink="/challenges" routerLinkActive="mat-accent"
+        color="primary" mat-raised-button>
         <mat-icon>list_alt</mat-icon>
         Challenges
       </button>

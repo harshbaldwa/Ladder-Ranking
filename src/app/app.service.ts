@@ -20,6 +20,13 @@ export class LadderService {
   private challengesN: number;
   private challengesUpdatesN = new Subject<number>();
 
+  private challengesP: number;
+  private challengesUpdatesP = new Subject<number>();
+
+  private challengesC: number;
+  private challengesUpdatesC = new Subject<number>();
+
+
   private challengesR: Challenges[] = [];
   private challengesUpdatesR = new Subject<Challenges[]>();
 
@@ -59,6 +66,14 @@ export class LadderService {
 
   getChallengesNUpdateListener() {
     return this.challengesUpdatesN.asObservable();
+  }
+
+  getChallengesCUpdateListener() {
+    return this.challengesUpdatesC.asObservable();
+  }
+
+  getChallengesPUpdateListener() {
+    return this.challengesUpdatesP.asObservable();
   }
 
   getChallengesRUpdateListener() {
@@ -142,6 +157,24 @@ export class LadderService {
       .subscribe((notification) => {
         this.challengesN = Number(notification);
         this.challengesUpdatesN.next(this.challengesN);
+      });
+  }
+
+  getNumberPrevious(id: string) {
+    const myId = { id };
+    this.http.post<string>('http://localhost:3000/api/challengesP', myId)
+      .subscribe((notification) => {
+        this.challengesP = Number(notification);
+        this.challengesUpdatesP.next(this.challengesP);
+      });
+  }
+
+  getNumberConfirmations(id: string) {
+    const myId = { id };
+    this.http.post<string>('http://localhost:3000/api/challengesC', myId)
+      .subscribe((notification) => {
+        this.challengesC = Number(notification);
+        this.challengesUpdatesC.next(this.challengesC);
       });
   }
 

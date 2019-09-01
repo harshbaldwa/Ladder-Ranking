@@ -38,7 +38,7 @@
         {{data.match_score}} </p>
       <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
         <button mat-raised-button [routerLink]="">Report Issue?</button>
-        <button mat-raised-button [routerLink]="['/confirmation/update/', data._id]">Update Result</button>
+        <button mat-raised-button [routerLink]="['/confirmation/update/', data._id, data.p1_yes]">Update Result</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

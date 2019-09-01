@@ -23,8 +23,10 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
         for (const entry of this.previousMatches) {
           const finalSetScore = entry.set_score.split(' ').join(' | ');
           entry.set_score = finalSetScore;
+
           if (entry.p1_id === this.id) {
             entry.p1_yes = true;
+
           } else {
             entry.p1_yes = false;
           }

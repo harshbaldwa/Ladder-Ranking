@@ -15,6 +15,7 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
   name: string;
   sport: string;
   sport1: string;
+  minDate = new Date();
 
   constructor(public service: LadderService, public route: ActivatedRoute, private router: Router) {}
 

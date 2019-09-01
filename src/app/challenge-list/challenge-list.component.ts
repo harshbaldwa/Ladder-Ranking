@@ -37,22 +37,22 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
 
   onDeleteR(id: string) {
     this.ladderService.deleteChallengeR(id);
-    this.ladderService.openSnackBar('Challenge Declined!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Declined!', 'OK');
   }
 
   onDeleteS(id: string) {
     this.ladderService.deleteChallengeS(id);
-    this.ladderService.openSnackBar('Challenge Deleted!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Deleted!', 'OK');
   }
 
   onConfirmChallenge(id: string) {
     this.ladderService.confirmChallenge(id);
-    this.ladderService.openSnackBar('Challenge Confirmed!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Confirmed!', 'OK');
   }
 
   onBothConfirm(id: string) {
     this.ladderService.updateChallenge(id);
-    this.ladderService.openSnackBar('Challenge Confirmed!', 'OK!');
+    this.ladderService.openSnackBar('Challenge Confirmed!', 'OK');
   }
 
   ngOnDestroy() {

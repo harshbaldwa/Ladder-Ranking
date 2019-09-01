@@ -134,6 +134,7 @@ export class LadderService {
     this.http.post<{}>(BackendURLChallenge + 'addMatch', match)
       .subscribe(() => {
         this.getNumberChallenge(p2Id);
+        this.openSnackBar('Challenge Sent!', 'OK!');
       });
   }
 
@@ -263,7 +264,9 @@ export class LadderService {
       contact
     };
     this.http.post(BackendURLPrevious + 'update', data)
-      .subscribe();
+      .subscribe(_ => {
+        this.openSnackBar('Profile Updated!', 'OK');
+      });
   }
 
 // Getting Confirmations
@@ -288,6 +291,7 @@ export class LadderService {
         const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
         this.confirmations = updatedConfirmations;
         this.confirmationsUpdates.next([...this.confirmations]);
+        this.openSnackBar('Rejected Confirmation!', 'OK');
       });
   }
 
@@ -300,6 +304,7 @@ export class LadderService {
           const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
           this.confirmations = updatedConfirmations;
           this.confirmationsUpdates.next([...this.confirmations]);
+          this.openSnackBar('Ranking Updated!', 'OK');
           const dataset = { matchId };
           this.http.post(environment.apiUrl + 'algo', dataset)
             .subscribe((body) => {

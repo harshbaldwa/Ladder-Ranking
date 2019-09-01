@@ -175,15 +175,7 @@ app.post('/api/addMatch', (req, res, next) => {
   });
 });
 
-// Display match raw data
-app.get("/api/matches/1434", (req, res, next) => {
-  Match.find().then(documents => {
-    res.status(200).json(documents);
-  });
-});
-
-// Display Challenges
-
+// Notifications
 app.post("/api/challengesN", (req, res, next) => {
   Match.find({
     $or: [
@@ -249,6 +241,7 @@ app.post("/api/challengesC", (req, res, next) => {
   });
 });
 
+// Display Challenges
 app.post('/api/challengesR', (req, res, next) => {
   Match.find( { p1_id: req.body.id } )
     .then(documents => {
@@ -265,6 +258,7 @@ app.post("/api/challengesS", (req, res, next) => {
   });
 });
 
+// Deleting Sent Challenge
 app.delete("/api/matches/:id", (req, res, next) => {
   Match.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
@@ -272,6 +266,15 @@ app.delete("/api/matches/:id", (req, res, next) => {
   });
 });
 
+// Accepting Received Challenge
+app.post("/api/confirmChallenge/", (req, res, next) => {
+  Match.updateOne({ _id: req.body.id }, { accepted: true }).then(result => {
+    res.status(200).json(result);
+  });
+});
+
+
+// Rejecting Received Challenge
 app.get("/api/matches/R/:id", (req, res, next) => {
   Match.updateOne({ _id: req.params.id }, {rejected: true}).then(result => {
     console.log(result);
@@ -279,167 +282,22 @@ app.get("/api/matches/R/:id", (req, res, next) => {
   });
 });
 
-app.get("/api/challenges/1434", (req, res, next) => {
-  Match.find({ p2_id: "5d665cd79d24ce3fca88fe1a" }).then(documents => {
-    res.status(200).json(documents);
-  });
-});
-
-
-// Display Confirmations
-app.post('/api/confirmations/', (req, res, next) => {
-  Match.find({
-    $or: [
-      {
-        $and: [
-          { p2_id: req.body.id },
-          { confirm_1: true },
-          { confirm_2: false }
-        ]
-      },
-      {
-        $and: [
-          { p1_id: req.body.id },
-          { confirm_1: false },
-          { confirm_2: true }
-        ]
-      }
-    ]
-  }).then(documents => {
-    res.status(200).json(documents);
-  });
-});
-
-// User signup and login
-app.get("/api/players/1434", (req, res, next) => {
-  Player.find().then(documents => {
-    res.status(200).json(documents);
-  });
-});
-
-app.post('/api/signup', (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-      const player = new Player({
-        name: req.body.name,
-        roll: req.body.roll,
-        hostel: req.body.hostel,
-        gender: req.body.gender,
-        category: req.body.category,
-        preferred: req.body.preferred,
-        contact: req.body.contact,
-        password: hash
-      });
-      player.save()
-        .then(result => {
-          res.status(201).json({
-            result: result
-          });
-        })
-          .catch(err => {
-            res.status(500).json({
-              error: err
-            });
-          });
-    });
-});
-
-app.post("/api/login", (req, res, next) => {
-  let fetchedPlayer;
-  Player.findOne({roll: req.body.roll})
-    .then(player => {
-      if (!player) {
-        return res.status(401).json({
-          messgae: 'Auth failed!'
-        });
-      }
-      fetchedPlayer = player;
-      return bcrypt.compare(req.body.password, player.password);
-    })
-    .then(result => {
-      if (!result) {
-        return res.status(401).json({
-          messgae: "Auth failed!"
-        });
-      }
-      const token = jwt.sign(
-        { roll: fetchedPlayer.roll, playerId: fetchedPlayer._id },
-        "harsh_is_god_he_is_invincible"
-      );
-      res.status(200).json({
-        token: token,
-        id: fetchedPlayer._id,
-        name: fetchedPlayer.name,
-        sport: fetchedPlayer.preferred
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-// Get Profile
-
-app.get('/api/profile/1434', (req, res, next) => {
-  Player.updateOne(
-    { _id: "5d6af521b05d497f81514a2b" },
-    { squash_score: 0 }
-  ).then(documents => {
-    res.status(200).json(documents);
-  });
-});
-
-
-app.post('/api/profile', (req, res, next) => {
-  Player.findOne({_id: req.body.id})
-    .then((documents) => {
-      const player = {
-        id: documents._id,
-        name: documents.name,
-        roll: documents.roll,
-        hostel: documents.hostel,
-        gender: documents.gender,
-        category: documents.category,
-        preferred: documents.preferred,
-        contact: documents.contact,
-        squash_score: documents.squash_score,
-        tennis_score: documents.tennis_score,
-        baddy_score: documents.baddy_score,
-        tt_score: documents.tt_score,
-        match_played_squash: documents.match_played_squash,
-        match_played_tennis: documents.match_played_tennis,
-        match_played_baddy: documents.match_played_baddy,
-        match_played_tt: documents.match_played_tt,
-        match_won_squash: documents.match_won_squash,
-        match_won_tennis: documents.match_won_tennis,
-        match_won_baddy: documents.match_won_baddy,
-        match_won_tt: documents.match_won_tt
-      };
-      res.status(200).json(player);
-    });
-});
-
-app.post('/api/profileUpdate/', (req, res, next) => {
-  Player.updateOne({_id: req.body.id}, {'name': req.body.name, 'hostel': req.body.hostel, 'gender': req.body.gender, 'preferred': req.body.preferred, 'contact': req.body.contact} )
-    .then((result) => {
-      res.status(200).json(result);
-    });
-});
-
-app.post('/api/confirmChallenge/', (req, res, next) => {
-  Match.updateOne({_id: req.body.id}, {'accepted': true})
-    .then((result) => {
-      res.status(200).json(result);
-    });
-});
-
+// Acknowleding Accepted Challenge
 app.post("/api/confirmOk/", (req, res, next) => {
   Match.updateOne({ _id: req.body.id }, { ok: true }).then(result => {
     res.status(200).json(result);
   });
 });
 
+// Getting Previous Matches
+app.post("/api/previousMatch", (req, res, next) => {
+  Match.find({$and: [{$or: [ { p1_id : req.body.id }, {p2_id : req.body.id} ] }, {accepted: true} ] })
+    .then(documents => {
+      res.status(200).json(documents);
+    });
+});
 
+// Update Score
 app.post('/api/updateScore', (req, res, next) => {
   Match.findOne({_id: req.body.matchId})
     .then(match => {
@@ -470,6 +328,52 @@ app.post('/api/updateScore', (req, res, next) => {
     });
 });
 
+// Checking if player setting score is Player 1
+app.post("/api/isPlayer1", (req, res, next) => {
+  Match.findOne({$and: [{p1_id: req.body.id}, {_id: req.body.matchId}]})
+    .then(documents => {
+      if (length){
+        res.status(200).json(false);
+        return;
+      }
+      res.status(200).json(true);
+    })
+});
+
+
+// Display Confirmations
+app.post('/api/confirmations/', (req, res, next) => {
+  Match.find({
+    $or: [
+      {
+        $and: [
+          { p2_id: req.body.id },
+          { confirm_1: true },
+          { confirm_2: false }
+        ]
+      },
+      {
+        $and: [
+          { p1_id: req.body.id },
+          { confirm_1: false },
+          { confirm_2: true }
+        ]
+      }
+    ]
+  }).then(documents => {
+    res.status(200).json(documents);
+  });
+});
+
+// Rejecting Final Confirmation
+app.post("/api/finalReject", (req, res, next) => {
+  Match.updateOne(
+    { _id: req.body.matchId },
+    { confirm_1: false, confirm_2: false, set_score: "", match_score: "" }
+  ).then(data => {});
+});
+
+// Accepting Final Confirmation and Deciding Winner
 app.post('/api/finalResult/', (req, res, next) => {
   Match.findOne({_id: req.body.matchId})
     .then(match => {
@@ -561,24 +465,7 @@ app.post('/api/finalResult/', (req, res, next) => {
 
 });
 
-app.post("/api/previousMatch", (req, res, next) => {
-  Match.find({$and: [{$or: [ { p1_id : req.body.id }, {p2_id : req.body.id} ] }, {accepted: true} ] })
-    .then(documents => {
-      res.status(200).json(documents);
-    });
-});
-
-app.post("/api/isPlayer1", (req, res, next) => {
-  Match.findOne({$and: [{p1_id: req.body.id}, {_id: req.body.matchId}]})
-    .then(documents => {
-      if (length){
-        res.status(200).json(false);
-        return;
-      }
-      res.status(200).json(true);
-    })
-});
-
+// Algo Bitch
 app.post("/api/calculate", (req, res, next) => {
   Match.findOne({_id: req.body.matchId})
     .then((documents) => {
@@ -773,9 +660,105 @@ app.post("/api/calculate", (req, res, next) => {
     });
 });
 
-app.post('/api/finalReject', (req, res, next) => {
-  Match.updateOne({_id: req.body.matchId}, {confirm_1: false,confirm_2: false, set_score: '', match_score: ''})
-    .then(data => {
+
+// User signup
+app.post('/api/signup', (req, res, next) => {
+  bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+      const player = new Player({
+        name: req.body.name,
+        roll: req.body.roll,
+        hostel: req.body.hostel,
+        gender: req.body.gender,
+        category: req.body.category,
+        preferred: req.body.preferred,
+        contact: req.body.contact,
+        password: hash
+      });
+      player.save()
+        .then(result => {
+          res.status(201).json({
+            result: result
+          });
+        })
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            });
+          });
+    });
+});
+
+// User Login
+app.post("/api/login", (req, res, next) => {
+  let fetchedPlayer;
+  Player.findOne({roll: req.body.roll})
+    .then(player => {
+      if (!player) {
+        return res.status(401).json({
+          messgae: 'Auth failed!'
+        });
+      }
+      fetchedPlayer = player;
+      return bcrypt.compare(req.body.password, player.password);
+    })
+    .then(result => {
+      if (!result) {
+        return res.status(401).json({
+          messgae: "Auth failed!"
+        });
+      }
+      const token = jwt.sign(
+        { roll: fetchedPlayer.roll, playerId: fetchedPlayer._id },
+        "harsh_is_god_he_is_invincible"
+      );
+      res.status(200).json({
+        token: token,
+        id: fetchedPlayer._id,
+        name: fetchedPlayer.name,
+        sport: fetchedPlayer.preferred
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+// Get Profile
+app.post('/api/profile', (req, res, next) => {
+  Player.findOne({_id: req.body.id})
+    .then((documents) => {
+      const player = {
+        id: documents._id,
+        name: documents.name,
+        roll: documents.roll,
+        hostel: documents.hostel,
+        gender: documents.gender,
+        category: documents.category,
+        preferred: documents.preferred,
+        contact: documents.contact,
+        squash_score: documents.squash_score,
+        tennis_score: documents.tennis_score,
+        baddy_score: documents.baddy_score,
+        tt_score: documents.tt_score,
+        match_played_squash: documents.match_played_squash,
+        match_played_tennis: documents.match_played_tennis,
+        match_played_baddy: documents.match_played_baddy,
+        match_played_tt: documents.match_played_tt,
+        match_won_squash: documents.match_won_squash,
+        match_won_tennis: documents.match_won_tennis,
+        match_won_baddy: documents.match_won_baddy,
+        match_won_tt: documents.match_won_tt
+      };
+      res.status(200).json(player);
+    });
+});
+
+// Update Profile
+app.post('/api/profileUpdate/', (req, res, next) => {
+  Player.updateOne({_id: req.body.id}, {'name': req.body.name, 'hostel': req.body.hostel, 'gender': req.body.gender, 'preferred': req.body.preferred, 'contact': req.body.contact} )
+    .then((result) => {
+      res.status(200).json(result);
     });
 });
 

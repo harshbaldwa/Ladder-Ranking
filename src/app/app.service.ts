@@ -9,6 +9,14 @@ import { Confirmations } from './confirmation/confirm-result/confirmation.model'
 import { Router } from '@angular/router';
 import { Profile } from 'selenium-webdriver/firefox';
 import { MatSnackBar } from '@angular/material';
+import { environment } from '../environments/environment';
+
+const BackendURLNotifications = environment.apiUrl + 'notification/';
+const BackendURLLadder = environment.apiUrl + 'table/';
+const BackendURLChallenge = environment.apiUrl + 'challenge/';
+const BackendURLPrevious = environment.apiUrl + 'previous/';
+const BackendURLProfile = environment.apiUrl + 'profile/';
+const BackendURLConfirmation = environment.apiUrl + 'confirmations/';
 
 @Injectable({providedIn: 'root'})
 
@@ -50,7 +58,7 @@ export class LadderService {
 // Notifications
   getNumberChallenge(id: string) {
     const myId = { id };
-    this.http.post<string>('http://localhost:3000/api/challengesN', myId)
+    this.http.post<string>(BackendURLNotifications + 'challengesN', myId)
       .subscribe((notification) => {
         this.challengesN = Number(notification);
         this.challengesUpdatesN.next(this.challengesN);
@@ -63,7 +71,7 @@ export class LadderService {
 
   getNumberPrevious(id: string) {
     const myId = { id };
-    this.http.post<string>('http://localhost:3000/api/challengesP', myId)
+    this.http.post<string>(BackendURLNotifications + 'challengesP', myId)
       .subscribe((notification) => {
         this.challengesP = Number(notification);
         this.challengesUpdatesP.next(this.challengesP);
@@ -76,7 +84,7 @@ export class LadderService {
 
   getNumberConfirmations(id: string) {
     const myId = { id };
-    this.http.post<string>('http://localhost:3000/api/challengesC', myId)
+    this.http.post<string>(BackendURLNotifications + 'challengesC', myId)
       .subscribe((notification) => {
         this.challengesC = Number(notification);
         this.challengesUpdatesC.next(this.challengesC);
@@ -89,7 +97,7 @@ export class LadderService {
 
 // Getting Ladder from server
   getLadder(sport: string) {
-    this.http.get<LadderRanking[]>('http://localhost:3000/api/table/' + sport)
+    this.http.get<LadderRanking[]>(BackendURLLadder + sport)
       .subscribe((ladderData) => {
         this.ladderTable = ladderData;
         this.ladderUpdate.next([...this.ladderTable]);
@@ -123,7 +131,7 @@ export class LadderService {
       time,
       rejected: false
     };
-    this.http.post<{}>('http://localhost:3000/api/addMatch', match)
+    this.http.post<{}>(BackendURLChallenge + 'addMatch', match)
       .subscribe(() => {
         this.getNumberChallenge(p2Id);
       });
@@ -133,7 +141,7 @@ export class LadderService {
 
   getChallengesR(id: string) {
     const myId = { id };
-    this.http.post<Challenges[]>('http://localhost:3000/api/challengesR', myId)
+    this.http.post<Challenges[]>(BackendURLChallenge + 'challengesR', myId)
      .subscribe((challengeData) => {
       this.challengesR =  challengeData;
       this.challengesUpdatesR.next([...this.challengesR]);
@@ -146,7 +154,7 @@ export class LadderService {
 
   getChallengesS(id: string) {
     const myId = { id };
-    this.http.post<Challenges[]>('http://localhost:3000/api/challengesS', myId)
+    this.http.post<Challenges[]>(BackendURLChallenge + 'challengesS', myId)
       .subscribe((challengeData) => {
         this.challengesS = challengeData;
         this.challengesUpdatesS.next([...this.challengesS]);
@@ -160,7 +168,7 @@ export class LadderService {
 // Accepting Received Challenge
   confirmChallenge(id: string) {
     const myId = { id };
-    this.http.post('http://localhost:3000/api/confirmChallenge/', myId)
+    this.http.post(BackendURLChallenge + 'accept', myId)
       .subscribe((result) => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
@@ -171,7 +179,7 @@ export class LadderService {
 
 // Rejecting Received Challenge
   deleteChallengeR(id: string) {
-    this.http.get('http://localhost:3000/api/matches/R/' + id)
+    this.http.get(BackendURLChallenge + 'removechallengeR/' + id)
       .subscribe(() => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
@@ -182,7 +190,7 @@ export class LadderService {
 
 // Deleting Sent Challenge
   deleteChallengeS(id: string) {
-    this.http.delete('http://localhost:3000/api/matches/' + id)
+    this.http.delete(BackendURLChallenge + 'removechallengeS/' + id)
       .subscribe(() => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
@@ -194,7 +202,7 @@ export class LadderService {
 // Confirming the accepted or rejected challenge
   updateChallenge(id: string) {
     const myId = { id };
-    this.http.post('http://localhost:3000/api/confirmOk/', myId)
+    this.http.post(BackendURLChallenge + 'acknowledge', myId)
       .subscribe((result) => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
@@ -206,7 +214,7 @@ export class LadderService {
 // Previous Match results
   getPreviousMatchResult(id: string) {
     const myId = { id };
-    this.http.post<PreviousMatch[]>('http://localhost:3000/api/previousMatch', myId)
+    this.http.post<PreviousMatch[]>(BackendURLPrevious, myId)
       .subscribe((matchData) => {
         this.previousMatches = matchData;
         this.previousMatchesUpdates.next([...this.previousMatches]);
@@ -220,7 +228,7 @@ export class LadderService {
 // Updating the score
   updateScore(id: string, matchId: string, matchScore: string, setScore: string) {
     const data = { id, matchId, matchScore, setScore };
-    this.http.post('http://localhost:3000/api/updateScore', data)
+    this.http.post(BackendURLPrevious + 'updateScore', data)
       .subscribe((result) => {
       });
   }
@@ -234,7 +242,7 @@ export class LadderService {
 // Profile Setup
   getProfile(id: string) {
     const data = { id };
-    this.http.post<any>('http://localhost:3000/api/profile/', data)
+    this.http.post<any>(BackendURLProfile, data)
       .subscribe((profileData) => {
         this.profileData = profileData;
         this.profileUpdate.next(this.profileData);
@@ -254,14 +262,14 @@ export class LadderService {
       preferred,
       contact
     };
-    this.http.post('http://localhost:3000/api/profileUpdate/', data)
+    this.http.post(BackendURLPrevious + 'update', data)
       .subscribe();
   }
 
 // Getting Confirmations
   getConfirmations(id: string) {
     const myId = { id };
-    this.http.post<Confirmations[]>('http://localhost:3000/api/confirmations', myId)
+    this.http.post<Confirmations[]>(BackendURLConfirmation, myId)
       .subscribe((confirmationData) => {
         this.confirmations = confirmationData;
         this.confirmationsUpdates.next([...this.confirmations]);
@@ -275,7 +283,7 @@ export class LadderService {
 // Rejecting the confirmation
   rejectFinalResult(matchId: string) {
     const data = { matchId };
-    this.http.post('http://localhost:3000/api/finalReject', data)
+    this.http.post(BackendURLConfirmation + 'finalReject', data)
       .subscribe(result => {
         const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
         this.confirmations = updatedConfirmations;
@@ -287,13 +295,13 @@ export class LadderService {
 
   setFinalResult(id: string, matchId: string, p1Yes: boolean) {
     const dataSend = { id, matchId, p1Yes };
-    this.http.post('http://localhost:3000/api/finalResult', dataSend)
+    this.http.post(BackendURLConfirmation + 'finalResult', dataSend)
         .subscribe(data => {
           const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
           this.confirmations = updatedConfirmations;
           this.confirmationsUpdates.next([...this.confirmations]);
           const dataset = { matchId };
-          this.http.post('http://localhost:3000/api/calculate', dataset)
+          this.http.post(environment.apiUrl + 'algo', dataset)
             .subscribe((body) => {
             });
         });

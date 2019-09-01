@@ -54,6 +54,7 @@ function predicateBy(prop) {
     return 0;
   };
 }
+
 // Squash Data
 app.get('/api/table/squash', (req, res, next) => {
   const squashData = [];
@@ -77,6 +78,7 @@ app.get('/api/table/squash', (req, res, next) => {
     res.status(200).json(squashData);
   });
 });
+
 // Table Tennis Data
 app.get('/api/table/tt', (req, res, next) => {
   const ttData = [];
@@ -100,6 +102,7 @@ app.get('/api/table/tt', (req, res, next) => {
     res.status(200).json(ttData);
   });
 });
+
 // Lawn Tennis Data
 app.get('/api/table/tennis', (req, res, next) => {
   const tennisData = [];
@@ -123,6 +126,7 @@ app.get('/api/table/tennis', (req, res, next) => {
     res.status(200).json(tennisData);
   });
 });
+
 // Badminton Data
 app.get('/api/table/badminton', (req, res, next) => {
 
@@ -149,7 +153,7 @@ app.get('/api/table/badminton', (req, res, next) => {
 });
 
 // Add a challenge
-app.post('/api/addMatch', (req, res, next) => {
+app.post('/api/challenge/addMatch', (req, res, next) => {
   const match = new Match({
     p1_id: req.body.p1_id,
     p1_name: req.body.p1_name,
@@ -176,7 +180,7 @@ app.post('/api/addMatch', (req, res, next) => {
 });
 
 // Notifications
-app.post("/api/challengesN", (req, res, next) => {
+app.post("/api/notification/challengesN", (req, res, next) => {
   Match.find({
     $or: [
       {
@@ -204,7 +208,7 @@ app.post("/api/challengesN", (req, res, next) => {
   });
 });
 
-app.post("/api/challengesP", (req, res, next) => {
+app.post("/api/notification/challengesP", (req, res, next) => {
   Match.find({
     $and: [
       { $or: [{ p1_id: req.body.id }, { p2_id: req.body.id }] },
@@ -217,7 +221,7 @@ app.post("/api/challengesP", (req, res, next) => {
   });
 });
 
-app.post("/api/challengesC", (req, res, next) => {
+app.post("/api/notification/challengesC", (req, res, next) => {
   Match.find({
     $or: [
       {
@@ -242,7 +246,7 @@ app.post("/api/challengesC", (req, res, next) => {
 });
 
 // Display Challenges
-app.post('/api/challengesR', (req, res, next) => {
+app.post('/api/challenge/challengesR', (req, res, next) => {
   Match.find( { p1_id: req.body.id } )
     .then(documents => {
       documents = documents.filter(document_s => document_s.rejected == false && document_s.accepted == false);
@@ -250,16 +254,15 @@ app.post('/api/challengesR', (req, res, next) => {
     });
 });
 
-app.post("/api/challengesS", (req, res, next) => {
-  Match.find({ p2_id: req.body.id })
-    .then(documents => {
-      documents = documents.filter(document_s => document_s.ok == false);
-      res.status(200).json(documents);
+app.post("/api/challenge/challengesS", (req, res, next) => {
+  Match.find({ p2_id: req.body.id }).then(documents => {
+    documents = documents.filter(document_s => document_s.ok == false);
+    res.status(200).json(documents);
   });
 });
 
 // Deleting Sent Challenge
-app.delete("/api/matches/:id", (req, res, next) => {
+app.delete("/api/challenge/removechallengeS/:id", (req, res, next) => {
   Match.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({ message: "Match deleted!" });
@@ -267,7 +270,7 @@ app.delete("/api/matches/:id", (req, res, next) => {
 });
 
 // Accepting Received Challenge
-app.post("/api/confirmChallenge/", (req, res, next) => {
+app.post("/api/challenge/accept", (req, res, next) => {
   Match.updateOne({ _id: req.body.id }, { accepted: true }).then(result => {
     res.status(200).json(result);
   });
@@ -275,22 +278,22 @@ app.post("/api/confirmChallenge/", (req, res, next) => {
 
 
 // Rejecting Received Challenge
-app.get("/api/matches/R/:id", (req, res, next) => {
-  Match.updateOne({ _id: req.params.id }, {rejected: true}).then(result => {
+app.get("/api/challenge/removechallengeR/:id", (req, res, next) => {
+  Match.updateOne({ _id: req.params.id }, { rejected: true }).then(result => {
     console.log(result);
     res.status(200).json({ message: "Match rejected!" });
   });
 });
 
 // Acknowleding Accepted Challenge
-app.post("/api/confirmOk/", (req, res, next) => {
+app.post("/api/challenge/acknowledge/", (req, res, next) => {
   Match.updateOne({ _id: req.body.id }, { ok: true }).then(result => {
     res.status(200).json(result);
   });
 });
 
 // Getting Previous Matches
-app.post("/api/previousMatch", (req, res, next) => {
+app.post("/api/previous", (req, res, next) => {
   Match.find({$and: [{$or: [ { p1_id : req.body.id }, {p2_id : req.body.id} ] }, {accepted: true} ] })
     .then(documents => {
       res.status(200).json(documents);
@@ -298,7 +301,7 @@ app.post("/api/previousMatch", (req, res, next) => {
 });
 
 // Update Score
-app.post('/api/updateScore', (req, res, next) => {
+app.post('/api/previous/updateScore', (req, res, next) => {
   Match.findOne({_id: req.body.matchId})
     .then(match => {
       if (match.p1_id == req.body.id) {
@@ -366,7 +369,7 @@ app.post('/api/confirmations/', (req, res, next) => {
 });
 
 // Rejecting Final Confirmation
-app.post("/api/finalReject", (req, res, next) => {
+app.post("/api/confirmations/finalReject", (req, res, next) => {
   Match.updateOne(
     { _id: req.body.matchId },
     { confirm_1: false, confirm_2: false, set_score: "", match_score: "" }
@@ -374,7 +377,7 @@ app.post("/api/finalReject", (req, res, next) => {
 });
 
 // Accepting Final Confirmation and Deciding Winner
-app.post('/api/finalResult/', (req, res, next) => {
+app.post('/api/confirmations/finalResult/', (req, res, next) => {
   Match.findOne({_id: req.body.matchId})
     .then(match => {
       const score = match.match_score.split('-').map(Number);
@@ -466,7 +469,7 @@ app.post('/api/finalResult/', (req, res, next) => {
 });
 
 // Algo Bitch
-app.post("/api/calculate", (req, res, next) => {
+app.post("/api/algo", (req, res, next) => {
   Match.findOne({_id: req.body.matchId})
     .then((documents) => {
       const p1 = documents.p1_id;
@@ -755,7 +758,7 @@ app.post('/api/profile', (req, res, next) => {
 });
 
 // Update Profile
-app.post('/api/profileUpdate/', (req, res, next) => {
+app.post('/api/profile/update', (req, res, next) => {
   Player.updateOne({_id: req.body.id}, {'name': req.body.name, 'hostel': req.body.hostel, 'gender': req.body.gender, 'preferred': req.body.preferred, 'contact': req.body.contact} )
     .then((result) => {
       res.status(200).json(result);

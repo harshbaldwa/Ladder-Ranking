@@ -64,7 +64,9 @@ app.get('/api/table/squash', (req, res, next) => {
         rank: null,
         username: documents[i]["name"],
         points: documents[i]["squash_score"],
-        category: documents[i]["category"]
+        category: documents[i]["category"],
+        matchPlayed: documents[i]['match_played_squash'],
+        matchWon: documents[i]['match_won_squash']
       });
     }
     squashData.sort(predicateBy("points"));
@@ -85,7 +87,9 @@ app.get('/api/table/tt', (req, res, next) => {
         rank: null,
         username: documents[i]["name"],
         points: documents[i]["tt_score"],
-        category: documents[i]["category"]
+        category: documents[i]["category"],
+        matchPlayed: documents[i]["match_played_tt"],
+        matchWon: documents[i]["match_won_tt"]
       });
     }
     ttData.sort(predicateBy("points"));
@@ -106,7 +110,9 @@ app.get('/api/table/tennis', (req, res, next) => {
         rank: null,
         username: documents[i]["name"],
         points: documents[i]["tennis_score"],
-        category: documents[i]["category"]
+        category: documents[i]["category"],
+        matchPlayed: documents[i]["match_played_tennis"],
+        matchWon: documents[i]["match_won_tennis"]
       });
     }
     tennisData.sort(predicateBy("points"));
@@ -123,7 +129,15 @@ app.get('/api/table/badminton', (req, res, next) => {
   const badmintonData = [];
   Player.find().then(documents => {
     for (let i = 0; i < documents.length; i++) {
-      badmintonData.push({id: documents[i]['_id'], rank: null, username: documents[i]['name'], points: documents[i]['baddy_score'], category: documents[i]['category']});
+      badmintonData.push({
+        id: documents[i]["_id"],
+        rank: null,
+        username: documents[i]["name"],
+        points: documents[i]["baddy_score"],
+        category: documents[i]["category"],
+        matchPlayed: documents[i]["match_played_baddy"],
+        matchWon: documents[i]["match_won_baddy"]
+      });
     }
     badmintonData.sort(predicateBy("points"));
 

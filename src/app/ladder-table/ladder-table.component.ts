@@ -26,6 +26,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   sportName = new FormControl('');
   filter = new FormControl('');
   private authSubs: Subscription;
+  public Id = localStorage.getItem('_id');
 
   table: LadderRanking[] = [];
   private tableSub: Subscription;

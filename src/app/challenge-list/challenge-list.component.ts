@@ -27,7 +27,25 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
       });
     this.challengesSub = this.ladderService.getChallengesRUpdateListener()
      .subscribe((challenges: Challenges[]) => {
-       this.challengesR = challenges;
+      for (const challenge of challenges) {
+        switch (challenge.sport) {
+          case 'squash':
+            challenge.sport = 'Squash';
+            break;
+          case 'tt':
+            challenge.sport = 'Table Tennis';
+            break;
+          case 'tennis':
+            challenge.sport = 'Lawn Tennis';
+            break;
+          case 'badminton':
+            challenge.sport = 'Badminton';
+            break;
+          default:
+            break;
+        }
+      }
+      this.challengesR = challenges;
      });
     this.challengesSub = this.ladderService.getChallengesSUpdateListener()
       .subscribe((challenges: Challenges[]) => {

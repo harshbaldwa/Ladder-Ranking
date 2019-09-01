@@ -2,7 +2,7 @@
   "name": "ladder-ranking",
   "version": "0.0.0",
   "scripts": {
-    "start:server": "nodemon server.js",
+    "start:server": "nodemon ./backend/server.js",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

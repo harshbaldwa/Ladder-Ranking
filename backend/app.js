@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const check_auth = require('./check_auth');
@@ -9,6 +9,7 @@ const app = express();
 
 mongoose
   .connect(
+    // "mongodb://localhost:27017/myapp"
     "mongodb://ladder:YnwLdH8guBV9EOam@cluster0-shard-00-00-cvuiq.mongodb.net:27017,cluster0-shard-00-01-cvuiq.mongodb.net:27017,cluster0-shard-00-02-cvuiq.mongodb.net:27017/myLadder?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
   )
   .then(() => {

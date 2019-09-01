@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api/'
+  apiUrl: 'http://ladderranking-env.qmh2e8famw.us-east-2.elasticbeanstalk.com/api/'
 };
 
 /*

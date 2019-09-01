@@ -58,7 +58,7 @@ export class LadderService {
 // Notifications
   getNumberChallenge(id: string) {
     const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challengesN', myId)
+    this.http.post<string>(BackendURLNotifications + 'challengesN/', myId)
       .subscribe((notification) => {
         this.challengesN = Number(notification);
         this.challengesUpdatesN.next(this.challengesN);
@@ -71,7 +71,7 @@ export class LadderService {
 
   getNumberPrevious(id: string) {
     const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challengesP', myId)
+    this.http.post<string>(BackendURLNotifications + 'challengesP/', myId)
       .subscribe((notification) => {
         this.challengesP = Number(notification);
         this.challengesUpdatesP.next(this.challengesP);
@@ -84,7 +84,7 @@ export class LadderService {
 
   getNumberConfirmations(id: string) {
     const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challengesC', myId)
+    this.http.post<string>(BackendURLNotifications + 'challengesC/', myId)
       .subscribe((notification) => {
         this.challengesC = Number(notification);
         this.challengesUpdatesC.next(this.challengesC);

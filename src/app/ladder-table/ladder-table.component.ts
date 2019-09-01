@@ -42,7 +42,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sportName.setValue(localStorage.getItem('sport'));
-    this.refresher = timer(0, 5000)
+    this.refresher = timer(0, 15000)
       .subscribe(data => {
         this.ladderService.getLadder(this.sportName.value);
       });

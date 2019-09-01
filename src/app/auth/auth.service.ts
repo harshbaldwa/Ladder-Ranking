@@ -37,9 +37,8 @@ export class AuthService {
     password: string) {
     const authData: AuthData = {name, roll, hostel, gender, category, preferred, contact, password};
     this.http.post('http://localhost:3000/api/signup', authData)
-      .subscribe(response => {
-        console.log(response);
-      });
+      .subscribe();
+    this.router.navigate(['/login']);
   }
 
   login(roll: string, password: string) {
@@ -84,6 +83,8 @@ export class AuthService {
 
   private clearAuthData() {
     localStorage.removeItem('token');
+    localStorage.removeItem('_id');
+    localStorage.removeItem('name');
   }
 
   private getAuthData() {

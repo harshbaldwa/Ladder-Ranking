@@ -15,22 +15,22 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
   public id: string;
   public matchScore: string;
   public setScore: string;
-  public player1 = false;
-  public player1Sub: Subscription;
   public matchSwap: string;
   public setSwap: string;
+  public p1: string;
+  public player1 = true;
 
   constructor(public route: ActivatedRoute, public ladderService: LadderService, private router: Router) { }
 
   ngOnInit() {
-    this.player1Sub = this.ladderService.getPlayer1UpdateListener()
-      .subscribe((is1: boolean) => {
-        this.player1 = is1;
-      });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       this.matchId = paramMap.get('id');
+      this.p1 = paramMap.get('p1');
     });
     this.id = localStorage.getItem('_id');
+    if (this.p1 === 'false') {
+      this.player1 = false;
+    }
   }
 
   updateScore(form: NgForm) {
@@ -38,10 +38,9 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.ladderService.isPlayer1(this.id, this.matchId);
     const swappedSet = [];
     this.matchSwap = form.value.matchScore;
-
+    this.setSwap = form.value.setScore;
     if (!this.player1) {
       this.matchSwap = form.value.matchScore.split('-').reverse().join('-');
       for (const data of form.value.setScore.split(' ')) {
@@ -61,6 +60,5 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.player1Sub.unsubscribe();
   }
 }

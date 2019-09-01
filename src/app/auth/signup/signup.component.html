@@ -1,29 +1,48 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+  <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
     <mat-form-field>
-      <input matInput name="name" ngModel placeholder="Full Name" #name="ngModel" required>
+      <input name='name' type="text" placeholder="Name" matInput [(ngModel)]="name" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="roll" ngModel placeholder="Roll Number" #rollInput="ngModel" required roll>
+      <input matInput name="roll" placeholder="Roll Number" [(ngModel)]="roll" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="hostel" ngModel placeholder="Hostel" #hostelInput="ngModel" required hostel>
+      <mat-label>Hostel</mat-label>
+      <mat-select name='hostel' [(ngModel)]="hostel" required>
+        <mat-option value="1">Hostel 1</mat-option>
+        <mat-option value="2">Hostel 2</mat-option>
+        <mat-option value="3">Hostel 3</mat-option>
+        <mat-option value="4">Hostel 4</mat-option>
+        <mat-option value="5">Hostel 5</mat-option>
+        <mat-option value="6">Hostel 6</mat-option>
+        <mat-option value="7">Hostel 7</mat-option>
+        <mat-option value="8">Hostel 8</mat-option>
+        <mat-option value="9">Hostel 9</mat-option>
+        <mat-option value="10">Hostel 10</mat-option>
+        <mat-option value="11">Hostel 11</mat-option>
+        <mat-option value="12">Hostel 12</mat-option>
+        <mat-option value="13">Hostel 13</mat-option>
+        <mat-option value="14">Hostel 14</mat-option>
+        <mat-option value="15">Hostel 15</mat-option>
+        <mat-option value="16">Hostel 16</mat-option>
+        <mat-option value="18">Hostel 18</mat-option>
+        <mat-option value="tansa">Tansa</mat-option>
+      </mat-select>
     </mat-form-field>
-    <mat-form-field name="gender" ngModel placeholder="Gender" #genderInput="ngModel" required gender>
+    <mat-form-field>
       <mat-label>Gender</mat-label>
-      <mat-select>
+      <mat-select name="gender" [(ngModel)]="gender" placeholder="Gender" required>
         <mat-option value="male">Male</mat-option>
         <mat-option value="female">Female</mat-option>
         <mat-option value="other">Others</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="category" ngModel placeholder="Category" #categoryInput="ngModel" required category>
+      <input matInput name="category" placeholder="Category" required [(ngModel)]="category" required>
     </mat-form-field>
-    <mat-form-field name="preferred" ngModel placeholder="Preferred Sport" #preferredInput="ngModel" required preferred>
+    <mat-form-field>
       <mat-label>Preferred Sport</mat-label>
-      <mat-select>
+      <mat-select name="preferred" [(ngModel)]="preferred" required>
         <mat-option value="squash">Squash</mat-option>
         <mat-option value="tt">Table Tennis</mat-option>
         <mat-option value="tennis">Lawn Tennis</mat-option>
@@ -31,11 +50,11 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="contact" ngModel placeholder="Contact Number" #contactInput="ngModel" required contact>
+      <input matInput name="contact" [(ngModel)]="contact" placeholder="Contact Number" required>
     </mat-form-field>
     <mat-form-field>
-      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+      <input type="password" name="password" matInput placeholder="Password" [(ngModel)]="pass" required>
+      <!-- <mat-error *ngIf="password.invalid">Please enter a valid password.</mat-error> -->
     </mat-form-field>
     <button mat-raised-button color="accent" type="submit">Signup</button>
   </form>

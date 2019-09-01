@@ -105,11 +105,10 @@ export class LadderService {
           const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
           this.confirmations = updatedConfirmations;
           this.confirmationsUpdates.next([...this.confirmations]);
-        });
-    const dataset = { matchId };
-    this.http.post('http://localhost:3000/api/calculate', dataset)
-        .subscribe((sport: string) => {
-          this.getLadder(sport);
+          const dataset = { matchId };
+          this.http.post('http://localhost:3000/api/calculate', dataset)
+            .subscribe((body) => {
+            });
         });
   }
 
@@ -180,11 +179,8 @@ export class LadderService {
       preferred,
       contact
     };
-    console.log(data);
     this.http.post('http://localhost:3000/api/profileUpdate/', data)
-      .subscribe((result) => {
-        console.log(result);
-      });
+      .subscribe();
   }
 
   confirmChallenge(id: string) {
@@ -213,7 +209,6 @@ export class LadderService {
     const data = { id, matchId, matchScore, setScore };
     this.http.post('http://localhost:3000/api/updateScore', data)
       .subscribe((result) => {
-        console.log(result);
       });
   }
 
@@ -240,16 +235,4 @@ export class LadderService {
     return this.previousMatchesUpdates.asObservable();
   }
 
-  isPlayer1(id: string, matchId: string) {
-    const data = {id, matchId};
-    this.http.post<boolean>('http://localhost:3000/api/isPlayer1', data)
-      .subscribe((is1) => {
-        this.player1 = is1;
-        this.player1Sub.next(this.player1);
-      });
-  }
-
-  getPlayer1UpdateListener() {
-    return this.player1Sub.asObservable();
-  }
 }

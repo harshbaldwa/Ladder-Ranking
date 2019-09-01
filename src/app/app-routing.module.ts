@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'profile/edit', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'previous', component: PreviousMatchComponent, canActivate: [AuthGuard] },
   { path: 'confirmation/confirm', component: ConfirmationComponent, canActivate: [AuthGuard] },
-  { path: 'confirmation/update/:id', component: UpdateResultComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation/update/:id/:p1', component: UpdateResultComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent }
 ];

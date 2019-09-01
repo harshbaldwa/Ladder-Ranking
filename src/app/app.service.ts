@@ -47,120 +47,7 @@ export class LadderService {
 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
 
-  getChallengesR(id: string) {
-    const myId = { id };
-    this.http.post<Challenges[]>('http://localhost:3000/api/challengesR', myId)
-     .subscribe((challengeData) => {
-      this.challengesR =  challengeData;
-      this.challengesUpdatesR.next([...this.challengesR]);
-     });
-  }
-  getChallengesS(id: string) {
-    const myId = { id };
-    this.http.post<Challenges[]>('http://localhost:3000/api/challengesS', myId)
-      .subscribe((challengeData) => {
-        this.challengesS = challengeData;
-        this.challengesUpdatesS.next([...this.challengesS]);
-      });
-  }
-
-  getChallengesNUpdateListener() {
-    return this.challengesUpdatesN.asObservable();
-  }
-
-  getChallengesCUpdateListener() {
-    return this.challengesUpdatesC.asObservable();
-  }
-
-  getChallengesPUpdateListener() {
-    return this.challengesUpdatesP.asObservable();
-  }
-
-  getChallengesRUpdateListener() {
-    return this.challengesUpdatesR.asObservable();
-  }
-
-  getChallengesSUpdateListener() {
-    return this.challengesUpdatesS.asObservable();
-  }
-
-  deleteChallengeR(id: string) {
-    this.http.get('http://localhost:3000/api/matches/R/' + id)
-      .subscribe(() => {
-        const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
-        this.challengesR = updatedChallenges;
-        this.getNumberChallenge(id);
-        this.challengesUpdatesR.next([...this.challengesR]);
-      });
-  }
-
-  deleteChallengeS(id: string) {
-    this.http.delete('http://localhost:3000/api/matches/' + id)
-      .subscribe(() => {
-        const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
-        this.challengesS = updatedChallenges;
-        this.getNumberChallenge(id);
-        this.challengesUpdatesS.next([...this.challengesS]);
-      });
-  }
-
-  getConfirmations(id: string) {
-    const myId = { id };
-    this.http.post<Confirmations[]>('http://localhost:3000/api/confirmations', myId)
-      .subscribe((confirmationData) => {
-        this.confirmations = confirmationData;
-        this.confirmationsUpdates.next([...this.confirmations]);
-      });
-  }
-
-  setFinalResult(id: string, matchId: string, p1Yes: boolean) {
-    const dataSend = { id, matchId, p1Yes };
-    this.http.post('http://localhost:3000/api/finalResult', dataSend)
-        .subscribe(data => {
-          const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
-          this.confirmations = updatedConfirmations;
-          this.confirmationsUpdates.next([...this.confirmations]);
-          const dataset = { matchId };
-          this.http.post('http://localhost:3000/api/calculate', dataset)
-            .subscribe((body) => {
-            });
-        });
-  }
-
-  rejectFinalResult(matchId: string) {
-    const data = { matchId };
-    this.http.post('http://localhost:3000/api/finalReject', data)
-      .subscribe(result => {
-        const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
-        this.confirmations = updatedConfirmations;
-        this.confirmationsUpdates.next([...this.confirmations]);
-      });
-  }
-
-  getConfirmationsUpdateListener() {
-    return this.confirmationsUpdates.asObservable();
-  }
-
-  // tslint:disable-next-line: variable-name
-  addChallenge(p1_id: string, p2_id: string, p1_name: string, p2_name: string, sport: string, date: string, time: string, message: string) {
-    const match: Match = {
-      id: null,
-      p1_id,
-      p2_id,
-      p1_name,
-      p2_name,
-      sport,
-      message,
-      date,
-      time,
-      rejected: false
-    };
-    this.http.post<{}>('http://localhost:3000/api/addMatch', match)
-      .subscribe(() => {
-        this.getNumberChallenge(p2_id);
-      });
-  }
-
+// Notifications
   getNumberChallenge(id: string) {
     const myId = { id };
     this.http.post<string>('http://localhost:3000/api/challengesN', myId)
@@ -168,6 +55,10 @@ export class LadderService {
         this.challengesN = Number(notification);
         this.challengesUpdatesN.next(this.challengesN);
       });
+  }
+
+  getChallengesNUpdateListener() {
+    return this.challengesUpdatesN.asObservable();
   }
 
   getNumberPrevious(id: string) {
@@ -179,6 +70,10 @@ export class LadderService {
       });
   }
 
+  getChallengesPUpdateListener() {
+    return this.challengesUpdatesP.asObservable();
+  }
+
   getNumberConfirmations(id: string) {
     const myId = { id };
     this.http.post<string>('http://localhost:3000/api/challengesC', myId)
@@ -188,20 +83,157 @@ export class LadderService {
       });
   }
 
+  getChallengesCUpdateListener() {
+    return this.challengesUpdatesC.asObservable();
+  }
+
+// Getting Ladder from server
   getLadder(sport: string) {
     this.http.get<LadderRanking[]>('http://localhost:3000/api/table/' + sport)
-     .subscribe((ladderData) => {
-       this.ladderTable = ladderData;
-       this.ladderUpdate.next([...this.ladderTable]);
-     });
+      .subscribe((ladderData) => {
+        this.ladderTable = ladderData;
+        this.ladderUpdate.next([...this.ladderTable]);
+      });
   }
 
   getLadderUpdateListener() {
     return this.ladderUpdate.asObservable();
   }
 
+// Adding a new challenge to the database
+  addChallenge(
+    p1Id: string,
+    p2Id: string,
+    p1Name: string,
+    p2Name: string,
+    sport: string,
+    date: string,
+    time: string,
+    message: string
+    ) {
+    const match: Match = {
+      id: null,
+      p1_id: p1Id,
+      p2_id: p2Id,
+      p1_name: p1Name,
+      p2_name: p2Name,
+      sport,
+      message,
+      date,
+      time,
+      rejected: false
+    };
+    this.http.post<{}>('http://localhost:3000/api/addMatch', match)
+      .subscribe(() => {
+        this.getNumberChallenge(p2Id);
+      });
+  }
+
+// Getting challenges sent or received
+
+  getChallengesR(id: string) {
+    const myId = { id };
+    this.http.post<Challenges[]>('http://localhost:3000/api/challengesR', myId)
+     .subscribe((challengeData) => {
+      this.challengesR =  challengeData;
+      this.challengesUpdatesR.next([...this.challengesR]);
+     });
+  }
+
+  getChallengesRUpdateListener() {
+    return this.challengesUpdatesR.asObservable();
+  }
+
+  getChallengesS(id: string) {
+    const myId = { id };
+    this.http.post<Challenges[]>('http://localhost:3000/api/challengesS', myId)
+      .subscribe((challengeData) => {
+        this.challengesS = challengeData;
+        this.challengesUpdatesS.next([...this.challengesS]);
+      });
+  }
+
+  getChallengesSUpdateListener() {
+    return this.challengesUpdatesS.asObservable();
+  }
+
+// Accepting Received Challenge
+  confirmChallenge(id: string) {
+    const myId = { id };
+    this.http.post('http://localhost:3000/api/confirmChallenge/', myId)
+      .subscribe((result) => {
+        const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
+        this.challengesR = updatedChallenges;
+        this.getNumberChallenge(id);
+        this.challengesUpdatesR.next([...this.challengesR]);
+      });
+  }
+
+// Rejecting Received Challenge
+  deleteChallengeR(id: string) {
+    this.http.get('http://localhost:3000/api/matches/R/' + id)
+      .subscribe(() => {
+        const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
+        this.challengesR = updatedChallenges;
+        this.getNumberChallenge(id);
+        this.challengesUpdatesR.next([...this.challengesR]);
+      });
+  }
+
+// Deleting Sent Challenge
+  deleteChallengeS(id: string) {
+    this.http.delete('http://localhost:3000/api/matches/' + id)
+      .subscribe(() => {
+        const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
+        this.challengesS = updatedChallenges;
+        this.getNumberChallenge(id);
+        this.challengesUpdatesS.next([...this.challengesS]);
+      });
+  }
+
+// Confirming the accepted or rejected challenge
+  updateChallenge(id: string) {
+    const myId = { id };
+    this.http.post('http://localhost:3000/api/confirmOk/', myId)
+      .subscribe((result) => {
+        const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
+        this.challengesS = updatedChallenges;
+        this.getNumberChallenge(id);
+        this.challengesUpdatesS.next([...this.challengesS]);
+      });
+  }
+
+// Previous Match results
+  getPreviousMatchResult(id: string) {
+    const myId = { id };
+    this.http.post<PreviousMatch[]>('http://localhost:3000/api/previousMatch', myId)
+      .subscribe((matchData) => {
+        this.previousMatches = matchData;
+        this.previousMatchesUpdates.next([...this.previousMatches]);
+      });
+  }
+
+  getPreviousUpdateListener() {
+    return this.previousMatchesUpdates.asObservable();
+  }
+
+// Updating the score
+  updateScore(id: string, matchId: string, matchScore: string, setScore: string) {
+    const data = { id, matchId, matchScore, setScore };
+    this.http.post('http://localhost:3000/api/updateScore', data)
+      .subscribe((result) => {
+      });
+  }
+
+// SnackBar after updating result
+  updatedResult(router: Router) {
+    router.navigate(['/previous']);
+    this.openSnackBar('Awaiting Confirmation!', 'OK!');
+  }
+
+// Profile Setup
   getProfile(id: string) {
-    const data = {id};
+    const data = { id };
     this.http.post<any>('http://localhost:3000/api/profile/', data)
       .subscribe((profileData) => {
         this.profileData = profileData;
@@ -226,56 +258,50 @@ export class LadderService {
       .subscribe();
   }
 
-  confirmChallenge(id: string) {
+// Getting Confirmations
+  getConfirmations(id: string) {
     const myId = { id };
-    this.http.post('http://localhost:3000/api/confirmChallenge/', myId)
-      .subscribe((result) => {
-        const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
-        this.challengesR = updatedChallenges;
-        this.getNumberChallenge(id);
-        this.challengesUpdatesR.next([...this.challengesR]);
+    this.http.post<Confirmations[]>('http://localhost:3000/api/confirmations', myId)
+      .subscribe((confirmationData) => {
+        this.confirmations = confirmationData;
+        this.confirmationsUpdates.next([...this.confirmations]);
       });
   }
 
-  updateChallenge(id: string) {
-    const myId = { id };
-    this.http.post('http://localhost:3000/api/confirmOk/', myId)
-      .subscribe((result) => {
-        const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
-        this.challengesS = updatedChallenges;
-        this.getNumberChallenge(id);
-        this.challengesUpdatesS.next([...this.challengesS]);
+  getConfirmationsUpdateListener() {
+    return this.confirmationsUpdates.asObservable();
+  }
+
+// Rejecting the confirmation
+  rejectFinalResult(matchId: string) {
+    const data = { matchId };
+    this.http.post('http://localhost:3000/api/finalReject', data)
+      .subscribe(result => {
+        const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
+        this.confirmations = updatedConfirmations;
+        this.confirmationsUpdates.next([...this.confirmations]);
       });
   }
 
-  updateScore(id: string, matchId: string, matchScore: string, setScore: string) {
-    const data = { id, matchId, matchScore, setScore };
-    this.http.post('http://localhost:3000/api/updateScore', data)
-      .subscribe((result) => {
-      });
+// Accepting the confirmation
+
+  setFinalResult(id: string, matchId: string, p1Yes: boolean) {
+    const dataSend = { id, matchId, p1Yes };
+    this.http.post('http://localhost:3000/api/finalResult', dataSend)
+        .subscribe(data => {
+          const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
+          this.confirmations = updatedConfirmations;
+          this.confirmationsUpdates.next([...this.confirmations]);
+          const dataset = { matchId };
+          this.http.post('http://localhost:3000/api/calculate', dataset)
+            .subscribe((body) => {
+            });
+        });
   }
 
+// SnackBar for all!
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, { duration: 2000 });
-  }
-
-  updatedResult(router: Router) {
-    router.navigate(['/previous']);
-    this.openSnackBar('Awaiting Confirmation!', 'OK!');
-  }
-
-  getPreviousMatchResult(id: string) {
-    const myId = { id };
-
-    this.http.post<PreviousMatch[]>('http://localhost:3000/api/previousMatch', myId)
-      .subscribe((matchData) => {
-        this.previousMatches = matchData;
-        this.previousMatchesUpdates.next([...this.previousMatches]);
-      });
-  }
-
-  getPreviousUpdateListener() {
-    return this.previousMatchesUpdates.asObservable();
   }
 
 }

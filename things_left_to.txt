@@ -4,7 +4,7 @@
 ------------------
 
 4. Change Accent color - hold
-5. Notification for recent and confirmations
+
 
 7. Colour Goes Away make that right - hold
 8. Multiple rejects - hold

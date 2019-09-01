@@ -1,0 +1,6 @@
+{
+  "env": {
+    "MONGO_ATLAS_PW": "YnwLdH8guBV9EOam",
+    "JWT_KEY": "harsh_is_god_he_is_invincible"
+  }
+}

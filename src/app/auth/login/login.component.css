@@ -8,6 +8,15 @@ mat-form-field {
   margin: auto;
 }
 
+.whole {
+  width: 100%;
+}
+
+.mat-spinner {
+  margin: auto;
+  margin-top: 30%;
+  padding: auto;
+}
 
 :host {
   display: block;

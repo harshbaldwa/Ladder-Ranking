@@ -1,5 +1,7 @@
-<mat-card>
+<div class="whole">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
+<mat-card *ngIf="!isLoading">
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input matInput name="roll" ngModel type="text" placeholder="Roll Number" #rollInput="ngModel" required roll>

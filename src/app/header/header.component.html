@@ -93,10 +93,12 @@
     <button mat-menu-item routerLink="/confirmation/confirm">
       <mat-icon>done</mat-icon>
       <span>Confirm Result</span>
+      <span class='notif'>{{notificationsC}}</span>
     </button>
     <button mat-menu-item routerLink="/previous">
       <mat-icon>history</mat-icon>
       <span>Recent Matches</span>
+      <span class='notif'>{{notificationsP}}</span>
     </button>
     <button mat-menu-item routerLink="/profile/edit">
       <mat-icon>person</mat-icon>
@@ -105,6 +107,7 @@
     <button mat-menu-item routerLink="/challenges">
       <mat-icon>list_alt</mat-icon>
       <span>Challenges</span>
+      <span class='notif'>{{notificationsN}}</span>
     </button>
     <button (click)="onLogout()" mat-menu-item>
       <mat-icon>exit_to_app</mat-icon>

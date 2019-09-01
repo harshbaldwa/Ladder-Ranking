@@ -23,5 +23,17 @@ span {
 }
 
 .mat-menu-item {
-  width: 200px;
+  width: 250px;
+}
+
+.notif {
+  padding-bottom: 20px;
+  float: right;
+  border-radius: 100000px;
+  background: #FF4081;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
 }

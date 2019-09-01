@@ -27,7 +27,22 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
         for (const entry of this.previousMatches) {
           const finalSetScore = entry.set_score.split(' ').join(' | ');
           entry.set_score = finalSetScore;
-
+          switch (entry.sport) {
+            case 'squash':
+              entry.sport = 'Squash';
+              break;
+            case 'tt':
+              entry.sport = 'Table Tennis';
+              break;
+            case 'tennis':
+              entry.sport = 'Lawn Tennis';
+              break;
+            case 'badminton':
+              entry.sport = 'Badminton';
+              break;
+            default:
+              break;
+          }
           if (entry.p1_id === this.id) {
             entry.p1_yes = true;
           } else {

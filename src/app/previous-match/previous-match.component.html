@@ -32,12 +32,14 @@
       <mat-expansion-panel-header *ngIf="!data.p1_yes">
         {{ data.date }} - {{ data.p1_name }}
       </mat-expansion-panel-header>
+      <p> Sport:
+        {{data.sport}} </p>
       <p *ngIf="data.confirm_1 || data.confirm_2"> Set Score :
         {{data.set_score}} </p>
       <p *ngIf="data.confirm_1 || data.confirm_2"> Match Score :
         {{data.match_score}} </p>
       <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
-        <button mat-raised-button [routerLink]="">Report Issue?</button>
+        <!-- <button mat-raised-button [routerLink]="">Report Issue?</button> -->
         <button mat-raised-button [routerLink]="['/confirmation/update/', data._id, data.p1_yes]">Update Result</button>
       </mat-action-row>
     </mat-expansion-panel>

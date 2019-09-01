@@ -338,10 +338,12 @@ app.post("/api/login", (req, res, next) => {
 // Get Profile
 
 app.get('/api/profile/1434', (req, res, next) => {
-  Player.findOne({_id: '5d665cd79d24ce3fca88fe1a'})
-    .then((documents) => {
-      res.status(200).json(documents);
-    });
+  Player.updateOne(
+    { _id: "5d6af521b05d497f81514a2b" },
+    { squash_score: 0 }
+  ).then(documents => {
+    res.status(200).json(documents);
+  });
 });
 
 
@@ -526,8 +528,7 @@ app.post("/api/previousMatch", (req, res, next) => {
 app.post("/api/isPlayer1", (req, res, next) => {
   Match.findOne({$and: [{p1_id: req.body.id}, {_id: req.body.matchId}]})
     .then(documents => {
-      length = documents.length;
-      if (length == 0){
+      if (length){
         res.status(200).json(false);
         return;
       }
@@ -536,8 +537,8 @@ app.post("/api/isPlayer1", (req, res, next) => {
 });
 
 app.post("/api/calculate", (req, res, next) => {
-  Match.findOne({_id: req.body.id})
-    .then(documents => {
+  Match.findOne({_id: req.body.matchId})
+    .then((documents) => {
       const p1 = documents.p1_id;
       const p2 = documents.p2_id;
       var p1Rate = 0;
@@ -550,8 +551,8 @@ app.post("/api/calculate", (req, res, next) => {
       var p2RateNew = 0;
       const p1Set = Number(documents.match_score.split('-')[0]);
       const p2Set = Number(documents.match_score.split("-")[1]);
-      p1SetScore = [];
-      p1SetScore = [];
+      const p1SetScore = [];
+      const p2SetScore = [];
       var p1TotalPoints = 0;
       var p2TotalPoints = 0;
       const ds = Math.abs(p1Set - p2Set);
@@ -566,6 +567,8 @@ app.post("/api/calculate", (req, res, next) => {
         switch (documents.sport) {
           case "squash":
             p1Rate = score1.squash_score;
+            console.log('first');
+            console.log(p1Rate);
             p1MatchesPlayed = score1.match_played_squash;
             p1MatchesWon = score1.match_won_squash;
           break;
@@ -585,146 +588,145 @@ app.post("/api/calculate", (req, res, next) => {
             p1MatchesWon = score1.match_won_baddy;
           break;
         }
+        Player.findOne({ _id: p2 }).then(score2 => {
+          switch (documents.sport) {
+            case "squash":
+              p2Rate = score2.squash_score;
+              p2MatchesPlayed = score2.match_played_squash;
+              p2MatchesWon = score2.match_won_squash;
+              break;
+            case "tt":
+              p2Rate = score2.tt_score;
+              p2MatchesPlayed = score2.match_played_tt;
+              p2MatchesWon = score2.match_won_tt;
+              break;
+            case "tennis":
+              p2Rate = score2.tennis_score;
+              p2MatchesPlayed = score2.match_played_tennis;
+              p2MatchesWon = score2.match_won_tennis;
+              break;
+            case "badminton":
+              p2Rate = score2.baddy_score;
+              p2MatchesPlayed = score2.match_played_baddy;
+              p2MatchesWon = score2.match_won_baddy;
+              break;
+          }
+          p1MatchesPlayed = p1MatchesPlayed + 1;
+          p2MatchesPlayed = p2MatchesPlayed + 1;
+          if (p1Set > p2Set) {
+            p1MatchesWon = p1MatchesWon + 1;
+            p1RateNew =
+              p1Rate +
+              Math.round(
+                9 +
+                  0.05 * (p2Rate - p1Rate) +
+                  ds -
+                  4 * (p2TotalPoints / totalPoints)
+              );
+            p2RateNew =
+              p2Rate -
+              Math.round(
+                9 +
+                  0.05 * (p2Rate - p1Rate) +
+                  ds -
+                  4 * (p2TotalPoints / totalPoints)
+              );
+          } else {
+            p2MatchesWon = p2MatchesWon + 1;
+            p1RateNew =
+              p1Rate -
+              Math.round(
+                9 +
+                  0.05 * (p1Rate - p2Rate) +
+                  ds -
+                  4 * (p1TotalPoints / totalPoints)
+              );
+            p2RateNew =
+              p2Rate +
+              Math.round(
+                9 +
+                  0.05 * (p1Rate - p2Rate) +
+                  ds -
+                  4 * (p1TotalPoints / totalPoints)
+              );
+          }
+          switch (documents.sport) {
+            case "squash":
+              Player.updateOne(
+                { _id: p1 },
+                {
+                  squash_score: p1RateNew,
+                  match_played_squash: p1MatchesPlayed,
+                  match_won_squash: p1MatchesWon
+                }
+              ).then();
+              Player.updateOne(
+                { _id: p2 },
+                {
+                  squash_score: p2RateNew,
+                  match_played_squash: p2MatchesPlayed,
+                  match_won_squash: p2MatchesWon
+                }
+              ).then();
+              break;
+            case "tt":
+              Player.updateOne(
+                { _id: p1 },
+                {
+                  tt_score: p1RateNew,
+                  match_played_tt: p1MatchesPlayed,
+                  match_won_tt: p1MatchesWon
+                }
+              ).then();
+              Player.updateOne(
+                { _id: p2 },
+                {
+                  tt_score: p2RateNew,
+                  match_played_tt: p2MatchesPlayed,
+                  match_won_tt: p2MatchesWon
+                }
+              ).then();
+              break;
+            case "tennis":
+              Player.updateOne(
+                { _id: p1 },
+                {
+                  tennis_score: p1RateNew,
+                  match_played_tennis: p1MatchesPlayed,
+                  match_won_tennis: p1MatchesWon
+                }
+              ).then();
+              Player.updateOne(
+                { _id: p2 },
+                {
+                  tennis_score: p2RateNew,
+                  match_played_tennis: p2MatchesPlayed,
+                  match_won_tennis: p2MatchesWon
+                }
+              ).then();
+              break;
+            case "badminton":
+              Player.updateOne(
+                { _id: p1 },
+                {
+                  tt_score: p1RateNew,
+                  match_played_tt: p1MatchesPlayed,
+                  match_won_tt: p1MatchesWon
+                }
+              ).then();
+              Player.updateOne(
+                { _id: p2 },
+                {
+                  tt_score: p2RateNew,
+                  match_played_tt: p2MatchesPlayed,
+                  match_won_tt: p2MatchesWon
+                }
+              ).then();
+              break;
+          }
+          res.status(200).json(documents.sports);
+        });
       });
-      Player.findOne({ _id: p2 }).then(score2 => {
-        switch (documents.sport) {
-          case "squash":
-            p2Rate = score2.squash_score;
-            p2MatchesPlayed = score2.match_played_squash;
-            p2MatchesWon = score2.match_won_squash;
-          break;
-          case "tt":
-            p2Rate = score2.tt_score;
-            p2MatchesPlayed = score2.match_played_tt;
-            p2MatchesWon = score2.match_won_tt;
-          break;
-          case "tennis":
-            p2Rate = score2.tennis_score;
-            p2MatchesPlayed = score2.match_played_tennis;
-            p2MatchesWon = score2.match_won_tennis;
-          break;
-          case "badminton":
-            p2Rate = score2.baddy_score;
-            p2MatchesPlayed = score2.match_played_baddy;
-            p2MatchesWon = score2.match_won_baddy;
-          break;
-        }
-      });
-      p1MatchesPlayed = p1MatchesPlayed + 1;
-      p2MatchesPlayed = p2MatchesPlayed + 1;
-      if (p1Set > p2Set) {
-        p1MatchesWon = p1MatchesWon + 1;
-        p1RateNew =
-          p1Rate +
-          Math.round(
-            9 +
-            0.05 * (p2rate - p1rate) +
-            ds -
-            4 * (p2TotalPoints / totalPoints)
-          );
-        p2RateNew =
-          p2Rate -
-          Math.round(
-            9 +
-            0.05 * (p2rate - p1rate) +
-            ds -
-            4 * (p2TotalPoints / totalPoints)
-          );
-      }
-      else {
-        p2MatchesWon = p2MatchesWon + 1;
-        p1RateNew =
-          p1Rate -
-          Math.round(
-            9 +
-            0.05 * (p1rate - p2rate) +
-            ds -
-            4 * (p1TotalPoints / totalPoints)
-          );
-        p2RateNew =
-          p1Rate +
-          Math.round(
-            9 +
-            0.05 * (p1rate - p2rate) +
-            ds -
-            4 * (p1TotalPoints / totalPoints)
-          );
-      }
-      switch (documents.sport) {
-        case "squash":
-          Player.updateOne(
-            { _id: p1 },
-            {
-              squash_score: p1RateNew,
-              match_played_squash: p1MatchesPlayed,
-              match_won_squash: p1MatchesWon
-            }
-          );
-          Player.updateOne(
-            { _id: p2 },
-            {
-              squash_score: p2RateNew,
-              match_played_squash: p2MatchesPlayed,
-              match_won_squash: p2MatchesWon
-            }
-          );
-        break;
-        case "tt":
-          Player.updateOne(
-            { _id: p1 },
-            {
-              tt_score: p1RateNew,
-              match_played_tt: p1MatchesPlayed,
-              match_won_tt: p1MatchesWon
-            }
-          );
-          Player.updateOne(
-            { _id: p2 },
-            {
-              tt_score: p2RateNew,
-              match_played_tt: p2MatchesPlayed,
-              match_won_tt: p2MatchesWon
-            }
-          );
-        break;
-        case "tennis":
-          Player.updateOne(
-            { _id: p1 },
-            {
-              tennis_score: p1RateNew,
-              match_played_tennis: p1MatchesPlayed,
-              match_won_tennis: p1MatchesWon
-            }
-          );
-          Player.updateOne(
-            { _id: p2 },
-            {
-              tennis_score: p2RateNew,
-              match_played_tennis: p2MatchesPlayed,
-              match_won_tennis: p2MatchesWon
-            }
-          );
-        break;
-        case "badminton":
-          Player.updateOne(
-            { _id: p1 },
-            {
-              tt_score: p1RateNew,
-              match_played_tt: p1MatchesPlayed,
-              match_won_tt: p1MatchesWon
-            }
-          );
-          Player.updateOne(
-            { _id: p2 },
-            {
-              tt_score: p2RateNew,
-              match_played_tt: p2MatchesPlayed,
-              match_won_tt: p2MatchesWon
-            }
-          );
-        break;
-      }
-      res.status(200).json(documents.sports);
     });
 });
 

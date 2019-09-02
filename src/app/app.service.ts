@@ -282,7 +282,7 @@ export class LadderService {
       preferred,
       contact
     };
-    this.http.post(BackendURLPrevious + 'update', data)
+    this.http.post(BackendURLProfile + 'update', data)
       .subscribe(_ => {
         this.openSnackBar('Profile Updated!', 'OK');
       });

@@ -56,6 +56,10 @@
       <input type="password" name="password" matInput placeholder="Password" [(ngModel)]="pass" required>
       <!-- <mat-error *ngIf="password.invalid">Please enter a valid password.</mat-error> -->
     </mat-form-field>
+    <mat-form-field>
+      <input type="password" name="pass1" matInput [(ngModel)]="pass1" placeholder="Confirm Password" required>
+      <p style="color: #F62B14; font-size: 15px;" *ngIf="wrong">Passwords dont match</p>
+    </mat-form-field>
     <button mat-raised-button color="accent" type="submit">Signup</button>
   </form>
 </mat-card>

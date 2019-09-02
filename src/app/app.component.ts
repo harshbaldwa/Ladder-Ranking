@@ -21,15 +21,15 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.autoAuthUser();
     this.id = localStorage.getItem('_id');
-    this.notifN = timer(1000, 5000)
+    this.notifN = timer(1000)
       .subscribe(data => {
         this.ladderService.getNumberChallenge(this.id);
       });
-    this.notifC = timer(1000, 5000)
+    this.notifC = timer(1000)
       .subscribe(data => {
         this.ladderService.getNumberConfirmations(this.id);
       });
-    this.notifP = timer(1000, 5000)
+    this.notifP = timer(1000)
       .subscribe(data => {
         this.ladderService.getNumberPrevious(this.id);
       });
@@ -37,5 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSub.unsubscribe();
+    this.notifC.unsubscribe();
+    this.notifN.unsubscribe();
+    this.notifP.unsubscribe();
   }
 }

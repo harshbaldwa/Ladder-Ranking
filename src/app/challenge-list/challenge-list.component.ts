@@ -13,19 +13,19 @@ import { MatSnackBar } from '@angular/material';
 export class ChallengeListComponent implements OnInit, OnDestroy {
   challengesR: Challenges[] = [];
   challengesS: Challenges[] = [];
+  private challengesSubR: Subscription;
+  private challengesSubS: Subscription;
   private refresher: Subscription;
-  private challengesSub: Subscription;
   public id = localStorage.getItem('_id');
 
   constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
-    this.refresher = timer(0, 15000)
-      .subscribe(data => {
-        this.ladderService.getChallengesR(this.id);
-        this.ladderService.getChallengesS(this.id);
-      });
-    this.challengesSub = this.ladderService.getChallengesRUpdateListener()
+    this.refresher = timer(0, 10000).subscribe(() => {
+      this.ladderService.getChallengesR(this.id);
+      this.ladderService.getChallengesS(this.id);
+    });
+    this.challengesSubR = this.ladderService.getChallengesRUpdateListener()
      .subscribe((challenges: Challenges[]) => {
       for (const challenge of challenges) {
         switch (challenge.sport) {
@@ -47,13 +47,32 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
       }
       this.challengesR = challenges;
      });
-    this.challengesSub = this.ladderService.getChallengesSUpdateListener()
+    this.challengesSubS = this.ladderService.getChallengesSUpdateListener()
       .subscribe((challenges: Challenges[]) => {
+        for (const challenge of challenges) {
+          switch (challenge.sport) {
+            case 'squash':
+              challenge.sport = 'Squash';
+              break;
+            case 'tt':
+              challenge.sport = 'Table Tennis';
+              break;
+            case 'tennis':
+              challenge.sport = 'Lawn Tennis';
+              break;
+            case 'badminton':
+              challenge.sport = 'Badminton';
+              break;
+            default:
+              break;
+          }
+        }
         this.challengesS = challenges;
       });
   }
 
   onDeleteR(id: string) {
+    this.refresher.unsubscribe();
     this.ladderService.deleteChallengeR(id);
     this.ladderService.openSnackBar('Challenge Declined!', 'OK');
   }
@@ -74,7 +93,7 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.challengesSub.unsubscribe();
-    this.refresher.unsubscribe();
+    this.challengesSubR.unsubscribe();
+    this.challengesSubS.unsubscribe();
   }
 }

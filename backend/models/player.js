@@ -38,22 +38,22 @@ const playerSchema = mongoose.Schema({
   squash_score: {
     type: Number,
     required: true,
-    default: 0
+    default: 100
   },
   tennis_score: {
     type: Number,
     required: true,
-    default: 0
+    default: 100
   },
   baddy_score: {
     type: Number,
     required: true,
-    default: 0
+    default: 100
   },
   tt_score: {
     type: Number,
     required: true,
-    default: 0
+    default: 100
   },
   match_played_squash: {
     type: Number,

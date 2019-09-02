@@ -67,5 +67,6 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.confirmSub.unsubscribe();
+    this.refresher.unsubscribe();
   }
 }

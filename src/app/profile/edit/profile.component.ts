@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
   public name = '';
   public contact = '';
 
-
   constructor(public service: LadderService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((data) => {
         this.profile = data;
         this.gender = this.profile.gender;
-        this.sport = this.profile.preferred;
+        this.sport = this.profile.preferred.split(',');
         this.hostel = this.profile.hostel;
         this.name = this.profile.name;
         this.contact = this.profile.contact;
@@ -35,20 +34,19 @@ export class ProfileComponent implements OnInit {
   }
 
   changeProfile(form: NgForm) {
-    let sports = '';
+    let sportttr = '';
     for (const sport of this.sport) {
-      sports = sport + ',' + sports;
+      sportttr = sport + ',' + sportttr;
     }
     if (form.invalid) {
       return;
     }
-    console.log(form);
     this.service.changeProfile(
       this.profile.id,
       form.value.name,
       form.value.hostel,
       form.value.gender,
-      sports,
+      sportttr,
       form.value.contact
     );
     this.openSnackBar();

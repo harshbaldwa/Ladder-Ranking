@@ -63,6 +63,7 @@ app.get('/api/table', (req, res, next) => {
 // Getting Ladder Sports
 app.post('/api/table/sports', (req, res, next) => {
   Player.findOne({_id: req.body.id}).then(data => {
+    sport = '';
     if (data){
       sport = data.preferred;
     }

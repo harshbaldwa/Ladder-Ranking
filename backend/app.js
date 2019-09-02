@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const check_auth = require('./check_auth');
@@ -54,6 +54,21 @@ function predicateBy(prop) {
     return 0;
   };
 }
+
+// removing error
+app.get('/api/table', (req, res, next) => {
+  res.status(200);
+});
+
+// Getting Ladder Sports
+app.post('/api/table/sports', (req, res, next) => {
+  Player.findOne({_id: req.body.id}).then(data => {
+    if (data){
+      sport = data.preferred;
+    }
+    res.status(200).json(sport);
+  });
+});
 
 // Squash Data
 app.get('/api/table/squash', (req, res, next) => {

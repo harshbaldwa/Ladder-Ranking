@@ -35,6 +35,10 @@ export class ProfileComponent implements OnInit {
   }
 
   changeProfile(form: NgForm) {
+    let sports = '';
+    for (const sport of this.sport) {
+      sports = sport + ',' + sports;
+    }
     if (form.invalid) {
       return;
     }
@@ -44,7 +48,7 @@ export class ProfileComponent implements OnInit {
       form.value.name,
       form.value.hostel,
       form.value.gender,
-      form.value.sport,
+      sports,
       form.value.contact
     );
     this.openSnackBar();

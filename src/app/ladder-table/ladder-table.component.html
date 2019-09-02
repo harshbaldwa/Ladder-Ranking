@@ -1,10 +1,10 @@
 <mat-form-field class = "sport">
   <mat-label>Sport</mat-label>
   <mat-select (valueChange)="getTable($event)" [formControl]="sportName">
-    <mat-option value="squash">Squash</mat-option>
-    <mat-option value="tt">Table Tennis</mat-option>
-    <mat-option value="tennis">Lawn Tennis</mat-option>
-    <mat-option value="badminton">Badminton</mat-option>
+    <mat-option *ngIf='issquash' value="squash">Squash</mat-option>
+    <mat-option *ngIf='istt' value="tt">Table Tennis</mat-option>
+    <mat-option *ngIf='istennis' value="tennis">Lawn Tennis</mat-option>
+    <mat-option *ngIf='isbadminton' value="badminton">Badminton</mat-option>
   </mat-select>
 </mat-form-field>
 

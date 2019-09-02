@@ -25,6 +25,9 @@ export class LadderService {
   private ladderTable: LadderRanking[] = [];
   private ladderUpdate = new Subject<LadderRanking[]>();
 
+  private sports: string[] = [];
+  private sportsUpdate = new Subject<string[]>();
+
   private challengesN: number;
   private challengesUpdatesN = new Subject<number>();
 
@@ -93,6 +96,22 @@ export class LadderService {
 
   getChallengesCUpdateListener() {
     return this.challengesUpdatesC.asObservable();
+  }
+
+// Getting Sports for user
+  getSports(id: string) {
+    const myId = { id };
+    this.http.post(BackendURLLadder + 'sports/', myId)
+      .subscribe((data: string) => {
+        if (data && !(data === '')) {
+          this.sports = data.split(',');
+        }
+        this.sportsUpdate.next([...this.sports]);
+      });
+  }
+
+  getSportsUpdateListener() {
+    return this.sportsUpdate.asObservable();
   }
 
 // Getting Ladder from server

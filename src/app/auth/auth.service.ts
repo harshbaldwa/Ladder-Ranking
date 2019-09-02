@@ -12,7 +12,7 @@ export class AuthService {
   private token: string;
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
-
+  private wrongCredential = new Subject<boolean>();
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
@@ -21,6 +21,10 @@ export class AuthService {
 
   getIsAuth() {
     return this.isAuthenticated;
+  }
+
+  getCorrectCredential() {
+    return this.wrongCredential.asObservable();
   }
 
   getAuthStatusListener() {
@@ -49,14 +53,19 @@ export class AuthService {
         const token = response.token;
         this.token = token;
         if (token) {
+          response.sport = response.sport.split(',')[0];
           localStorage.setItem('_id', response.id);
           localStorage.setItem('name', response.name);
           localStorage.setItem('sport', response.sport);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
+          this.wrongCredential.next(false);
           this.saveAuthData(token);
           this.router.navigate(['/']);
         }
+      }, error => {
+        this.authStatusListener.next(false);
+        this.wrongCredential.next(true);
       });
   }
 

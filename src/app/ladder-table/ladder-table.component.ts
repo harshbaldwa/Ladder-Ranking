@@ -31,7 +31,13 @@ export class LadderTableComponent implements OnInit, OnDestroy {
 
   table: LadderRanking[] = [];
   private tableSub: Subscription;
+  private sportsSub: Subscription;
   userAuthenticated = false;
+
+  issquash;
+  istt;
+  istennis;
+  isbadminton;
 
   dataSource;
 
@@ -41,8 +47,39 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   constructor(public ladderService: LadderService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    if (localStorage.getItem('_id') == null) {
+      this.issquash = true;
+      this.istt = true;
+      this.istennis = true;
+      this.isbadminton = true;
+      this.sportName.setValue('squash');
+      localStorage.setItem('sport', 'squash');
+    }
+    this.ladderService.getSports(localStorage.getItem('_id'));
     this.sportName.setValue(localStorage.getItem('sport'));
-    this.refresher = timer(0, 15000)
+    this.sportsSub = this.ladderService.getSportsUpdateListener()
+      .subscribe((sport) => {
+        for (const entry of sport) {
+          switch (entry) {
+            case 'squash':
+              this.issquash = true;
+              break;
+            case 'tt':
+              this.istt = true;
+              break;
+            case 'tennis':
+              this.istennis = true;
+              break;
+            case 'badminton':
+              this.isbadminton = true;
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    // this.sportName.setValue(localStorage.getItem('sport'));
+    this.refresher = timer(100, 15000)
       .subscribe(data => {
         this.ladderService.getLadder(this.sportName.value);
       });

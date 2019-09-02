@@ -20,10 +20,9 @@ export class SignupComponent {
   constructor(public authService: AuthService) {}
 
   onSignup(form: NgForm) {
-    console.log(this.preferred);
     let sports = '';
     for (const sport of this.preferred) {
-      sports = sports + sport;
+      sports = sport + ',' + sports;
     }
     if (form.invalid) {
       return;

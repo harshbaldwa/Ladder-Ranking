@@ -9,8 +9,8 @@ const app = express();
 
 mongoose
   .connect(
-    // "mongodb://localhost:27017/myapp"
-    "mongodb://ladder:YnwLdH8guBV9EOam@cluster0-shard-00-00-cvuiq.mongodb.net:27017,cluster0-shard-00-01-cvuiq.mongodb.net:27017,cluster0-shard-00-02-cvuiq.mongodb.net:27017/myLadder?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
+    "mongodb://localhost:27017/myapp"
+    // "mongodb://ladder:YnwLdH8guBV9EOam@cluster0-shard-00-00-cvuiq.mongodb.net:27017,cluster0-shard-00-01-cvuiq.mongodb.net:27017,cluster0-shard-00-02-cvuiq.mongodb.net:27017/myLadder?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database!");
@@ -58,7 +58,7 @@ function predicateBy(prop) {
 // Squash Data
 app.get('/api/table/squash', (req, res, next) => {
   const squashData = [];
-  Player.find().then(documents => {
+  Player.find({ preferred: { $regex: "squash" } }).then(documents => {
     for (let i = 0; i < documents.length; i++) {
       squashData.push({
         id: documents[i]["_id"],
@@ -66,8 +66,8 @@ app.get('/api/table/squash', (req, res, next) => {
         username: documents[i]["name"],
         points: documents[i]["squash_score"],
         category: documents[i]["category"],
-        matchPlayed: documents[i]['match_played_squash'],
-        matchWon: documents[i]['match_won_squash']
+        matchPlayed: documents[i]["match_played_squash"],
+        matchWon: documents[i]["match_won_squash"]
       });
     }
     squashData.sort(predicateBy("points"));
@@ -82,7 +82,7 @@ app.get('/api/table/squash', (req, res, next) => {
 // Table Tennis Data
 app.get('/api/table/tt', (req, res, next) => {
   const ttData = [];
-  Player.find().then(documents => {
+  Player.find({ preferred: { $regex: "tt" } }).then(documents => {
     for (let i = 0; i < documents.length; i++) {
       ttData.push({
         id: documents[i]["_id"],
@@ -106,7 +106,7 @@ app.get('/api/table/tt', (req, res, next) => {
 // Lawn Tennis Data
 app.get('/api/table/tennis', (req, res, next) => {
   const tennisData = [];
-  Player.find().then(documents => {
+  Player.find({ preferred: { $regex: "tennis" } }).then(documents => {
     for (let i = 0; i < documents.length; i++) {
       tennisData.push({
         id: documents[i]["_id"],
@@ -131,7 +131,7 @@ app.get('/api/table/tennis', (req, res, next) => {
 app.get('/api/table/badminton', (req, res, next) => {
 
   const badmintonData = [];
-  Player.find().then(documents => {
+  Player.find({ preferred: { $regex: "badminton" } }).then(documents => {
     for (let i = 0; i < documents.length; i++) {
       badmintonData.push({
         id: documents[i]["_id"],
@@ -713,7 +713,7 @@ app.post("/api/login", (req, res, next) => {
       }
       const token = jwt.sign(
         { roll: fetchedPlayer.roll, playerId: fetchedPlayer._id },
-        process.env.JWT_KEY
+        'harsh_is_god_he_is_invincible'
       );
       res.status(200).json({
         token: token,

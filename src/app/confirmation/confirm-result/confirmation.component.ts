@@ -17,10 +17,7 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   constructor(public ladderService: LadderService) { }
 
   ngOnInit() {
-    this.refresher = timer(0, 15000)
-      .subscribe(data => {
-        this.ladderService.getConfirmations(this.id);
-      });
+    this.ladderService.getConfirmations(this.id);
     this.confirmSub = this.ladderService.getConfirmationsUpdateListener()
       .subscribe((confirmations: Confirmations[]) => {
         this.confirmations = confirmations;
@@ -67,6 +64,5 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.confirmSub.unsubscribe();
-    this.refresher.unsubscribe();
   }
 }

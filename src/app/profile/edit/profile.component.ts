@@ -49,10 +49,5 @@ export class ProfileComponent implements OnInit {
       sportttr,
       form.value.contact
     );
-    this.openSnackBar();
-  }
-
-  openSnackBar() {
-    this.snackBar.open('Changed Successfully', 'OK!', { duration: 2000 });
   }
 }

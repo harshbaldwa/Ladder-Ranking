@@ -7,6 +7,12 @@
   <span class="spacer"></span>
   <ul *ngIf="!isMobile">
     <li>
+      <button *ngIf="userAuthenticated" [routerLink]="['/']" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+        <mat-icon>home</mat-icon>
+        Home
+      </button>
+    </li>
+    <li>
       <button *ngIf="userAuthenticated && notificationsC" matBadge matBadgeColor="accent" matBadge={{notificationsC}}
         matBadgeOverlap="true" routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>done</mat-icon>
@@ -90,6 +96,10 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
     <button mat-menu-item routerLink="/confirmation/confirm">
       <mat-icon>done</mat-icon>
       <span>Confirm Result</span>

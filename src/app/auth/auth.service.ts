@@ -5,6 +5,7 @@ import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -13,7 +14,8 @@ export class AuthService {
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
   private wrongCredential = new Subject<boolean>();
-  constructor(private http: HttpClient, private router: Router) {}
+
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
 
   getToken() {
     return this.token;
@@ -43,6 +45,7 @@ export class AuthService {
     const authData: AuthData = {name, roll, hostel, gender, category, preferred, contact, password};
     this.http.post(environment.apiUrl + 'signup', authData)
       .subscribe();
+    this.snackBar('Successfully signed up!', 'OK')
     this.router.navigate(['/login']);
   }
 
@@ -61,6 +64,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           this.wrongCredential.next(false);
           this.saveAuthData(token);
+          this.snackBar('Successfully logged in!', 'OK')
           this.router.navigate(['/']);
         }
       }, error => {
@@ -84,6 +88,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.clearAuthData();
+    this.snackBar('Successfully logged out!', 'OK')
     this.router.navigate(['/']);
   }
 
@@ -100,4 +105,9 @@ export class AuthService {
   private getAuthData() {
     return localStorage.getItem('token');
   }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2000 });
+  }
+
 }

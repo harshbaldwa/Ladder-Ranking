@@ -26,7 +26,6 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   sportName = new FormControl('');
   filter = new FormControl('');
   private authSubs: Subscription;
-  private refresher: Subscription;
   public Id = localStorage.getItem('_id');
 
   table: LadderRanking[] = [];
@@ -79,10 +78,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
         }
       });
     // this.sportName.setValue(localStorage.getItem('sport'));
-    this.refresher = timer(100, 15000)
-      .subscribe(data => {
-        this.ladderService.getLadder(this.sportName.value);
-      });
+    this.ladderService.getLadder(this.sportName.value);
     this.tableSub = this.ladderService.getLadderUpdateListener()
       .subscribe((table: LadderRanking[]) => {
         this.table = table;
@@ -113,7 +109,6 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.tableSub.unsubscribe();
     this.authSubs.unsubscribe();
-    this.refresher.unsubscribe();
     localStorage.setItem('sport', this.sportName.value);
   }
 }

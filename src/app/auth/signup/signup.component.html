@@ -38,7 +38,14 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="category" placeholder="Category" required [(ngModel)]="category" required>
+      <mat-label>Category</mat-label>
+      <mat-select name="category" [(ngModel)]="category" placeholder="Category" required>
+        <mat-option value="Inter IIT Team">Inter IIT Team</mat-option>
+        <mat-option value="Inter IIT Camp">Inter IIT Camp</mat-option>
+        <mat-option value="Intermediate">Intermediate</mat-option>
+        <mat-option value="NSO">NSO</mat-option>
+        <mat-option value="Beginner">Beginner</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Preferred Sport</mat-label>

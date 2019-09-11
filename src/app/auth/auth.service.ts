@@ -45,7 +45,7 @@ export class AuthService {
     const authData: AuthData = {name, roll, hostel, gender, category, preferred, contact, password};
     this.http.post(environment.apiUrl + 'signup', authData)
       .subscribe();
-    this.snackBar('Successfully signed up!', 'OK')
+    this.openSnackBar('Successfully signed up!', 'OK');
     this.router.navigate(['/login']);
   }
 
@@ -64,7 +64,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           this.wrongCredential.next(false);
           this.saveAuthData(token);
-          this.snackBar('Successfully logged in!', 'OK')
+          this.openSnackBar('Successfully logged in!', 'OK');
           this.router.navigate(['/']);
         }
       }, error => {
@@ -88,7 +88,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.clearAuthData();
-    this.snackBar('Successfully logged out!', 'OK')
+    this.openSnackBar('Successfully logged out!', 'OK');
     this.router.navigate(['/']);
   }
 

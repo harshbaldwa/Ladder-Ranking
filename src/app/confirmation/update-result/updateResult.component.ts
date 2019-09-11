@@ -19,6 +19,9 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
   public setSwap: string;
   public p1: string;
   public player1 = true;
+  public valid1 = true;
+  public valid2 = true;
+  public valid3 = true;
 
   constructor(public route: ActivatedRoute, public ladderService: LadderService, private router: Router) { }
 
@@ -34,6 +37,11 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
   }
 
   updateScore(form: NgForm) {
+
+    this.valid1 = true;
+    this.valid2 = true;
+    this.valid3 = true;
+
     if (form.invalid) {
       return;
     }
@@ -48,6 +56,47 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
         swappedSet.push(data1);
       }
       this.setSwap = swappedSet.join(' ');
+    }
+
+    for (const a of this.matchSwap.split('-')) {
+      if (!(a.charCodeAt(0) <= 57 && a.charCodeAt(0) >= 48)) {
+        this.valid1 = false;
+      }
+    }
+
+    if (!this.valid1) {
+      return;
+    }
+
+    for (const a of this.setSwap.split(' ')) {
+      for (const b of a.split('-')) {
+        if (!(b.charCodeAt(0) <= 57 && b.charCodeAt(0) >= 48)) {
+          this.valid2 = false;
+        }
+      }
+    }
+
+    if (!this.valid2) {
+      return;
+    }
+
+    const count1 = this.matchSwap.split('-')[0].charCodeAt(0) - this.matchSwap.split('-')[1].charCodeAt(0);
+    let count2 = 0;
+
+    for (const a of this.setSwap.split(' ')) {
+      if (a.split('-')[0] > a.split('-')[1]) {
+        count2 = count2 + 1;
+      } else {
+        count2 = count2 - 1;
+      }
+    }
+
+    if (count1 !== count2) {
+      this.valid3 = false;
+    }
+
+    if (!this.valid3) {
+      return;
     }
 
     this.ladderService.updateScore(

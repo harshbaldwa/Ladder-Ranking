@@ -9,6 +9,9 @@
       <mat-label>Set Score</mat-label>
       <input type="text" matInput [(ngModel)]="setScore" required name=setScore>
     </mat-form-field>
+    <p style="color: #F62B14; font-size: 15px;" *ngIf="!valid1">Match Score must be a number!</p>
+    <p style="color: #F62B14; font-size: 15px;" *ngIf="!valid2">Set Score must be a number!</p>
+    <p style="color: #F62B14; font-size: 15px;" *ngIf="!valid3">This result doesn't make sense!</p>
     <button color='accent' mat-raised-button type="submit">Submit Result</button>
   </form>
 </mat-card>

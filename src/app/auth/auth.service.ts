@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material';
+import { LadderService } from '../app.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private wrongCredential = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar, private ladderService: LadderService) {}
 
   getToken() {
     return this.token;
@@ -66,6 +67,9 @@ export class AuthService {
           this.saveAuthData(token);
           this.openSnackBar('Successfully logged in!', 'OK');
           this.router.navigate(['/']);
+          this.ladderService.getNumberChallenge(response.id);
+          this.ladderService.getNumberConfirmations(response.id);
+          this.ladderService.getNumberPrevious(response.id);
         }
       }, error => {
         this.authStatusListener.next(false);

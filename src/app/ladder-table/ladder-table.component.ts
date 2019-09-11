@@ -30,7 +30,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
 
   table: LadderRanking[] = [];
   private tableSub: Subscription;
-  private sportsSub: Subscription;
+  public sportsSub: Subscription;
   userAuthenticated = false;
 
   issquash;

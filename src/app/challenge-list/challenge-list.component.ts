@@ -16,12 +16,16 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   private challengesSubR: Subscription;
   private challengesSubS: Subscription;
   public id = localStorage.getItem('_id');
+  private refresher: Subscription;
 
   constructor(public ladderService: LadderService) {}
 
   ngOnInit() {
-    this.ladderService.getChallengesR(this.id);
-    this.ladderService.getChallengesS(this.id);
+    this.refresher = timer(0, 2000)
+      .subscribe(data => {
+        this.ladderService.getChallengesR(this.id);
+        this.ladderService.getChallengesS(this.id);
+      });
     this.challengesSubR = this.ladderService.getChallengesRUpdateListener()
      .subscribe((challenges: Challenges[]) => {
       for (const challenge of challenges) {
@@ -91,5 +95,6 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.challengesSubR.unsubscribe();
     this.challengesSubS.unsubscribe();
+    this.refresher.unsubscribe();
   }
 }

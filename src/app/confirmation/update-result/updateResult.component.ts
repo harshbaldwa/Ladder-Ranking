@@ -84,9 +84,9 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
     let count2 = 0;
 
     for (const a of this.setSwap.split(' ')) {
-      if (a.split('-')[0] > a.split('-')[1]) {
+      if (Number(a.split('-')[0]) > Number(a.split('-')[1])) {
         count2 = count2 + 1;
-      } else {
+      } else if (Number(a.split('-')[0]) < Number(a.split('-')[1])) {
         count2 = count2 - 1;
       }
     }
@@ -99,13 +99,13 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.ladderService.updateScore(
-      this.id,
-      this.matchId,
-      this.matchSwap,
-      this.setSwap
-    );
-    this.ladderService.updatedResult(this.router);
+    // this.ladderService.updateScore(
+    //   this.id,
+    //   this.matchId,
+    //   this.matchSwap,
+    //   this.setSwap
+    // );
+    // this.ladderService.updatedResult(this.router);
   }
 
   ngOnDestroy() {

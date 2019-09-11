@@ -17,7 +17,7 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   constructor(public ladderService: LadderService) { }
 
   ngOnInit() {
-    this.refresher = timer(0, 2000)
+    this.refresher = timer(0, 10000)
       .subscribe(data => {
         this.ladderService.getConfirmations(this.id);
       });

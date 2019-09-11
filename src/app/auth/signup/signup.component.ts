@@ -19,10 +19,15 @@ export class SignupComponent {
   public pass: string;
   public pass1: string;
   public wrong = false;
+  public wrongNumber = false;
 
   constructor(public authService: AuthService) {}
 
   onSignup(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.wrongNumber = false;
     let sports = '';
     for (const sport of this.preferred) {
       sports = sport + ',' + sports;
@@ -31,7 +36,8 @@ export class SignupComponent {
       this.wrong = true;
       return;
     }
-    if (form.invalid) {
+    if (form.value.contact <= 9999999999 && form.value.contact >= 1000000000) {
+      this.wrongNumber = true;
       return;
     }
     this.authService.createUser(

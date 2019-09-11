@@ -58,7 +58,6 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       form.value.time,
       form.value.message
     );
-    form.resetForm();
     this.router.navigate(['/challenges']);
   }
 

@@ -58,6 +58,7 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput name="contact" [(ngModel)]="contact" placeholder="Mobile Number" required>
+      <p style="color: #F62B14; font-size: 15px;" *ngIf="wrongNumber">Please enter a valid number</p>
     </mat-form-field>
     <mat-form-field>
       <input type="password" name="password" matInput placeholder="Password" [(ngModel)]="pass" required>

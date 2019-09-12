@@ -20,7 +20,6 @@ import { MatToolbarModule,
          MatMenuModule,
          MatNativeDateModule,
          MatProgressSpinnerModule,
-         MatSnackBar,
          MatSnackBarModule
          } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

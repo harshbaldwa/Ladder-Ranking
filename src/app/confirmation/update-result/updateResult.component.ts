@@ -99,13 +99,13 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // this.ladderService.updateScore(
-    //   this.id,
-    //   this.matchId,
-    //   this.matchSwap,
-    //   this.setSwap
-    // );
-    // this.ladderService.updatedResult(this.router);
+    this.ladderService.updateScore(
+      this.id,
+      this.matchId,
+      this.matchSwap,
+      this.setSwap
+    );
+    this.ladderService.updatedResult(this.router);
   }
 
   ngOnDestroy() {

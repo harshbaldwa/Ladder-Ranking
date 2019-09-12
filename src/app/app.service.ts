@@ -11,6 +11,8 @@ import { Profile } from 'selenium-webdriver/firefox';
 import { MatSnackBar } from '@angular/material';
 import { environment } from '../environments/environment';
 
+import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
+
 const BackendURLNotifications = environment.apiUrl + 'notification/';
 const BackendURLLadder = environment.apiUrl + 'table/';
 const BackendURLChallenge = environment.apiUrl + 'challenge/';
@@ -29,12 +31,14 @@ export class LadderService {
   private sportsUpdate = new Subject<string[]>();
 
   private challengesN: number;
+  private challengesNOld: number;
   private challengesUpdatesN = new Subject<number>();
 
   private challengesP: number;
   private challengesUpdatesP = new Subject<number>();
 
   private challengesC: number;
+  private challengesCOld: number;
   private challengesUpdatesC = new Subject<number>();
 
 
@@ -56,7 +60,12 @@ export class LadderService {
   private player1: boolean;
   private player1Sub = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    public notifications: PushNotificationService
+  ) { }
 
 // Notifications
   getNumberChallenge(id: string) {
@@ -64,7 +73,13 @@ export class LadderService {
     this.http.post<string>(BackendURLNotifications + 'challengesN/', myId)
       .subscribe((notification) => {
         this.challengesN = Number(notification);
+        // tslint:disable: triple-equals
+        if (this.challengesN != this.challengesNOld && this.challengesNOld != undefined) {
+          this.myNotifi('New Challenge', 'You got a new challenge!', '/challenges');
+        }
         this.challengesUpdatesN.next(this.challengesN);
+        this.challengesNOld = this.challengesN;
+
       });
   }
 
@@ -90,7 +105,11 @@ export class LadderService {
     this.http.post<string>(BackendURLNotifications + 'challengesC/', myId)
       .subscribe((notification) => {
         this.challengesC = Number(notification);
+        if (this.challengesC != this.challengesCOld && this.challengesCOld != undefined) {
+          this.myNotifi('Confirm Result', 'You got a new confirmation!', '/confirmation/confirm');
+        }
         this.challengesUpdatesC.next(this.challengesC);
+        this.challengesCOld = this.challengesC;
       });
   }
 
@@ -334,6 +353,27 @@ export class LadderService {
 // SnackBar for all!
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, { duration: 2000 });
+  }
+
+// Notifications Bitches!!!
+  myNotifi(title: string, body: string, link: string) {
+    const options = new PushNotificationOptions();
+    options.body = body;
+
+    this.notifications.create(title, options).subscribe((notif) => {
+      if (notif.event.type === 'show') {
+        setTimeout(() => {
+          notif.notification.close();
+        }, 10000);
+      }
+      if (notif.event.type === 'click') {
+        this.router.navigate([link]);
+        notif.notification.close();
+      }
+    },
+      (err) => {
+        console.log(err);
+      });
   }
 
 }

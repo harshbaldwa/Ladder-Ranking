@@ -74,7 +74,7 @@ export class LadderService {
       .subscribe((notification) => {
         this.challengesN = Number(notification);
         // tslint:disable: triple-equals
-        if (this.challengesN != this.challengesNOld && this.challengesNOld != undefined) {
+        if (this.challengesN > this.challengesNOld && this.challengesNOld != undefined) {
           this.myNotifi('New Challenge', 'You got a new challenge!', '/challenges');
         }
         this.challengesUpdatesN.next(this.challengesN);
@@ -105,7 +105,7 @@ export class LadderService {
     this.http.post<string>(BackendURLNotifications + 'challengesC/', myId)
       .subscribe((notification) => {
         this.challengesC = Number(notification);
-        if (this.challengesC != this.challengesCOld && this.challengesCOld != undefined) {
+        if (this.challengesC > this.challengesCOld && this.challengesCOld != undefined) {
           this.myNotifi('Confirm Result', 'You got a new confirmation!', '/confirmation/confirm');
         }
         this.challengesUpdatesC.next(this.challengesC);

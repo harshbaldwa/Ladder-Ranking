@@ -36,7 +36,7 @@ export class SignupComponent {
       this.wrong = true;
       return;
     }
-    if (form.value.contact <= 9999999999 && form.value.contact >= 1000000000) {
+    if (form.value.contact >= 9999999999 && form.value.contact <= 1000000000) {
       this.wrongNumber = true;
       return;
     }

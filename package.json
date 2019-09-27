@@ -21,7 +21,9 @@
     "@angular/material": "^8.0.0",
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
+    "@angular/pwa": "^0.803.6",
     "@angular/router": "~8.0.0",
+    "@angular/service-worker": "~8.0.0",
     "amazing-time-picker": "^1.8.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
@@ -38,7 +40,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",
-    "@angular/cli": "~8.0.0",
+    "@angular/cli": "^8.3.6",
     "@angular/compiler-cli": "~8.0.0",
     "@angular/language-service": "~8.0.0",
     "@types/jasmine": "~3.3.8",

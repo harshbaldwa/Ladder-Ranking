@@ -40,6 +40,8 @@ import { UpdateResultComponent } from './confirmation/update-result/updateResult
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     AmazingTimePickerModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, PushNotificationService],
   bootstrap: [AppComponent]

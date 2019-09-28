@@ -73,7 +73,6 @@ export class LadderService {
     this.http.post<string>(BackendURLNotifications + 'challenges/', myId)
       .subscribe((notification) => {
         this.challengesN = Number(notification[0]);
-        console.log(this.challengesN);
         this.challengesP = Number(notification[1]);
         this.challengesC = Number(notification[2]);
         // tslint:disable: triple-equals

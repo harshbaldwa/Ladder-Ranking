@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../auth.service';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -13,8 +12,11 @@ export class SignupComponent {
   public roll: string;
   public hostel: string;
   public gender: string;
-  public category: string;
-  public preferred: string;
+  public categorySquash = '';
+  public categoryTT = '';
+  public categoryTennis = '';
+  public categoryBadminton = '';
+  public preferred = '';
   public contact: number;
   public pass: string;
   public pass1: string;
@@ -45,7 +47,10 @@ export class SignupComponent {
       form.value.roll,
       form.value.hostel,
       form.value.gender,
-      form.value.category,
+      form.value.categorySquash,
+      form.value.categoryTT,
+      form.value.categoryTennis,
+      form.value.categoryBadminton,
       sports,
       form.value.contact,
       form.value.password

@@ -39,11 +39,15 @@ export class AuthService {
     roll: string,
     hostel: string,
     gender: string,
-    category: string,
+    categorySquash: string,
+    categoryTT: string,
+    categoryTennis: string,
+    categoryBadminton: string,
     preferred: string,
     contact: string,
     password: string) {
-    const authData: AuthData = {name, roll, hostel, gender, category, preferred, contact, password};
+    // tslint:disable-next-line: max-line-length
+    const authData: AuthData = {name, roll, hostel, gender, categorySquash, categoryTT, categoryTennis, categoryBadminton, preferred, contact, password};
     this.http.post(environment.apiUrl + 'signup', authData)
       .subscribe();
     this.openSnackBar('Successfully signed up!', 'OK');

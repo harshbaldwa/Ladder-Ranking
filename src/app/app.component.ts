@@ -12,42 +12,24 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'ladder-ranking';
   private authSub: Subscription;
   public id: string;
-  private notifN: Subscription;
-  private notifC: Subscription;
-  private notifP: Subscription;
+  private notif: Subscription;
 
   constructor( private authService: AuthService, private ladderService: LadderService) {}
 
   ngOnInit() {
     this.authService.autoAuthUser();
     this.id = localStorage.getItem('_id');
-    this.notifN = timer(1000, 2000)
+    this.notif = timer(1000, 2000)
       .subscribe(data => {
-        this.ladderService.getNumberChallenge(this.id);
-      });
-    this.notifC = timer(1000, 2000)
-      .subscribe(data => {
-        this.ladderService.getNumberConfirmations(this.id);
-      });
-    this.notifP = timer(1000, 2000)
-      .subscribe(data => {
-        this.ladderService.getNumberPrevious(this.id);
+        this.ladderService.getNumber(this.id);
       });
     this.authSub = this.authService.getAuthStatusListener()
       .subscribe(harsh => {
         if (harsh) {
           this.id = localStorage.getItem('_id');
-          this.notifN = timer(1000, 2000)
+          this.notif = timer(1000, 2000)
             .subscribe(data => {
-              this.ladderService.getNumberChallenge(this.id);
-            });
-          this.notifC = timer(1000, 2000)
-            .subscribe(data => {
-              this.ladderService.getNumberConfirmations(this.id);
-            });
-          this.notifP = timer(1000, 2000)
-            .subscribe(data => {
-              this.ladderService.getNumberPrevious(this.id);
+              this.ladderService.getNumber(this.id);
             });
         }
       });
@@ -59,8 +41,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSub.unsubscribe();
-    this.notifN.unsubscribe();
-    this.notifC.unsubscribe();
-    this.notifP.unsubscribe();
+    this.notif.unsubscribe();
   }
 }

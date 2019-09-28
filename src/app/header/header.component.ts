@@ -28,9 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userAuthenticated = isAuthenticated;
       });
-    this.ladderService.getNumberChallenge(this.id);
-    this.ladderService.getNumberPrevious(this.id);
-    this.ladderService.getNumberConfirmations(this.id);
+    this.ladderService.getNumber(this.id);
     this.challengesN = this.ladderService.getChallengesNUpdateListener()
       .subscribe((notifications) => {
         this.notificationsN = notifications;

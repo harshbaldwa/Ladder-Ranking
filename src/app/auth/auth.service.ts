@@ -67,9 +67,7 @@ export class AuthService {
           this.saveAuthData(token);
           this.openSnackBar('Successfully logged in!', 'OK');
           this.router.navigate(['/']);
-          this.ladderService.getNumberChallenge(response.id);
-          this.ladderService.getNumberConfirmations(response.id);
-          this.ladderService.getNumberPrevious(response.id);
+          this.ladderService.getNumber(response.id);
         }
       }, error => {
         this.authStatusListener.next(false);

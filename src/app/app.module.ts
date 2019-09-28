@@ -82,7 +82,7 @@ import { environment } from '../environments/environment';
     AmazingTimePickerModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, PushNotificationService],
   bootstrap: [AppComponent]

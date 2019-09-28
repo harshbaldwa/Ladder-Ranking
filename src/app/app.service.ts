@@ -68,17 +68,28 @@ export class LadderService {
   ) { }
 
 // Notifications
-  getNumberChallenge(id: string) {
+  getNumber(id: string) {
     const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challengesN/', myId)
+    this.http.post<string>(BackendURLNotifications + 'challenges/', myId)
       .subscribe((notification) => {
-        this.challengesN = Number(notification);
+        this.challengesN = Number(notification[0]);
+        console.log(this.challengesN);
+        this.challengesP = Number(notification[1]);
+        this.challengesC = Number(notification[2]);
         // tslint:disable: triple-equals
         if (this.challengesN > this.challengesNOld && this.challengesNOld != undefined) {
           this.myNotifi('New Challenge', 'You got a new challenge!', '/challenges');
         }
         this.challengesUpdatesN.next(this.challengesN);
         this.challengesNOld = this.challengesN;
+
+        this.challengesUpdatesP.next(this.challengesP);
+
+        if (this.challengesC > this.challengesCOld && this.challengesCOld != undefined) {
+          this.myNotifi('Confirm Result', 'You got a new confirmation!', '/confirmation/confirm');
+        }
+        this.challengesUpdatesC.next(this.challengesC);
+        this.challengesCOld = this.challengesC;
 
       });
   }
@@ -87,30 +98,8 @@ export class LadderService {
     return this.challengesUpdatesN.asObservable();
   }
 
-  getNumberPrevious(id: string) {
-    const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challengesP/', myId)
-      .subscribe((notification) => {
-        this.challengesP = Number(notification);
-        this.challengesUpdatesP.next(this.challengesP);
-      });
-  }
-
   getChallengesPUpdateListener() {
     return this.challengesUpdatesP.asObservable();
-  }
-
-  getNumberConfirmations(id: string) {
-    const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challengesC/', myId)
-      .subscribe((notification) => {
-        this.challengesC = Number(notification);
-        if (this.challengesC > this.challengesCOld && this.challengesCOld != undefined) {
-          this.myNotifi('Confirm Result', 'You got a new confirmation!', '/confirmation/confirm');
-        }
-        this.challengesUpdatesC.next(this.challengesC);
-        this.challengesCOld = this.challengesC;
-      });
   }
 
   getChallengesCUpdateListener() {
@@ -171,7 +160,7 @@ export class LadderService {
     };
     this.http.post<{}>(BackendURLChallenge + 'addMatch', match)
       .subscribe(() => {
-        this.getNumberChallenge(p2Id);
+        this.getNumber(p2Id);
         this.openSnackBar('Challenge Sent!', 'OK!');
       });
   }
@@ -211,7 +200,7 @@ export class LadderService {
       .subscribe((result) => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
-        this.getNumberChallenge(id);
+        this.getNumber(id);
         this.challengesUpdatesR.next([...this.challengesR]);
       });
   }
@@ -222,7 +211,7 @@ export class LadderService {
       .subscribe(() => {
         const updatedChallenges = this.challengesR.filter(challenge => challenge._id !== id);
         this.challengesR = updatedChallenges;
-        this.getNumberChallenge(id);
+        this.getNumber(id);
         this.challengesUpdatesR.next([...this.challengesR]);
       });
   }
@@ -233,7 +222,7 @@ export class LadderService {
       .subscribe(() => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
-        this.getNumberChallenge(id);
+        this.getNumber(id);
         this.challengesUpdatesS.next([...this.challengesS]);
       });
   }
@@ -245,7 +234,7 @@ export class LadderService {
       .subscribe((result) => {
         const updatedChallenges = this.challengesS.filter(challenge => challenge._id !== id);
         this.challengesS = updatedChallenges;
-        this.getNumberChallenge(id);
+        this.getNumber(id);
         this.challengesUpdatesS.next([...this.challengesS]);
       });
   }

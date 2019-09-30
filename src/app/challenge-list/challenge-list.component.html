@@ -9,6 +9,7 @@
       <p> Date - {{ challenege.date }} </p>
       <p> Time - {{ challenege.time }} </p>
       <p> Message - {{ challenege.message }} </p>
+      <p>Contact Info - {{ challenege.contact2 }}</p>
       <mat-action-row>
         <button color='warn' (click)="onDeleteR(challenege._id)" mat-raised-button>Reject</button>
         <button color='primary' (click)="onConfirmChallenge(challenege._id)" mat-raised-button>Confirm</button>
@@ -26,6 +27,7 @@
       <p *ngIf="!challenege.rejected && !challenege.accepted"> Date - {{ challenege.date }} </p>
       <p *ngIf="!challenege.rejected && !challenege.accepted"> Time - {{ challenege.time }} </p>
       <p *ngIf="!challenege.rejected && !challenege.accepted"> Message - {{ challenege.message }} </p>
+      <p *ngIf="!challenege.rejected && !challenege.accepted"> Contact Info - {{ challenege.contact1 }} </p>
       <p *ngIf="challenege.rejected">Sorry! Your Challenge has been declined!</p>
       <p *ngIf="challenege.accepted">Yayy! Your Challenge has been accepted!</p>
       <mat-action-row>

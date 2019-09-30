@@ -11,4 +11,6 @@ export interface Challenges {
   rejected: boolean;
   accepted: boolean;
   ok: boolean;
+  contact1: number;
+  contact2: number;
 }

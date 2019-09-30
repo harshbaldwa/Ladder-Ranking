@@ -14,4 +14,6 @@ export interface PreviousMatch {
   winner_1: boolean;
   winner_2: boolean;
   p1_yes: boolean;
+  contact1: number;
+  contact2: number;
 }

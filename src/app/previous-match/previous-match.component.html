@@ -38,6 +38,8 @@
         {{data.set_score}} </p>
       <p *ngIf="data.confirm_1 || data.confirm_2"> Match Score :
         {{data.match_score}} </p>
+      <p *ngIf="data.p1_yes">Contact - {{ data.contact2 }}</p>
+      <p *ngIf="!data.p1_yes">Contact - {{ data.contact1 }}</p>
       <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
         <!-- <button mat-raised-button [routerLink]="">Report Issue?</button> -->
         <button mat-raised-button [routerLink]="['/confirmation/update/', data._id, data.p1_yes]">Update Result</button>

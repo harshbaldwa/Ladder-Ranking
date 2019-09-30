@@ -11,8 +11,6 @@ import { Profile } from 'selenium-webdriver/firefox';
 import { MatSnackBar } from '@angular/material';
 import { environment } from '../environments/environment';
 
-import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
-
 const BackendURLNotifications = environment.apiUrl + 'notification/';
 const BackendURLLadder = environment.apiUrl + 'table/';
 const BackendURLChallenge = environment.apiUrl + 'challenge/';
@@ -31,14 +29,12 @@ export class LadderService {
   private sportsUpdate = new Subject<string[]>();
 
   private challengesN: number;
-  private challengesNOld: number;
   private challengesUpdatesN = new Subject<number>();
 
   private challengesP: number;
   private challengesUpdatesP = new Subject<number>();
 
   private challengesC: number;
-  private challengesCOld: number;
   private challengesUpdatesC = new Subject<number>();
 
 
@@ -63,8 +59,7 @@ export class LadderService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar,
-    public notifications: PushNotificationService
+    private snackBar: MatSnackBar
   ) { }
 
 // Notifications

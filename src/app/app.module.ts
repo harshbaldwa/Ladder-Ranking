@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { PushNotificationService } from 'ngx-push-notifications';
-
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule,
@@ -84,7 +82,7 @@ import { environment } from '../environments/environment';
     MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, PushNotificationService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

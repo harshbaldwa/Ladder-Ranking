@@ -9,10 +9,9 @@
       <input matInput type="text" placeholder="Message" ngModel name="message" #message="ngModel" required>
     </mat-form-field><br>
     <mat-form-field>
-      <input matInput [min]="minDate" readonly="true" [matDatepicker]="picker" placeholder="Choose a date" name="date"
-        ngModel #date="ngModel" required>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker touchUi #picker></mat-datepicker>
+      <input matInput [min]="minDate" [matDatepicker]="dp" readonly="true" placeholder="Date" [formControl]="date">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
     </mat-form-field><br>
     <mat-form-field>
       <input matInput atp-time-picker readonly="true" placeholder="Time" name="time" ngModel #time="ngModel" required

@@ -71,7 +71,6 @@ export class AuthService {
           this.saveAuthData(token);
           this.openSnackBar('Successfully logged in!', 'OK');
           this.router.navigate(['/']);
-          this.ladderService.getNumber(response.id);
         }
       }, error => {
         this.authStatusListener.next(false);

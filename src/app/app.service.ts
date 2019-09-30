@@ -69,26 +69,17 @@ export class LadderService {
 
 // Notifications
   getNumber(id: string) {
-    const myId = { id };
-    this.http.post<string>(BackendURLNotifications + 'challenges/', myId)
+    this.http.get(BackendURLNotifications + 'challenges/' + id)
       .subscribe((notification) => {
         this.challengesN = Number(notification[0]);
         this.challengesP = Number(notification[1]);
         this.challengesC = Number(notification[2]);
         // tslint:disable: triple-equals
-        if (this.challengesN > this.challengesNOld && this.challengesNOld != undefined) {
-          this.myNotifi('New Challenge', 'You got a new challenge!', '/challenges');
-        }
         this.challengesUpdatesN.next(this.challengesN);
-        this.challengesNOld = this.challengesN;
 
         this.challengesUpdatesP.next(this.challengesP);
 
-        if (this.challengesC > this.challengesCOld && this.challengesCOld != undefined) {
-          this.myNotifi('Confirm Result', 'You got a new confirmation!', '/confirmation/confirm');
-        }
         this.challengesUpdatesC.next(this.challengesC);
-        this.challengesCOld = this.challengesC;
 
       });
   }
@@ -341,27 +332,6 @@ export class LadderService {
 // SnackBar for all!
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, { duration: 2000 });
-  }
-
-// Notifications Bitches!!!
-  myNotifi(title: string, body: string, link: string) {
-    const options = new PushNotificationOptions();
-    options.body = body;
-
-    this.notifications.create(title, options).subscribe((notif) => {
-      if (notif.event.type === 'show') {
-        setTimeout(() => {
-          notif.notification.close();
-        }, 10000);
-      }
-      if (notif.event.type === 'click') {
-        this.router.navigate([link]);
-        notif.notification.close();
-      }
-    },
-      (err) => {
-        console.log(err);
-      });
   }
 
 }

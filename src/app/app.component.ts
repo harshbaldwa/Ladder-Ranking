@@ -33,10 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
             });
         }
       });
-    const isGranted = this.ladderService.notifications.isPermissionGranted;
-    if (!isGranted) {
-      this.ladderService.notifications.requestPermission();
-    }
   }
 
   ngOnDestroy() {

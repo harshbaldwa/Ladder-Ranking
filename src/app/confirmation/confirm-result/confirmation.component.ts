@@ -65,6 +65,10 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
     this.ladderService.setFinalResult(this.id, matchId, p1Yes);
   }
 
+  secyDispute(matchId: string) {
+    this.ladderService.secy(matchId);
+  }
+
   ngOnDestroy() {
     this.confirmSub.unsubscribe();
     this.refresher.unsubscribe();

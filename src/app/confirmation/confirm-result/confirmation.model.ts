@@ -10,7 +10,7 @@ export interface Confirmations {
   set_score: string;
   confirm_1: boolean;
   confirm_2: boolean;
-  report_secy: boolean;
+  report_secy: string;
   winner_1: boolean;
   winner_2: boolean;
   p1_yes: boolean;

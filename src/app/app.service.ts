@@ -17,6 +17,7 @@ const BackendURLChallenge = environment.apiUrl + 'challenge/';
 const BackendURLPrevious = environment.apiUrl + 'previous/';
 const BackendURLProfile = environment.apiUrl + 'profile/';
 const BackendURLConfirmation = environment.apiUrl + 'confirmations/';
+const BackendURLSecy = environment.apiUrl + 'secy/';
 
 @Injectable({providedIn: 'root'})
 
@@ -324,9 +325,21 @@ export class LadderService {
         });
   }
 
+// Secy Response
+  secy(matchId: string) {
+    const dataSend = { matchId };
+    this.http.post(BackendURLSecy, dataSend)
+      .subscribe(data => {
+        const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);
+        this.confirmations = updatedConfirmations;
+        this.confirmationsUpdates.next([...this.confirmations]);
+        this.openSnackBar('Matter has been reported. Secy will take the final action!', 'OK');
+      });
+  }
+
 // SnackBar for all!
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2000 });
+    this.snackBar.open(message, action, { duration: 4000 });
   }
 
 }

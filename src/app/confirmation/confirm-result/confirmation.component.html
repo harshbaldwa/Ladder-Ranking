@@ -3,10 +3,10 @@
   <mat-accordion multi="true" *ngIf="confirmations">
     <mat-expansion-panel *ngFor="let data of confirmations">
       <mat-expansion-panel-header *ngIf="data.p1_yes">
-        {{ data.p2_name }}
+        {{ data.date }} - {{ data.p2_name }}
       </mat-expansion-panel-header>
       <mat-expansion-panel-header *ngIf="!data.p1_yes">
-        {{ data.p1_name }}
+        {{ data.date }} - {{ data.p1_name }}
       </mat-expansion-panel-header>
       <p> Sport - {{ data.sport }} </p>
       <p> Set Score - {{ data.set_score }} </p>
@@ -14,6 +14,7 @@
       <p *ngIf="data.p1_yes">Contact - {{ data.contact2 }}</p>
       <p *ngIf="!data.p1_yes">Contact - {{ data.contact1 }}</p>
       <mat-action-row>
+        <button (click)="secyDispute(data._id)" mat-raised-button>Report Issue</button>
         <button color="warn" (click)="rejectFinal(data._id)" mat-raised-button>Disagree</button>
         <button color="primary" (click)="confirmFinal(data._id, data.p1_yes)" mat-raised-button>Agree</button>
       </mat-action-row>

@@ -14,7 +14,7 @@
       <p *ngIf="data.p1_yes">Contact - {{ data.contact2 }}</p>
       <p *ngIf="!data.p1_yes">Contact - {{ data.contact1 }}</p>
       <mat-action-row>
-        <button (click)="secyDispute(data._id)" mat-raised-button>Report Issue</button>
+        <button (click)="secyDispute(data._id, data.p1_yes)" mat-raised-button>Report Issue</button>
         <button color="warn" (click)="rejectFinal(data._id)" mat-raised-button>Disagree</button>
         <button color="primary" (click)="confirmFinal(data._id, data.p1_yes)" mat-raised-button>Agree</button>
       </mat-action-row>

@@ -326,8 +326,8 @@ export class LadderService {
   }
 
 // Secy Response
-  secy(matchId: string) {
-    const dataSend = { matchId };
+  secy(matchId: string, whichPlayer: string) {
+    const dataSend = { matchId, whichPlayer };
     this.http.post(BackendURLSecy, dataSend)
       .subscribe(data => {
         const updatedConfirmations = this.confirmations.filter(confirmation => confirmation._id !== matchId);

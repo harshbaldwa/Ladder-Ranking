@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { LadderRanking } from './ladder.model';
-import { Subscription, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LadderService } from '../app.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';

@@ -59,6 +59,9 @@ export class LadderService {
   private tennisRankUpdate = new Subject<number>();
   private badmintonRankUpdate = new Subject<number>();
 
+  private categoryData: any;
+  private categoryUpdate = new Subject<any>();
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -409,6 +412,19 @@ export class LadderService {
         this.confirmationsUpdates.next([...this.confirmations]);
         this.openSnackBar('Matter has been reported. Secy will take the final action!', 'OK');
       });
+  }
+
+// Secy Category
+  secyCategory(sport: string) {
+    this.http.get(BackendURLSecy + 'players/' + sport)
+      .subscribe(data => {
+        this.categoryData = data;
+        this.categoryUpdate.next(this.categoryData);
+      });
+  }
+
+  secyCategoryUpdateListener() {
+    return this.categoryUpdate.asObservable();
   }
 
 // SnackBar for all!

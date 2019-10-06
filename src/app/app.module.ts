@@ -41,6 +41,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AboutComponent } from './about/about.component';
+import { SecyComponent } from './secy/secy.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AboutComponent } from './about/about.component';
     UpdateResultComponent,
     LoginComponent,
     SignupComponent,
-    AboutComponent
+    AboutComponent,
+    SecyComponent
   ],
   imports: [
     BrowserModule,

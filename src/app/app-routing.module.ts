@@ -11,6 +11,7 @@ import { UpdateResultComponent } from './confirmation/update-result/updateResult
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AboutComponent } from './about/about.component';
+import { SecyComponent } from './secy/secy.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'harsh/1434/secy/:sport', component: SecyComponent },
 ];
 
 @NgModule({

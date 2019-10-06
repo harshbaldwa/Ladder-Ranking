@@ -10,6 +10,7 @@ import { ConfirmationComponent } from './confirmation/confirm-result/confirmatio
 import { UpdateResultComponent } from './confirmation/update-result/updateResult.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'confirmation/confirm', component: ConfirmationComponent, canActivate: [AuthGuard] },
   { path: 'confirmation/update/:id/:p1', component: UpdateResultComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signup', component: SignupComponent },
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({

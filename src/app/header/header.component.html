@@ -13,6 +13,12 @@
       </button>
     </li>
     <li>
+      <button [routerLink]="['/about']" routerLinkActive="mat-accent" color="primary" mat-raised-button>
+        <mat-icon>info</mat-icon>
+        About
+      </button>
+    </li>
+    <li>
       <button *ngIf="userAuthenticated && notificationsC" matBadge matBadgeColor="accent" matBadge={{notificationsC}}
         matBadgeOverlap="true" routerLink="/confirmation/confirm" routerLinkActive="mat-accent" color="primary" mat-raised-button>
         <mat-icon>done</mat-icon>
@@ -82,6 +88,10 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #harsh="matMenu" >
+    <button mat-menu-item routerLink="/about">
+      <mat-icon>info</mat-icon>
+      <span>About</span>
+    </button>
     <button mat-menu-item routerLink="/signup">
       <mat-icon>person_add</mat-icon>
       <span>Signup</span>
@@ -99,6 +109,10 @@
     <button mat-menu-item routerLink="/">
       <mat-icon>home</mat-icon>
       <span>Home</span>
+    </button>
+    <button mat-menu-item routerLink="/about">
+      <mat-icon>info</mat-icon>
+      <span>About</span>
     </button>
     <button mat-menu-item routerLink="/confirmation/confirm">
       <mat-icon>done</mat-icon>

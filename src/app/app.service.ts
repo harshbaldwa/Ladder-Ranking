@@ -54,8 +54,10 @@ export class LadderService {
   private profileData: Profile;
   private profileUpdate = new Subject<Profile>();
 
-  private player1: boolean;
-  private player1Sub = new Subject<boolean>();
+  private squashRankUpdate = new Subject<number>();
+  private ttRankUpdate = new Subject<number>();
+  private tennisRankUpdate = new Subject<number>();
+  private badmintonRankUpdate = new Subject<number>();
 
   constructor(
     private http: HttpClient,
@@ -119,6 +121,63 @@ export class LadderService {
 
   getLadderUpdateListener() {
     return this.ladderUpdate.asObservable();
+  }
+
+// Getting the rank from ladder data
+  getSquashRankLadder(id: string) {
+    this.http.get<LadderRanking[]>(BackendURLLadder + 'squash')
+      .subscribe((ladderData) => {
+        const playerRank = ladderData.filter(player => player.id === id);
+        if (playerRank.length != 0) {
+          this.squashRankUpdate.next(playerRank[0].rank);
+        }
+      });
+  }
+
+  getTTRankLadder(id: string) {
+    this.http.get<LadderRanking[]>(BackendURLLadder + 'tt')
+      .subscribe((ladderData) => {
+        const playerRank = ladderData.filter(player => player.id === id);
+        if (playerRank.length != 0) {
+          this.ttRankUpdate.next(playerRank[0].rank);
+        }
+      });
+  }
+
+  getTennisRankLadder(id: string) {
+    this.http.get<LadderRanking[]>(BackendURLLadder + 'tennis')
+      .subscribe((ladderData) => {
+        const playerRank = ladderData.filter(player => player.id === id);
+        if (playerRank.length != 0) {
+          this.tennisRankUpdate.next(playerRank[0].rank);
+        }
+      });
+  }
+
+  getBadmintonRankLadder(id: string) {
+    this.http.get<LadderRanking[]>(BackendURLLadder + 'badminton')
+      .subscribe((ladderData) => {
+        const playerRank = ladderData.filter(player => player.id === id);
+        if (playerRank.length != 0) {
+          this.badmintonRankUpdate.next(playerRank[0].rank);
+        }
+      });
+  }
+
+  squashRankListener() {
+    return this.squashRankUpdate.asObservable();
+  }
+
+  ttRankListener() {
+    return this.ttRankUpdate.asObservable();
+  }
+
+  tennisRankListener() {
+    return this.tennisRankUpdate.asObservable();
+  }
+
+  badmintonRankListener() {
+    return this.badmintonRankUpdate.asObservable();
   }
 
 // Adding a new challenge to the database

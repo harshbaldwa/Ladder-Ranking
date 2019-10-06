@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
-  public isMobile = ( window.innerWidth < 960 );
+  public isMobile = ( window.innerWidth < 1200 );
   public id = localStorage.getItem('_id');
   public notificationsN = 0;
   public challengesN: Subscription;

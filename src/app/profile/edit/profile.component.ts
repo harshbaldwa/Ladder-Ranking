@@ -17,6 +17,10 @@ export class ProfileComponent implements OnInit {
   public sport = '';
   public name = '';
   public contact = '';
+  public categorySquash = '';
+  public categoryTT = '';
+  public categoryTennis = '';
+  public categoryBadminton = '';
 
   constructor(public service: LadderService, private snackBar: MatSnackBar) {}
 
@@ -30,6 +34,10 @@ export class ProfileComponent implements OnInit {
         this.hostel = this.profile.hostel;
         this.name = this.profile.name;
         this.contact = this.profile.contact;
+        this.categorySquash = this.profile.categorySquash;
+        this.categoryTT = this.profile.categoryTT;
+        this.categoryTennis = this.profile.categoryTennis;
+        this.categoryBadminton = this.profile.categoryBadminton;
       });
   }
 
@@ -41,12 +49,17 @@ export class ProfileComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+
     this.service.changeProfile(
       this.profile.id,
       form.value.name,
       form.value.hostel,
       form.value.gender,
       sportttr,
+      this.categorySquash,
+      this.categoryTT,
+      this.categoryTennis,
+      this.categoryBadminton,
       form.value.contact
     );
   }

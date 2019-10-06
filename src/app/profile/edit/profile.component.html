@@ -49,6 +49,46 @@
         <mat-option value="badminton">Badminton</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field *ngIf="this.sport.includes('squash')">
+      <mat-label>Category - Squash</mat-label>
+      <mat-select name="categorySquash" [(ngModel)]="categorySquash" placeholder="Category - Squash" required>
+        <mat-option value="Inter IIT Team">Inter IIT Team</mat-option>
+        <mat-option value="Inter IIT Camp">Inter IIT Camp</mat-option>
+        <mat-option value="Intermediate">Intermediate</mat-option>
+        <mat-option value="NSO">NSO</mat-option>
+        <mat-option value="Beginner">Beginner</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="this.sport.includes('tt')">
+      <mat-label>Category - Table Tennis</mat-label>
+      <mat-select name="categoryTT" [(ngModel)]="categoryTT" placeholder="Category - Table Tennis" required>
+        <mat-option value="Inter IIT Team">Inter IIT Team</mat-option>
+        <mat-option value="Inter IIT Camp">Inter IIT Camp</mat-option>
+        <mat-option value="Intermediate">Intermediate</mat-option>
+        <mat-option value="NSO">NSO</mat-option>
+        <mat-option value="Beginner">Beginner</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="this.sport.includes('tennis')">
+      <mat-label>Category - Lawn Tennis</mat-label>
+      <mat-select name="categoryTennis" [(ngModel)]="categoryTennis" placeholder="Category - Lawn Tennis" required>
+        <mat-option value="Inter IIT Team">Inter IIT Team</mat-option>
+        <mat-option value="Inter IIT Camp">Inter IIT Camp</mat-option>
+        <mat-option value="Intermediate">Intermediate</mat-option>
+        <mat-option value="NSO">NSO</mat-option>
+        <mat-option value="Beginner">Beginner</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="this.sport.includes('badminton')">
+      <mat-label>Category - Badminton</mat-label>
+      <mat-select name="categoryBadminton" [(ngModel)]="categoryBadminton" placeholder="Category - Badminton" required>
+        <mat-option value="Inter IIT Team">Inter IIT Team</mat-option>
+        <mat-option value="Inter IIT Camp">Inter IIT Camp</mat-option>
+        <mat-option value="Intermediate">Intermediate</mat-option>
+        <mat-option value="NSO">NSO</mat-option>
+        <mat-option value="Beginner">Beginner</mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-raised-button color='primary'>Update</button>
   </form>
 </mat-card>

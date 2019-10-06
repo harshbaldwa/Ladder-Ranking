@@ -267,13 +267,28 @@ export class LadderService {
     return this.profileUpdate.asObservable();
   }
 
-  changeProfile(id: string, name: string, hostel: string, gender: string, preferred: string, contact: string) {
+  changeProfile(
+    id: string,
+    name: string,
+    hostel: string,
+    gender: string,
+    preferred: string,
+    categorySquash: string,
+    categoryTT: string,
+    categoryTennis: string,
+    categoryBadminton: string,
+    contact: string
+  ) {
     const data = {
       id,
       name,
       hostel,
       gender,
       preferred,
+      categorySquash,
+      categoryTT,
+      categoryTennis,
+      categoryBadminton,
       contact
     };
     this.http.post(BackendURLProfile + 'update', data)

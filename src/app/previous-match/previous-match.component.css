@@ -9,22 +9,28 @@ button {
   margin: 10px;
 }
 
-.won {
-  background-color: #A1CCA5;
+.won,
+.won:hover {
+  background-color: #A1CCA5 !important;
 }
 
-.lost {
-  background-color: #E26D5A;
+.lost,
+.lost:hover {
+  background-color: #E26D5A !important;
 }
 
-.draw {
-  background-color: rgb(220, 184, 253);
+.draw,
+.draw:hover {
+  background-color: rgb(220, 184, 253) !important;
 }
 
-.awaiting {
-  background-color: #FFDA84;
+.awaiting,
+.awaiting:hover {
+  background-color: #FFDA84 !important;
 }
 
-.reported {
-  background-color: #586F7C;
+.reported,
+.reported:hover {
+  background-color: #586F7C !important;
 }
+

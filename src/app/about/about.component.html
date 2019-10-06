@@ -6,14 +6,14 @@
       </div>
       <mat-card-title>Signing Up</mat-card-title>
     </mat-card-header>
-    <mat-card-content style="font-size: 100%;">
+    <mat-card-content>
+      <br>
       <p>
         If you are new to Ladder Ranking, please sign up by clicking on  <button mat-raised-button [routerLink]="['/signup']"  color="primary">Signup</button>  button.
       </p>
-      <br>
       <ul class='no-margin'>
         <li>
-          Enter your details in the signup form.
+          Enter your complete details in the signup form (Full Name).
         </li><br>
         <li>
           We have made following 5 categories for all 4 sports. Different categories have different starting point distribution. Choose the one most suitable for you
@@ -53,18 +53,26 @@
       <mat-card-title>Ladder Table</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-        Sagittis id consectetur purus ut faucibus.
-      </p>
+      <br>
+      <ul class="no-margin">
+        <li>
+          View the Ladder Table by clicking the  <button mat-raised-button [routerLink]="['/']" color="primary">Home</button>  button.
+        </li><br>
+        <li>
+          Select Your Sport from the selector in the top left corner of the screen.
+        </li><br>
+        <li>
+          You can also filter the table by searching in the search bar.
+        </li><br>
+        <li>
+          Clicking on any player will give you their overall profile and you can challenge them by pressing the Challenge button.
+        </li><br>
+      </ul>
+      <em>
+        <p>
+          You can only challenge in the sport you have selected from drop-down box!
+        </p>
+      </em>
     </mat-card-content>
   </mat-card>
 
@@ -76,18 +84,20 @@
       <mat-card-title>Challenging a Player</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-        Sagittis id consectetur purus ut faucibus.
-      </p>
+      <br>
+      <ul class="no-margin">
+        <li>
+          After pressing challenge button from ladder table, you would be redirected to a Challenge Page.
+        </li><br>
+        <li>
+          Here select a date, time and a message that would be displayed to the player you are challenging.
+        </li><br>
+      </ul>
+      <em>
+        <p>
+          The sport would be metioned on the page
+        </p>
+      </em>
     </mat-card-content>
   </mat-card>
 
@@ -101,18 +111,48 @@
       <mat-card-title>Accepting Challenges</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-        Sagittis id consectetur purus ut faucibus.
-      </p>
+      <br>
+      <ul class="no-margin">
+        <li>
+          Challenges Sent and Received can be seen from the <button mat-raised-button [routerLink]="['/challenges']" color="primary">Challenges</button> Tab
+        </li><br>
+        <li>
+          You can see the date and time of a challenge by tapping on the challenge and can also accept and reject from there only.
+        </li><br>
+        <li>
+          You can also delete a challenge sent by clicking Undo button.
+        </li><br>
+        <li>If your challenge has been accepted by the opponent, it will to green. If it has been rejected, it would be red.</li>
+      </ul>
+      <em> Here are some examples </em><br><br>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          John Doe
+        </mat-expansion-panel-header>
+        <p> Sport - Squash </p>
+        <p> Date - 08/10/2019</p>
+        <p> Time - 6:00 PM</p>
+        <p> Message - Lets play in court 3 </p>
+        <p>Contact Info - 7742895101</p>
+        <mat-action-row>
+          <button color='warn' mat-raised-button>Reject</button>
+          <button color='primary' mat-raised-button>Confirm</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      <br>
+      <mat-expansion-panel class="accepted">
+        <mat-expansion-panel-header class="accepted">
+          John Doe
+        </mat-expansion-panel-header>
+        <p>Yayy! Your Challenge has been accepted!</p>
+      </mat-expansion-panel>
+      <br>
+      <mat-expansion-panel class="rejected">
+        <mat-expansion-panel-header class="rejected">
+          John Doe
+        </mat-expansion-panel-header>
+        <p>Sorry! Your Challenge has been declined!</p>
+      </mat-expansion-panel>
     </mat-card-content>
   </mat-card>
 
@@ -126,18 +166,99 @@
       <mat-card-title>Updating Result</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-        Sagittis id consectetur purus ut faucibus.
-      </p>
+      <br>
+      <ul class="no-margin">
+        <li>
+          After the match has been concluded, you must update the result. To do so, go to the <button mat-raised-button [routerLink]="['/previous']" color="primary">Recent Matches</button> tab and click on the match for which you want to update the result.
+        </li><br>
+        <li>
+          Entering Score is little tricky. But pay attention and you would be fine.
+        </li><br>
+        <li>
+          <strong>Match Score</strong>: (Number of sets you have won) - (Number of sets opponent has won)<br>
+          <p><em>Eg.</em> 3-2</p>
+        </li><br>
+        <li>
+          <strong>Set Score</strong>: (Number of points you have in each set) - (Number of points opponent has in each set)<br>
+          <p><em>Eg.</em> 11-9 11-3 4-11 6-11 11-9</p>
+          <em>(Separated by space)</em>
+        </li><br>
+        <li>
+          After this, you would be redirected to the Recent Matches page. Here, all matches are color-coded for your convenience.
+        </li>
+      </ul>
+      <em> Here are some examples </em><br><br>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          08/10/2019 - John Doe
+        </mat-expansion-panel-header>
+        <p>Sport: Squash </p>
+        <p>Contact Info - 7742895101</p>
+        <mat-action-row>
+          <button color='primary' mat-raised-button>Update Result</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      <strong>
+        <p>Awaiting Confirmation</p>
+      </strong>
+      <mat-expansion-panel class="awaiting">
+        <mat-expansion-panel-header class="awaiting">
+          08/10/2019 - John Doe
+        </mat-expansion-panel-header>
+        <p>Sport: Squash </p>
+        <p>Match Score: 3-2</p>
+        <p>Set Score: 11-9 | 11-3 | 4-11 | 6-11 | 11-9</p>
+        <p>Contact Info - 7742895101</p>
+      </mat-expansion-panel>
+      <strong>
+        <p>Won the Match</p>
+      </strong>
+      <mat-expansion-panel class="won">
+        <mat-expansion-panel-header class="won">
+          08/10/2019 - John Doe
+        </mat-expansion-panel-header>
+        <p>Sport: Squash </p>
+        <p>Match Score: 3-2</p>
+        <p>Set Score: 11-9 | 11-3 | 4-11 | 6-11 | 11-9</p>
+        <p>Contact Info - 7742895101</p>
+      </mat-expansion-panel>
+      <strong>
+        <p>Lost the Match</p>
+      </strong>
+      <mat-expansion-panel class="lost">
+        <mat-expansion-panel-header class="lost">
+          08/10/2019 - John Doe
+        </mat-expansion-panel-header>
+        <p>Sport: Squash </p>
+        <p>Match Score: 3-2</p>
+        <p>Set Score: 11-9 | 11-3 | 4-11 | 6-11 | 11-9</p>
+        <p>Contact Info - 7742895101</p>
+      </mat-expansion-panel>
+      <strong>
+        <p>Draw</p>
+      </strong>
+      <mat-expansion-panel class="draw">
+        <mat-expansion-panel-header class="draw">
+          08/10/2019 - John Doe
+        </mat-expansion-panel-header>
+        <p>Sport: Squash </p>
+        <p>Match Score: 3-2</p>
+        <p>Set Score: 11-9 | 11-3 | 4-11 | 6-11 | 11-9</p>
+        <p>Contact Info - 7742895101</p>
+      </mat-expansion-panel>
+      <strong>
+        <p>Reported to Secy</p>
+      </strong>
+      <mat-expansion-panel class="reported">
+        <mat-expansion-panel-header class="reported">
+          08/10/2019 - John Doe
+        </mat-expansion-panel-header>
+        <p>Sport: Squash </p>
+        <p>Match Score: 3-2</p>
+        <p>Set Score: 11-9 | 11-3 | 4-11 | 6-11 | 11-9</p>
+        <p>Contact Info - 7742895101</p>
+        <p>Reported to Secy by You</p>
+      </mat-expansion-panel>
     </mat-card-content>
   </mat-card>
 
@@ -151,18 +272,16 @@
       <mat-card-title>Confirming Result</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-        Sagittis id consectetur purus ut faucibus.
-      </p>
+      <br>
+      <ul class="no-margin">
+        <li>
+          You can confirm results by visiting  <button color='primary' [routerLink]="['/confirmation/confirm']" mat-raised-button>Confirm Result</button>  tab.
+        </li><br>
+        <li>
+          You can confirm result and if you feel any discrepancy in the result updated by your opponent, report the matter to the secy by selecting Report Issue option present alng with Accept and Reject.
+        </li>
+      </ul>
+      <em>Secy's Decision would be the FINAL DECISION!!</em>
     </mat-card-content>
   </mat-card>
 
@@ -176,19 +295,18 @@
       <mat-card-title>Editing Profile</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-        Sagittis id consectetur purus ut faucibus.
-      </p>
-      <!-- <img src='../../assets/harsh.png'> -->
+      <br>
+      <ul class="no-margin">
+        <li>
+          You can update your basic details from <button color="primary" [routerLink]="['/profile/edit']" mat-raised-button>Profile</button>  Tab.
+        </li><br>
+        <li>
+          Your ranking in sports that you have registered for would be visible here.
+        </li><br>
+        <li>
+          If you are adding a new sport in your profile, make sure you enter corresponding category for that sport.
+        </li><br>
+      </ul>
     </mat-card-content>
   </mat-card>
 
@@ -202,9 +320,14 @@
       <mat-card-title>About Developer</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <br>
       <div class="img-container">
         <img src='../../assets/harsh.png'><br><br>
-        <a style="font-size: 150%; text-decoration: none;">Harshvardhan Baldwa</a><br>
+        <h3>Harshvardhan Baldwa</h3>
+        <p style="font-size: 115%;">Technical Head<br>IITB Sports</p>
+        <a href="https://github.com/harshbaldwa/ladderRanking" style="text-decoration: none;">
+          <strong>Source Code <img src="../../assets/github.png"></strong>
+        </a>
       </div>
     </mat-card-content>
   </mat-card>

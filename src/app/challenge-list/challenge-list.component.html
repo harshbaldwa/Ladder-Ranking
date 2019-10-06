@@ -20,7 +20,8 @@
   <h1 class='mat-heading'>Challenges Sent</h1>
   <mat-accordion multi="true" *ngIf="challengesS">
     <mat-expansion-panel *ngFor="let challenege of challengesS" [ngClass]="{ 'rejected': (challenege.rejected == true), 'accepted': (challenege.accepted == true)}" >
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header
+        [ngClass]="{ 'rejected': (challenege.rejected == true), 'accepted': (challenege.accepted == true)}">
         {{ challenege.p1_name }}
       </mat-expansion-panel-header>
       <p *ngIf="!challenege.rejected && !challenege.accepted"> Sport - {{ challenege.sport }} </p>

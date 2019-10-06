@@ -12,10 +12,12 @@ button {
   margin: 1rem auto;
 }
 
-.rejected {
-  background-color: #E26D5A;
+.rejected,
+.rejected:hover {
+  background-color: #E26D5A !important;
 }
 
-.accepted {
-  background-color: #A1CCA5;
+.accepted,
+.accepted:hover {
+  background-color: #A1CCA5 !important;
 }

@@ -17,9 +17,54 @@ img {
 }
 
 .container {
-  margin-bottom: 50px;
+  margin-bottom: 15%;
 }
 
 .no-margin {
-  margin-left: -10px;
+  margin-left: -15px;
+}
+
+.mat-card-content {
+  font-size:100%;
+}
+
+.rejected,
+.rejected:hover {
+  background-color: #E26D5A !important;
+}
+
+.accepted,
+.accepted:hover {
+  background-color: #A1CCA5 !important;
+}
+
+.won,
+.won:hover {
+  background-color: #A1CCA5 !important;
+}
+
+.lost,
+.lost:hover {
+  background-color: #E26D5A !important;
+}
+
+.draw,
+.draw:hover {
+  background-color: rgb(220, 184, 253) !important;
+}
+
+.awaiting,
+.awaiting:hover {
+  background-color: #FFDA84 !important;
+}
+
+.reported,
+.reported:hover {
+  background-color: #586F7C !important;
+}
+
+a:visited, a:hover, a {
+  cursor: pointer;
+  color: #3f51b5;
+
 }

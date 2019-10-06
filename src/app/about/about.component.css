@@ -3,3 +3,23 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+
+.mat-card-header {
+  text-align: center;
+}
+
+img {
+  border-radius: 50%;
+}
+
+.img-container {
+  text-align: center;
+}
+
+.container {
+  margin-bottom: 50px;
+}
+
+.no-margin {
+  margin-left: -10px;
+}

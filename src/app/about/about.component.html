@@ -1,169 +1,211 @@
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>person_add</mat-icon>
-    </div>
-    <mat-card-title>Signing Up</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>person_add</mat-icon>
+      </div>
+      <mat-card-title>Signing Up</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="font-size: 100%;">
+      <p>
+        If you are new to Ladder Ranking, please sign up by clicking on  <button mat-raised-button [routerLink]="['/signup']"  color="primary">Signup</button>  button.
+      </p>
+      <br>
+      <ul class='no-margin'>
+        <li>
+          Enter your details in the signup form.
+        </li><br>
+        <li>
+          We have made following 5 categories for all 4 sports. Different categories have different starting point distribution. Choose the one most suitable for you
+          <br><br>
+          <ul class="no-margin">
+            <li>
+              <strong>Beginner</strong> - 200 points
+            </li>
+            <li>
+              <strong>NSO</strong> - 300 points
+            </li>
+            <li>
+              <strong>Intermediate</strong> - 500 points
+            </li>
+            <li>
+              <strong>Inter IIT Camp</strong> - 700 points
+            </li>
+            <li>
+              <strong>Inter IIT Team</strong> - 800 points
+            </li>
+          </ul>
+          <br>
+          <em>Secys have the authority to change your category</em>
+        </li><br>
+      </ul>
+      <p>
+        If you have already registered, then login using  <button mat-raised-button [routerLink]="['/login']" color="primary">Login</button>  button and start playing!
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>sports_tennis</mat-icon>
-    </div>
-    <mat-card-title>Ladder Table</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>sports_tennis</mat-icon>
+      </div>
+      <mat-card-title>Ladder Table</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
+        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
+        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
+        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
+        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
+        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
+        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
+        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
+        Sagittis id consectetur purus ut faucibus.
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>add</mat-icon>
-    </div>
-    <mat-card-title>Challenging a Player</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>add</mat-icon>
+      </div>
+      <mat-card-title>Challenging a Player</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
+        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
+        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
+        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
+        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
+        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
+        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
+        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
+        Sagittis id consectetur purus ut faucibus.
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>
-        list_alt
-      </mat-icon>
-    </div>
-    <mat-card-title>Accepting Challenges</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>
+          list_alt
+        </mat-icon>
+      </div>
+      <mat-card-title>Accepting Challenges</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
+        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
+        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
+        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
+        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
+        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
+        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
+        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
+        Sagittis id consectetur purus ut faucibus.
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>
-        history
-      </mat-icon>
-    </div>
-    <mat-card-title>Updating Result</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>
+          history
+        </mat-icon>
+      </div>
+      <mat-card-title>Updating Result</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
+        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
+        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
+        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
+        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
+        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
+        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
+        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
+        Sagittis id consectetur purus ut faucibus.
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>
-        done
-      </mat-icon>
-    </div>
-    <mat-card-title>Confirming Result</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>
+          done
+        </mat-icon>
+      </div>
+      <mat-card-title>Confirming Result</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
+        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
+        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
+        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
+        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
+        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
+        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
+        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
+        Sagittis id consectetur purus ut faucibus.
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon>
-        person
-      </mat-icon>
-    </div>
-    <mat-card-title>Editing Profile</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
-      augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
-      ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
-      nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
-      Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
-      egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
-      lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
-      justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
-      Sagittis id consectetur purus ut faucibus.
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>
+          person
+        </mat-icon>
+      </div>
+      <mat-card-title>Editing Profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Velit aliquet sagittis id consectetur purus. Arcu odio ut sem nulla pharetra diam. Vitae auctor eu
+        augue ut lectus arcu bibendum at. Tempus iaculis urna id volutpat lacus laoreet. Nunc eget lorem dolor sed viverra
+        ipsum. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Vitae purus faucibus ornare suspendisse sed
+        nisi. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Sed euismod nisi porta lorem mollis.
+        Cursus risus at ultrices mi tempus imperdiet nulla. Arcu bibendum at varius vel. Vel facilisis volutpat est velit
+        egestas dui. Mi quis hendrerit dolor magna eget est lorem ipsum. In pellentesque massa placerat duis ultricies
+        lacus sed. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Mattis rhoncus urna neque viverra
+        justo nec ultrices dui sapien. Arcu vitae elementum curabitur vitae nunc sed velit. In vitae turpis massa sed.
+        Sagittis id consectetur purus ut faucibus.
+      </p>
+      <!-- <img src='../../assets/harsh.png'> -->
+    </mat-card-content>
+  </mat-card>
 
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>
+          code
+        </mat-icon>
+      </div>
+      <mat-card-title>About Developer</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="img-container">
+        <img src='../../assets/harsh.png'><br><br>
+        <a style="font-size: 150%; text-decoration: none;">Harshvardhan Baldwa</a><br>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

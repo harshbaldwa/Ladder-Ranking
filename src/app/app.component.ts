@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { LadderService } from './app.service';
+import { UpdateService } from './update.service';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public id: string;
   private notif: Subscription;
 
-  constructor( private authService: AuthService, private ladderService: LadderService) {}
+  constructor( private update: UpdateService, private authService: AuthService, private ladderService: LadderService) {}
 
   ngOnInit() {
     this.authService.autoAuthUser();

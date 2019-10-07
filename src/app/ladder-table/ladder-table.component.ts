@@ -24,11 +24,13 @@ import { AuthService } from '../auth/auth.service';
 export class LadderTableComponent implements OnInit, OnDestroy {
 
   sportName = new FormControl('');
+  gender = new FormControl('');
   filter = new FormControl('');
   private authSubs: Subscription;
   public Id = localStorage.getItem('_id');
 
-  table: LadderRanking[] = [];
+  tableM: LadderRanking[] = [];
+  tableF: LadderRanking[] = [];
   private tableSub: Subscription;
   public sportsSub: Subscription;
   userAuthenticated = false;
@@ -38,7 +40,10 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   istennis;
   isbadminton;
 
-  dataSource;
+  ismale = true;
+
+  dataSourceMale;
+  dataSourceFemale;
 
   displayedColumns: string[] = ['rank', 'username', 'points'];
   expandedElement: LadderRanking | null;
@@ -54,6 +59,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
       this.sportName.setValue('squash');
       localStorage.setItem('sport', 'squash');
     }
+    this.gender.setValue('male');
     this.ladderService.getSports(localStorage.getItem('_id'));
     this.sportName.setValue(localStorage.getItem('sport'));
     this.sportsSub = this.ladderService.getSportsUpdateListener()
@@ -81,8 +87,23 @@ export class LadderTableComponent implements OnInit, OnDestroy {
     this.ladderService.getLadder(this.sportName.value);
     this.tableSub = this.ladderService.getLadderUpdateListener()
       .subscribe((table: LadderRanking[]) => {
-        this.table = table;
-        this.dataSource = new MatTableDataSource(table);
+        this.tableM = [];
+        this.tableF = [];
+        let countM = 1;
+        let countF = 1;
+        for (const player of table) {
+          if (player.gender === 'male') {
+            player.rank = countM;
+            this.tableM.push(player);
+            countM = countM + 1;
+          } else {
+            player.rank = countF;
+            this.tableF.push(player);
+            countF = countF + 1;
+          }
+        }
+        this.dataSourceMale = new MatTableDataSource(this.tableM);
+        this.dataSourceFemale = new MatTableDataSource(this.tableF);
       });
     this.userAuthenticated = this.authService.getIsAuth();
     this.authSubs = this.authService.getAuthStatusListener().subscribe(
@@ -92,8 +113,8 @@ export class LadderTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: string, dataSource: MatTableDataSource<LadderRanking[]>) {
+    dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   getTable(sport: string) {
@@ -101,9 +122,31 @@ export class LadderTableComponent implements OnInit, OnDestroy {
     this.ladderService.getLadder(sport);
     this.tableSub = this.ladderService.getLadderUpdateListener()
       .subscribe((table: LadderRanking[]) => {
-        this.table = table;
+        this.tableM = [];
+        this.tableF = [];
+        let countM = 1;
+        let countF = 1;
+        for (const player of table) {
+          if (player.gender === 'male') {
+            player.rank = countM;
+            this.tableM.push(player);
+            countM = countM + 1;
+          } else {
+            player.rank = countF;
+            this.tableF.push(player);
+            countF = countF + 1;
+          }
+        }
       });
     this.filter.setValue('');
+  }
+
+  getTableGender(gender: string) {
+    if (gender === 'male') {
+      this.ismale = true;
+    } else {
+      this.ismale = false;
+    }
   }
 
   ngOnDestroy() {

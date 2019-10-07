@@ -4,6 +4,7 @@ export interface LadderRanking {
   username: string;
   points: number;
   category: string;
+  gender: string;
   matchPlayed: number;
   matchWon: number;
 }

@@ -38,6 +38,9 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
             case 'badminton':
               entry.sport = 'Badminton';
               break;
+            case 'fifa':
+              entry.sport = 'FIFA';
+              break;
             default:
               break;
           }

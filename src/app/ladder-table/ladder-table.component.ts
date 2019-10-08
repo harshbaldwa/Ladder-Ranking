@@ -39,8 +39,11 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   istt;
   istennis;
   isbadminton;
+  isfifa;
 
   ismale = true;
+
+  trophy = '';
 
   dataSourceMale;
   dataSourceFemale;
@@ -56,6 +59,7 @@ export class LadderTableComponent implements OnInit, OnDestroy {
       this.istt = true;
       this.istennis = true;
       this.isbadminton = true;
+      this.isfifa = true;
       this.sportName.setValue('squash');
       localStorage.setItem('sport', 'squash');
     }
@@ -77,6 +81,9 @@ export class LadderTableComponent implements OnInit, OnDestroy {
               break;
             case 'badminton':
               this.isbadminton = true;
+              break;
+            case 'fifa':
+              this.isfifa = true;
               break;
             default:
               break;

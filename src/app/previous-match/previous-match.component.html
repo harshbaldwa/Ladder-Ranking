@@ -45,10 +45,15 @@
       </mat-expansion-panel-header>
       <p> Sport:
         {{data.sport}} </p>
-      <p *ngIf="data.confirm_1 || data.confirm_2"> Match Score :
+      <p *ngIf="(data.confirm_1 || data.confirm_2) && (data.sport !== 'fifa')"> Match Score :
         {{data.match_score}} </p>
-      <p *ngIf="data.confirm_1 || data.confirm_2"> Set Score :
+      <p *ngIf="(data.confirm_1 || data.confirm_2) && (data.sport === 'fifa')"> Overall Score :
+          {{data.match_score}} </p>
+      <p *ngIf="(data.confirm_1 || data.confirm_2) && (data.sport !== 'fifa')"> Set Score :
         {{data.set_score}} </p>
+      <p *ngIf="(data.confirm_1 || data.confirm_2) && (data.sport === 'fifa')"> Individual Match Score :
+        {{data.set_score}} </p>
+
       <p *ngIf="data.p1_yes">Contact - {{ data.contact2 }}</p>
       <p *ngIf="!data.p1_yes">Contact - {{ data.contact1 }}</p>
       <p *ngIf="data.report_secy == 'p1' && data.p1_yes">This has been reported to the secy by You</p>
@@ -57,7 +62,7 @@
       <p *ngIf="data.report_secy == 'p2' && !data.p1_yes">This has been reported to the secy by You</p>
       <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
         <button mat-raised-button (click)="secyDispute(data._id, data.p1_yes)">Report Issue?</button>
-        <button mat-raised-button color="primary" [routerLink]="['/confirmation/update/', data._id, data.p1_yes]">Update Result</button>
+        <button mat-raised-button color="primary" [routerLink]="['/confirmation/update/', data._id, data.p1_yes, data.sport]">Update Result</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

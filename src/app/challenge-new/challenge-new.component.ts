@@ -65,6 +65,9 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
       case 'badminton':
         this.sport = 'Badminton';
         break;
+      case 'fifa':
+        this.sport = 'FIFA';
+        break;
       default:
         break;
     }

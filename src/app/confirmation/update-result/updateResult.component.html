@@ -2,11 +2,13 @@
 <mat-card style="width: 70%; margin: auto; margin-top: 1rem;">
   <form (submit)="updateScore(scoreForm)" #scoreForm = "ngForm">
     <mat-form-field>
-      <mat-label>Match Score</mat-label>
+      <mat-label *ngIf="sport !== 'FIFA'">Match Score</mat-label>
+      <mat-label *ngIf="sport === 'FIFA'">Overall Score</mat-label>
       <input type="text" matInput [(ngModel)]="matchScore" required name="matchScore">
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Set Score</mat-label>
+      <mat-label *ngIf="sport !== 'FIFA'">Set Score</mat-label>
+      <mat-label *ngIf="sport === 'FIFA'">Individual Match Score</mat-label>
       <input type="text" matInput [(ngModel)]="setScore" required name=setScore>
     </mat-form-field>
     <p style="color: #F62B14; font-size: 15px;" *ngIf="!valid1">Match Score must be a number!</p>

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LadderService } from 'src/app/app.service';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   templateUrl: './updateResult.component.html',
@@ -13,6 +13,7 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
 
   public matchId: string;
   public id: string;
+  public sport: string;
   public matchScore: string;
   public setScore: string;
   public matchSwap: string;
@@ -29,6 +30,7 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       this.matchId = paramMap.get('id');
       this.p1 = paramMap.get('p1');
+      this.sport = paramMap.get('sport');
     });
     this.id = localStorage.getItem('_id');
     if (this.p1 === 'false') {

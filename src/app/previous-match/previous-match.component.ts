@@ -58,6 +58,18 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
     });
   }
 
+  secyDispute(matchId: string, p1Yes: boolean) {
+    let p1 = '';
+
+    if (p1Yes) {
+      p1 = 'p1';
+    } else {
+      p1 = 'p2';
+    }
+
+    this.ladderService.secy(matchId, p1);
+  }
+
   ngOnDestroy() {
     this.previousSub.unsubscribe();
     this.refresher.unsubscribe();

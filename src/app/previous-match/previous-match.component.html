@@ -56,7 +56,7 @@
       <p *ngIf="data.report_secy == 'p2' && data.p1_yes">This has been reported to the secy by {{ data.p2_name }}</p>
       <p *ngIf="data.report_secy == 'p2' && !data.p1_yes">This has been reported to the secy by You</p>
       <mat-action-row *ngIf="!data.confirm_1 && !data.confirm_2">
-        <!-- <button mat-raised-button [routerLink]="">Report Issue?</button> -->
+        <button mat-raised-button (click)="secyDispute(data._id, data.p1_yes)">Report Issue?</button>
         <button mat-raised-button color="primary" [routerLink]="['/confirmation/update/', data._id, data.p1_yes]">Update Result</button>
       </mat-action-row>
     </mat-expansion-panel>

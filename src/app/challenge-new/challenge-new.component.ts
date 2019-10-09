@@ -6,6 +6,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as _moment from 'moment';
+import { Title } from '@angular/platform-browser';
 
 export const MY_FORMATS = {
   parse: {
@@ -43,7 +44,9 @@ export class ChallengeNewComponent implements OnInit, OnDestroy {
   sport1: string;
   minDate = new Date();
 
-  constructor(public service: LadderService, public route: ActivatedRoute, private router: Router) {}
+  constructor(public service: LadderService, public route: ActivatedRoute, private router: Router, private titleService: Title) {
+    this.titleService.setTitle('New Challenge | Ladder Ranking');
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {

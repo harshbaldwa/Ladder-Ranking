@@ -3,6 +3,7 @@ import { LadderService } from 'src/app/app.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './profile.component.html',
@@ -30,7 +31,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public rankTennis1 = 0 ;
   public rankBadminton1 = 0;
 
-  constructor(public service: LadderService, private snackBar: MatSnackBar) {}
+  constructor(public service: LadderService, private snackBar: MatSnackBar, private titleService: Title) {
+    this.titleService.setTitle('Profile | Ladder Ranking');
+  }
 
   ngOnInit() {
     this.service.getSquashRankLadder(localStorage.getItem('_id'));

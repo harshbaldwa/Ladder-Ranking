@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LadderService } from '../app.service';
 import { Subscription, timer } from 'rxjs';
 import { PreviousMatch } from './previous_match.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './previous-match.component.html',
@@ -14,7 +15,10 @@ export class PreviousMatchComponent implements OnInit, OnDestroy {
   public previousMatches: PreviousMatch[];
   private refresher: Subscription;
   public previousSub: Subscription;
-  constructor(public ladderService: LadderService) {}
+
+  constructor(public ladderService: LadderService, private titleService: Title) {
+    this.titleService.setTitle('Recent Matches | Ladder Ranking');
+  }
 
   ngOnInit() {
     this.refresher = timer(0, 10000)

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { Confirmations } from './confirmation.model';
 import { LadderService } from '../../app.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './confirmation.component.html',
@@ -14,7 +15,10 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   public confirmSub: Subscription;
   private refresher: Subscription;
   public id = localStorage.getItem('_id');
-  constructor(public ladderService: LadderService) { }
+
+  constructor(public ladderService: LadderService, private titleService: Title) {
+    this.titleService.setTitle('Confirmations | Ladder Ranking');
+  }
 
   ngOnInit() {
     this.refresher = timer(0, 10000)

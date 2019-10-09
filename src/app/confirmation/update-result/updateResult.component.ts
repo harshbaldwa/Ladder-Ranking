@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LadderService } from 'src/app/app.service';
 
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './updateResult.component.html',
@@ -24,7 +25,9 @@ export class UpdateResultComponent implements OnInit, OnDestroy {
   public valid2 = true;
   public valid3 = true;
 
-  constructor(public route: ActivatedRoute, public ladderService: LadderService, private router: Router) { }
+  constructor(public route: ActivatedRoute, public ladderService: LadderService, private router: Router, private titleService: Title) {
+    this.titleService.setTitle('Updates | Ladder Ranking');
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {

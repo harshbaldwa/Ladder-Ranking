@@ -3,6 +3,7 @@ import { Challenges } from './challenges.model';
 import { LadderService } from '../app.service';
 import { Subscription, timer } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-challenge-list',
@@ -18,7 +19,9 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
   public id = localStorage.getItem('_id');
   private refresher: Subscription;
 
-  constructor(public ladderService: LadderService) {}
+  constructor(public ladderService: LadderService, private titleService: Title) {
+    this.titleService.setTitle('Challenges | Ladder Ranking');
+  }
 
   ngOnInit() {
 

@@ -7,6 +7,7 @@ import { LadderService } from '../app.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
 import { AuthService } from '../auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ladder-table',
@@ -48,7 +49,9 @@ export class LadderTableComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['rank', 'username', 'points'];
   expandedElement: LadderRanking | null;
 
-  constructor(public ladderService: LadderService, private router: Router, private authService: AuthService) { }
+  constructor(public ladderService: LadderService, private router: Router, private authService: AuthService, private titleService: Title) {
+    this.titleService.setTitle('Ladder Ranking');
+  }
 
   ngOnInit() {
     if (localStorage.getItem('_id') == null) {

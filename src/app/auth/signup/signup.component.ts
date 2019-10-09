@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -23,7 +24,9 @@ export class SignupComponent {
   public wrong = false;
   public wrongNumber = false;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private titleService: Title) {
+    this.titleService.setTitle('Signup | Ladder Ranking');
+  }
 
   onSignup(form: NgForm) {
     if (form.invalid) {

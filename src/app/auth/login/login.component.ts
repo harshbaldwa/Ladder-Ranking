@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './login.component.html',
@@ -14,7 +15,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   private wrongC: Subscription;
   private authSub: Subscription;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private titleService: Title) {
+    this.titleService.setTitle('Login | Ladder Ranking');
+  }
 
   ngOnInit() {
     this.authSub = this.authService.getAuthStatusListener()

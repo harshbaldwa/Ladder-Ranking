@@ -5,6 +5,7 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput name="roll" placeholder="Roll Number" [(ngModel)]="roll" required>
+      <p style="color: #F62B14; font-size: 15px;" *ngIf="wrongRoll">Please enter a valid Roll Number</p>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Hostel</mat-label>

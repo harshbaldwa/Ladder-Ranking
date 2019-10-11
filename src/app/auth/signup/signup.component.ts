@@ -23,6 +23,7 @@ export class SignupComponent {
   public pass1: string;
   public wrong = false;
   public wrongNumber = false;
+  public wrongRoll = false;
 
   constructor(public authService: AuthService, private titleService: Title) {
     this.titleService.setTitle('Signup | Ladder Ranking');
@@ -33,6 +34,7 @@ export class SignupComponent {
       return;
     }
     this.wrongNumber = false;
+    this.wrongRoll = false;
     let sports = '';
     for (const sport of this.preferred) {
       sports = sport + ',' + sports;
@@ -41,10 +43,15 @@ export class SignupComponent {
       this.wrong = true;
       return;
     }
-    if (form.value.contact >= 9999999999 && form.value.contact <= 1000000000) {
+    if (form.value.roll.length !== 9) {
+      this.wrongRoll = true;
+      return;
+    }
+    if (form.value.contact.length !== 10) {
       this.wrongNumber = true;
       return;
     }
+
     this.authService.createUser(
       form.value.name,
       form.value.roll,

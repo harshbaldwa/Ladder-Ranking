@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://myladder.app/api/'
+  apiUrl: 'http://10.105.177.8:3000/api/'
 };
